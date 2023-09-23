@@ -8,7 +8,10 @@ const UserSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: true,
+        required: function () {
+            // Apply 'required' constraint only during registration or else every email will be enforced even in situations not working with user data
+            return this.isRegistration;
+        },
         match: [/.+@.+\..+/, "Must use a valid email address"],
     },
     password: {
@@ -18,7 +21,11 @@ const UserSchema = new mongoose.Schema({
     savedClothes: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "clothing"
-    }]
+    }],
+    isRegistration: {
+        type: Boolean, 
+        default: false, // Initialize as false
+    },
 })
 
 export const UserModel = mongoose.model("users", UserSchema)

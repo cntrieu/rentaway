@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { useGetUserID } from "../hooks/useGetUserID"
 import { useCookies } from "react-cookie"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 
 export const Clothing = () => {
     const userID = useGetUserID();
@@ -16,6 +16,7 @@ export const Clothing = () => {
             try {
                 const response = await axios.get("http://localhost:3001/clothing");
                 setClothing(response.data)
+                console.log(response.data)
             } catch (err) {
                 console.error(err);
             }
@@ -30,11 +31,11 @@ export const Clothing = () => {
             }
         }
 
-        fetchClothing()
-
         if(cookies.access_token) {
             fetchSavedClothing();
         }
+
+        fetchClothing()
        
     }, []);
 
@@ -44,6 +45,7 @@ export const Clothing = () => {
             if(!cookies.access_token) {
                 navigate("/auth")
             }
+            
             const response = await axios.put("http://localhost:3001/clothing", {
                 clothesID, 
                 userID
@@ -60,27 +62,58 @@ export const Clothing = () => {
 
     return (
         <div>
-            <h1 className="text-8xl font-bold underline text-red-500">Clothing</h1>
-            <ul>
+            <h1 className="font-bold underline text-center">Clothing for Rent</h1>
+            <ul className="grid md:grid-cols-3">
                 {clothing.map((clothes) => (
-                    <li key ={clothes._id}>
+                   <div key={clothes._id} className="card m-5 m:w-1/3">
+
+                    <div key={clothes._id} className="border bg-gray-200 p-4 rounded-2xl h-full">
     
-                        <div>
-                            <h2>{clothes.brand}</h2>
-                            <button 
-                            onClick={() => saveClothe(clothes._id)}
-                            disabled = {isClothingSaved(clothes._id)}
-                            >
-                                {isClothingSaved(clothes._id) ? "Already Saved" : "Save"}
-                            </button>
+                        <div className="grow-0 shrink flex flex-col md:flex-row items-center justify-between">
+                            <h2 className="text-xl">{clothes.title}</h2>
+                            <div className="md:flex items-center">
+                                <button 
+                                    className={`hover-opacity border rounded-full text-xs py-2 px-4 text-white ${
+                                                isClothingSaved(clothes._id) ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
+                                                }`}
+                                    onClick={() => saveClothe(clothes._id)}
+                                    disabled = {isClothingSaved(clothes._id)}
+                                >
+                                    {isClothingSaved(clothes._id) ? "Saved!" : "Save"}
+                                </button>
+                                <Link to={
+                                        cookies.access_token ? `/clothing/${clothes._id}` : `/auth`
+                                    } className="hover-opacity border bg-amber-900 rounded-full text-xs py-2 px-4 text-white">
+                                        View Listing
+                                </Link>
+                            </div>
                         </div>
-                        <div className="description">
-                            {clothes.description}
+
+                        <div className="description p-3 text-sm">
+                            {
+                                clothes.description.length > 150 ? (
+                                <>
+                                {`${clothes.description.slice(0, 150)}...`} <Link to={`/clothing/${clothes._id}`} className="text-blue-500 hover-opacity">Read More</Link>
+                            </>) :
+                                clothes.description
+                            }
                         </div>
-                    <img src="" />
-                    <p>Price: ${clothes.price}</p>
-                    <p>Location: {clothes.location}</p>
-                    </li>
+
+                        <div className="text-sm">Price: ${clothes.price}</div>
+                        <div className="text-sm">Location: {clothes.location}</div>
+                        <div className="flex bg-gray-100 p-4 rounded-2xl m-4">
+                            <div className="h-40 flex">
+  
+                                {
+                                    clothes.images.length > 0 ? 
+                                    <img src={`http://127.0.0.1:3001/uploads/${clothes.images[0]}`} alt="" /> :
+                                    <h2>No Image(s) Uploaded</h2>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                
                 ))}
             </ul>
         </div>

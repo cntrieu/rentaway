@@ -11,6 +11,7 @@ import { SavedClothingList } from './pages/saved-clothing'
 import { Layout } from "./components/layout"
 import { Login } from "./pages/login"
 import { Register } from "./pages/register"
+import { ViewClothingItem } from "./pages/view-item"
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
               <Route path="/services" element={<Services />}/>
               <Route path="/addClothes" element={<AddClothes />}/>
               <Route path="/saved" element={<SavedClothingList />}/>
+              <Route path="/clothing/:clothesId" element={<ViewClothingItem />}/>
             </Route>
           </Routes>
         </Router>

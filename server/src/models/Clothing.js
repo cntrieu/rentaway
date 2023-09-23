@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 
 const ClothingSchema = new mongoose.Schema({
-    brand: {
+    title: {
         type: String,
         required: true,
     },

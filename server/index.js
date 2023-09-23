@@ -2,8 +2,10 @@ import express from 'express'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import 'dotenv/config'
-import { userRouter } from "./routes/users.js"
-import { clothingRouter } from "./routes/clothing.js"
+import { authRouter } from "./src/routes/auth.js"
+import { clothingRouter } from "./src/routes/clothing.js"
+import { userRouter } from './src/routes/users.js'
+
 import multer from 'multer'
 import fs from 'fs'
 import path from 'path';
@@ -19,10 +21,11 @@ app.use(express.json());
 app.use(cors());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
-app.use("/auth", userRouter)
+app.use("/auth", authRouter)
 app.use("/clothing", clothingRouter)
+app.use("/users", userRouter)
 
-const photosMiddleware = multer({dest:'src/uploads/'})
+const photosMiddleware = multer({dest:'uploads/'})
 
 app.post('/upload', photosMiddleware.array('photos', 100), (req, res) => {
    

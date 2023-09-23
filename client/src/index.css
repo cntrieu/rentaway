@@ -9,14 +9,18 @@ body,
     height: 100%
 }
 
-/* #root {
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-} */
 
 body {
     font-family: 'Nunito', sans-serif;
 }
+
+.hover-opacity {
+  transition: opacity 0.3s;
+}
+
+.hover-opacity:hover {
+  opacity: 0.7;
+}
   
+
   

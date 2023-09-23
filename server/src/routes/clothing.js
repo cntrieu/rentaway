@@ -2,7 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import { ClothingModel } from "../models/Clothing.js";
 import { UserModel } from "../models/Users.js";
-import { verifyToken } from './users.js';
+import { verifyToken } from './auth.js';
 
 const router = express.Router();
 
@@ -48,6 +48,18 @@ router.put("/", verifyToken, async(req, res) => {
     }
 })
 
+router.get("/:clothesId", async(req, res) => {
+    try {
+        // const {id} = req.params;
+        const getClothing = await ClothingModel.findById(req.params.clothesId);
+       
+
+        res.json({getClothing})
+    } catch (err) {
+        res.json(err);
+    }
+})
+
 router.get("/savedClothes/ids/:userId", async(req, res) => {
     try {
         const user = await UserModel.findById(req.params.userId);
@@ -64,6 +76,31 @@ router.get("/savedClothes/:userId", async(req, res) => {
             _id: { $in: user.savedClothes}
         })
         res.json({ savedClothes })
+    } catch (err) {
+        res.json(err);
+    }
+})
+
+
+router.delete("/savedClothes/:userId/:clothesId", async(req, res) => {
+    try {
+        const userId = req.params.userId;
+        const deleteClothesID = req.params.clothesId
+
+        const user = await UserModel.findById(userId);
+
+        if(!user) {
+            return res.status(404).json({error: "User not found" })
+        }
+
+        const updateSavedClothes = user.savedClothes.filter(
+            (savedClothesId) => savedClothesId != deleteClothesID
+        )
+
+        user.savedClothes = updateSavedClothes;
+
+        await user.save();
+        res.json({ savedClothes: updateSavedClothes });
     } catch (err) {
         res.json(err);
     }

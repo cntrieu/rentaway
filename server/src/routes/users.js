@@ -6,52 +6,25 @@ import 'dotenv/config'
 
 const router = express.Router();
 
-router.post("/register", async (req, res) => {
-    const { username, email, password } = req.body;
-    const user = await UserModel.findOne({ username})
-
-    if(user) {
-        return res.json({ message: "User already exists!"})
+router.get("/", async(req, res) => {
+    try {
+        const response = await UserModel.find({})
+        res.json(response);
+    } catch (err) {
+        res.json(err)
     }
-    
-    const hashedPassword = await bcrypt.hash(password, 10)
-
-    const newUser = new UserModel({username, email, password: hashedPassword })
-    await newUser.save()
-
-    res.json({message: "User Registered Successfully"});
 })
 
-router.post("/login", async (req, res) => {
-    const {username, password} = req.body;
-    const user = await UserModel.findOne({ username })
-
-    if(!user) {
-        return res.status(400).json({ message: "User does not exist"});
+router.get("/:userID", async(req, res) => {
+    try {
+        const getUser = await UserModel.findById(req.params.userID)
+        res.json(getUser);
+    } catch (err) {
+        res.json(err)
     }
-
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-
-    if(!isPasswordValid) {
-        return res.status(400).json({ message: "Username or password incorrect"});
-    }
-
-    const token = jwt.sign( {id: user._id }, process.env.USER_SECRET);
-    res.json({ token, userID: user._id })
 })
+
+
+
 
 export { router as userRouter };
-
-export const verifyToken = (req, res, next) => {
-    const token = req.headers.authorization;
-    if(token) {
-        jwt.verify(token, process.env.USER_SECRET, (err) => {
-            if(err) return res.sendStatus(403);
-
-            // if no errors, user can proceed next
-            next();
-        })
-    } else {
-        res.sendStatus(401);
-    }
-}
