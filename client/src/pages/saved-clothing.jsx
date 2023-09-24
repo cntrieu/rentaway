@@ -33,7 +33,7 @@ export const SavedClothingList = () => {
     }
    
     return (
-        <div>
+        <div className="w-9/12 mx-auto flex-grow">
             <h1 className="font-bold underline text-center">Saved Clothing</h1>
             <ul className="grid md:grid-cols-3">
                 {savedClothing.map((clothes) => (

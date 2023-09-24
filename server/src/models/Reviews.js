@@ -6,6 +6,11 @@ const ReviewSchema = new mongoose.Schema({
         ref: "users", 
         required: true,
     },
+    clothingId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "clothing", 
+        required: false, 
+      },
     rating: {
         type: Number,
         required: true,
@@ -16,7 +21,7 @@ const ReviewSchema = new mongoose.Schema({
     timestamp: {
         type: Date,
         default: Date.now,
-    }
+    },
 })
 
 export const ReviewModel = mongoose.model("review", ReviewSchema)

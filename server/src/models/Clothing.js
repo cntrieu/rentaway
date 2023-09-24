@@ -3,23 +3,23 @@ import mongoose from "mongoose"
 const ClothingSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: true,
+        // required: true,
     },
     description: {
         type: String,
-        required: true,
+        // required: true,
     },
     category: {
         type: String,
-        required: true,
+        // required: true,
     },
     location: {
         type: String,
-        required: true,
+        // required: true,
     },
     price: {
         type: Number,
-        required: true,
+        // required: true,
         min: 0,
     },
     images: [
@@ -27,7 +27,7 @@ const ClothingSchema = new mongoose.Schema({
             type: String,
         },
     ] ,
-    reviews: [
+    reviewIds: [
         {
             type: mongoose.Schema.Types.ObjectId, 
             ref: "review",
@@ -39,5 +39,7 @@ const ClothingSchema = new mongoose.Schema({
         required: true
     }
 })
+
+
 
 export const ClothingModel = mongoose.model("clothing", ClothingSchema)

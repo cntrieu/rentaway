@@ -22,5 +22,39 @@ body {
   opacity: 0.7;
 }
   
+.homepage-1 {
+  background-image: url('./src/assets/images/clothingrack.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.homepage-2 {
+  background-image: url('./src/assets/images/beightl.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.homepage-3 {
+  background-image: url('./src/assets/images/homepage3.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.sidebar {
+  opacity: 0.85;
+  transition: 0.3s
+}
+
+.icon-size {
+  width: 4rem;
+  height: 4rem;
+}
+
+.text-shadow {
+  text-shadow: 0px 0px 3px rgba(0, 0, 0, 1)
+}
 
   

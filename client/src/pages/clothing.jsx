@@ -36,14 +36,12 @@ export const Clothing = () => {
         }
 
         fetchClothing()
-       
     }, []);
 
     const saveClothe = async(clothesID) => {
         try {
-
             if(!cookies.access_token) {
-                navigate("/auth")
+                navigate("/auth/login")
             }
             
             const response = await axios.put("http://localhost:3001/clothing", {
@@ -61,8 +59,12 @@ export const Clothing = () => {
     const isClothingSaved = (id) => savedClothes.includes(id);
 
     return (
-        <div>
-            <h1 className="font-bold underline text-center">Clothing for Rent</h1>
+        <div className="w-9/12 mx-auto flex-grow">
+            <div id="title-line">
+                <h1 className="font-bold underline text-center">Clothing for Rent</h1>
+                <h1>Search Keyword</h1>
+            </div>
+            
             <ul className="grid md:grid-cols-3">
                 {clothing.map((clothes) => (
                    <div key={clothes._id} className="card m-5 m:w-1/3">
@@ -82,7 +84,7 @@ export const Clothing = () => {
                                     {isClothingSaved(clothes._id) ? "Saved!" : "Save"}
                                 </button>
                                 <Link to={
-                                        cookies.access_token ? `/clothing/${clothes._id}` : `/auth`
+                                        cookies.access_token ? `/clothing/${clothes._id}` : `/auth/login`
                                     } className="hover-opacity border bg-amber-900 rounded-full text-xs py-2 px-4 text-white">
                                         View Listing
                                 </Link>
@@ -99,8 +101,8 @@ export const Clothing = () => {
                             }
                         </div>
 
-                        <div className="text-sm">Price: ${clothes.price}</div>
-                        <div className="text-sm">Location: {clothes.location}</div>
+                        <div className="text-sm flex"><p className="font-bold">Price: </p> ${clothes.price}</div>
+                        <div className="text-sm flex"><p className="font-bold">Location: </p> {clothes.location}</div>
                         <div className="flex bg-gray-100 p-4 rounded-2xl m-4">
                             <div className="h-40 flex">
   

@@ -26,6 +26,10 @@ const UserSchema = new mongoose.Schema({
         type: Boolean, 
         default: false, // Initialize as false
     },
+    isSeller: {
+        type: Boolean,
+        default: false
+      },
 })
 
 export const UserModel = mongoose.model("users", UserSchema)

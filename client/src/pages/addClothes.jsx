@@ -24,7 +24,6 @@ export const AddClothes = () => {
     const handleChange = (event) => {
         const {name, value} = event.target;
         setClothing({...clothing, [name]: value});
-     
     }
 
     const selectChange = (e) => {
@@ -94,7 +93,7 @@ export const AddClothes = () => {
     }
 
     return (
-    <div className="m-5">
+    <div className="w-9/12 mx-auto flex-grow m-5">
         <h2 className="text-3xl">Add Your Clothing to Rent!</h2>
         <p>* indicates a required field</p>
         <div className="">

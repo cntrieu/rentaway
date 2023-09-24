@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useGetUserID } from "../hooks/useGetUserID"
 import { useCookies } from "react-cookie"
+import { Reviews } from '../components/reviews';
 
 export const ViewClothingItem = () => {
     const {clothesId} = useParams();
@@ -42,7 +43,7 @@ export const ViewClothingItem = () => {
         const fetchClothingOwner = async(clothingOwnerID) => {
             try {
                 const response = await axios.get(`http://localhost:3001/users/${clothingOwnerID}`)
-                console.log(response.data)
+              
                 setClothingOwner(response.data);
             } catch(err) {
                 console.error(err)
@@ -51,17 +52,15 @@ export const ViewClothingItem = () => {
 
         fetchSavedClothingUserID(userID)
         fetchViewClothing();
-        console.log(clothingItem.userOwner)
         
     }, [])
 
    
-
     const saveClothe = async(clothesID) => {
         try {
 
             if(!cookies.access_token) {
-                navigate("/auth")
+                navigate("/auth/login")
             }
             const response = await axios.put("http://localhost:3001/clothing", {
                 clothesID, 
@@ -78,7 +77,7 @@ export const ViewClothingItem = () => {
     const isClothingSaved = (id) => savedClothes && savedClothes.includes(id);
    
     return (
-        <div>
+        <div className="w-9/12 mx-auto flex-grow">
             <div className="border bg-gray-200 p-4 m-4 rounded-2xl">
     
                 <div className="grow-0 shrink flex flex-col md:flex-row items-center justify-between pb-4">
@@ -98,9 +97,17 @@ export const ViewClothingItem = () => {
                 <div className="description">
                     {clothingItem.description}
                 </div>
-                <div>Price: ${clothingItem.price}</div>
-                <div>Location: {clothingItem.location}</div>
-                <div>Posted By: {clothingOwner ? clothingOwner.username : 'Loading...'}</div>
+                    <div className="text-sm flex">
+                        <p className="font-bold">Price:</p>&nbsp;${clothingItem.price}
+                    </div>
+                    
+                    <div className="text-sm flex">
+                        <p className="font-bold">Location:</p>&nbsp;{clothingItem.location}
+                    </div>
+
+                        <div className="text-sm flex">
+                            <p className="font-bold">Posted By: </p>&nbsp;{clothingOwner ? clothingOwner.username : 'Loading...'}
+                        </div>
 
                 <div className="flex bg-gray-100 p-4 rounded-2xl m-4">
                     <div className="h-full">
@@ -116,7 +123,7 @@ export const ViewClothingItem = () => {
                 </div>
             </div>
 
-            <div className="border bg-gray-200 p-4 m-4 rounded-2xl">REVIEWS</div>
+            <Reviews clothesID={clothesId}/>
         </div>
     )
 }
