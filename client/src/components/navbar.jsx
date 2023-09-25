@@ -12,6 +12,7 @@ export const Navbar = () => {
     const logout = () => {
         setCookies("access_token", "")
         window.localStorage.removeItem("userID");
+        setShowSidebar(false)
         navigate("/")
     }
 
@@ -54,12 +55,9 @@ export const Navbar = () => {
                 {
                     cookies.access_token &&
                     <>
+                        <div className="border-l border-gray-300"></div>
                         <Link to="/addClothes">List Something!</Link>
-                        <div className="border-l border-gray-300"></div>
-                        <Link to="/saved">Saved</Link>
-                        <div className="border-l border-gray-300"></div>
-                        <button onClick={logout}>Logout</button>
-                        </>
+                    </>
                 }
             </div>
             
@@ -100,13 +98,15 @@ export const Navbar = () => {
                  }`} ref={sidebarRef}>
                     {
                         !cookies.access_token ? (
-                        <div className="flex">
-                            <Link className="mt-20 text-2xl font-semibold text-black" to="/auth/login">Login</Link>
-                            <Link className="mt-20 text-2xl font-semibold text-black" to="/auth/register">Register</Link>
+                        <div className="">
+                            <Link className="mt-20 text-2xl  text-black block" to="/auth/login">Login</Link>
+                            <Link className="mt-20 text-2xl  text-black block" to="/auth/register">Register</Link>
                         </div>
                         ) : (
                             <div>
-                                <Link>signed in</Link>
+                                <Link className="mt-20 text-2xl  text-black block" to="/saved">Saved</Link>
+                                <div className="text-2xl  text-black block">Settings</div>
+                                <button className="text-2xl  text-black block"onClick={logout}>Logout</button>
                             </div>
                         )
                     }
