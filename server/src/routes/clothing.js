@@ -120,7 +120,6 @@ router.get("/:clothesId/reviews", async(req, res) => {
             return res.status(404).json({ error: "Clothing item not found" });
         }
 
-        console.log(clothingItem)
         const reviews = await ReviewModel.find({
             _id: { $in: clothingItem.reviewIds }
         })
@@ -131,13 +130,12 @@ router.get("/:clothesId/reviews", async(req, res) => {
     }
 })
 
-router.post("/:clothesId/reviews", async(req, res) => {
+router.post("/:clothesId/reviews", async(req, res, next) => {
     const { clothesId } = req.params;
     const review = new ReviewModel(req.body)
-    
+
     try {
         const saveReview = await review.save()
-        console.log(saveReview)
         const clothingItem = await ClothingModel.findById(clothesId);
         
         if(!clothingItem) {
@@ -146,7 +144,7 @@ router.post("/:clothesId/reviews", async(req, res) => {
 
         clothingItem.reviewIds.push(saveReview._id)
         await clothingItem.save();  
-        console.log(clothingItem.save())
+     
     
         res.json(saveReview)
     } catch (err) {

@@ -123,7 +123,7 @@ export const ViewClothingItem = () => {
                 </div>
             </div>
 
-            <Reviews clothesID={clothesId}/>
+            <Reviews clothesId={clothesId}/>
         </div>
     )
 }

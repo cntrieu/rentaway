@@ -19,8 +19,7 @@ const ReviewSchema = new mongoose.Schema({
     },
     comment: String,
     timestamp: {
-        type: Date,
-        default: Date.now,
+        type: String,
     },
 })
 

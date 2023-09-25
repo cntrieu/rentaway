@@ -5,7 +5,7 @@ import 'dotenv/config'
 import { authRouter } from "./src/routes/auth.js"
 import { clothingRouter } from "./src/routes/clothing.js"
 import { userRouter } from './src/routes/users.js'
-import { reviewsRouter } from "./src/routes/reviews.js"
+
 
 import multer from 'multer'
 import fs from 'fs'
@@ -25,7 +25,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 app.use("/auth", authRouter)
 app.use("/clothing", clothingRouter)
 app.use("/users", userRouter)
-// app.use("/clothing/reviews", reviewsRouter)
+
 
 const photosMiddleware = multer({dest:'uploads/'})
 

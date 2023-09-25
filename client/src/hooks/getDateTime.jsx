@@ -1,9 +1,16 @@
 export const getDateTime = () => {
     const today = new Date();
-    const f = new Intl.DateTimeFormat("en-us", {
-        dateStyle: "short",
-        timeStyle: "full",
-    })
+    const options = {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+        hour12: true,
+    };
     
-    return f.format(today)
-}
+    const dateTime = today.toLocaleString("en-US", options);
+    
+    return dateTime;
+};

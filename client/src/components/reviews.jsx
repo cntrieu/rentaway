@@ -6,23 +6,63 @@ import { getDateTime } from '../hooks/getDateTime';
 import { useCookies } from "react-cookie"
 
 
-export const Reviews = ({clothesID}) => {
+export const Reviews = ({clothesId}) => {
     const [cookies, _] = useCookies(["access_token"])
     const navigate = useNavigate()
     const userID = useGetUserID();
     const timestamp = getDateTime()
-    console.log(clothesID)
+  
 
     // default rating if user does not select a rating
     let rating = "1";
   
     const [review, setReview] = useState({
         reviewer: userID,
-        clothingId: clothesID,
+        clothesId,
         rating,
         comment: "",
         timestamp,
     });
+
+    const [retrieveReviews, setRetrieveReviews] = useState([])
+    const [getReviewerInfo, setGetReviewerInfo] = useState([])
+
+    useEffect(() => {
+        const getReviews = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3001/clothing/${clothesId}/reviews`);
+               setRetrieveReviews(response.data)
+            
+            } catch(err) {
+                console.error(err)
+            }
+        }
+
+
+        getReviews()
+    
+    }, [])
+
+    // Had to put in separate useEffect block for it to work
+    useEffect(() => {
+        const getUsernames = async() => {
+            try {
+                const getUsernamePromises = retrieveReviews.map(async(review) => {
+              
+                    const response = await axios.get(`http://localhost:3001/users/${review.reviewer}`);
+                    return response.data;
+                })
+    
+                const reviewerInfo = await Promise.all(getUsernamePromises)
+                setGetReviewerInfo(reviewerInfo);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        getUsernames()
+    }, [retrieveReviews])
+
 
     const handleChange = (event) => {
         const {name, value} = event.target;
@@ -35,13 +75,22 @@ export const Reviews = ({clothesID}) => {
         setReview(updatedReview)
     }
 
+    const refetchReviews = async() => {
+        try {
+            const response = await axios.get(`http://localhost:3001/clothing/${clothesId}/reviews`);
+           setRetrieveReviews(response.data)
+        
+        } catch(err) {
+            console.error(err)
+        }
+    }
+
     const onSubmit = async (event) => {
         event.preventDefault();
-        console.log(review)
         try {
-            await axios.post(`http://localhost:3001/clothing/${clothesID}/reviews`, review);
+            await axios.post(`http://localhost:3001/clothing/${clothesId}/reviews`, review);
             alert("Your review has been added!")
-            // navigate("/clothing");
+            refetchReviews()
         } catch (err) {
             console.error(err)
         }
@@ -50,9 +99,33 @@ export const Reviews = ({clothesID}) => {
     return(
         <div>
         <div className="border bg-gray-200 p-4 m-4 rounded-2xl">
-            <h1>REVIEWS</h1>
+            <h1 className="font-bold md:text-3xl text-center">Reviews</h1>
             <div>
-                
+                {
+
+                    retrieveReviews.length > 0 ? retrieveReviews.map((review) => {
+                        const reviewerInfo = getReviewerInfo.find((info) => info._id == review.reviewer);
+                        
+                        return (
+                        <div key={review._id} className="border bg-gray-100 rounded-xl my-4 p-4">
+                            <div className="flex justify-between">
+                                <div> <strong>Posted by: </strong> {' '}
+                                    {reviewerInfo ? reviewerInfo.username : 'Unknown User'}
+                                </div>
+                                <div>
+                                    <strong>Rating:</strong> {review.rating}
+                                </div>
+                            </div>
+
+                                <div>{review.comment}</div>
+                                
+                                
+                         
+                        </div>
+                        )
+                    }) : 
+                    <h2>No Reviews... yet!</h2>
+                }
             </div>
         </div>
 

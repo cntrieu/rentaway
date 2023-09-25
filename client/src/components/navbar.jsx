@@ -99,14 +99,15 @@ export const Navbar = () => {
                     {
                         !cookies.access_token ? (
                         <div className="">
-                            <Link className="mt-20 text-2xl  text-black block" to="/auth/login">Login</Link>
-                            <Link className="mt-20 text-2xl  text-black block" to="/auth/register">Register</Link>
+                            <Link className="mt-10 text-2xl text-black block" to="/auth/login">Login</Link>
+                            <Link className="text-2xl  text-black block" to="/auth/register">Register</Link>
                         </div>
                         ) : (
                             <div>
-                                <Link className="mt-20 text-2xl  text-black block" to="/saved">Saved</Link>
-                                <div className="text-2xl  text-black block">Settings</div>
-                                <button className="text-2xl  text-black block"onClick={logout}>Logout</button>
+                                <div className="mt-20 text-black">Welcome!</div>
+                                <Link className="text-2xl  text-black" to="/saved">Saved</Link>
+                                <div className="text-2xl  text-black">Settings</div>
+                                <button className="text-2xl  text-black" onClick={logout}>Logout</button>
                             </div>
                         )
                     }
