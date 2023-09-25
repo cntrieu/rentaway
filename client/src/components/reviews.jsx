@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useGetUserID } from "../hooks/useGetUserID"
 import { getDateTime } from '../hooks/getDateTime';
 import { useCookies } from "react-cookie"
+// import { GetAverage } from '../hooks/getAverage';
 
 
 export const Reviews = ({clothesId}) => {
@@ -11,7 +12,6 @@ export const Reviews = ({clothesId}) => {
     const navigate = useNavigate()
     const userID = useGetUserID();
     const timestamp = getDateTime()
-  
 
     // default rating if user does not select a rating
     let rating = "1";
@@ -26,6 +26,7 @@ export const Reviews = ({clothesId}) => {
 
     const [retrieveReviews, setRetrieveReviews] = useState([])
     const [getReviewerInfo, setGetReviewerInfo] = useState([])
+
 
     useEffect(() => {
         const getReviews = async () => {
@@ -99,7 +100,11 @@ export const Reviews = ({clothesId}) => {
     return(
         <div>
         <div className="border bg-gray-200 p-4 m-4 rounded-2xl">
-            <h1 className="font-bold md:text-3xl text-center">Reviews</h1>
+            <div className="flex justify-between">
+                <h1 className="font-bold md:text-3xl text-center">Reviews</h1>
+                <h2>Average Rating: </h2>
+            </div>
+            
             <div>
                 {
 

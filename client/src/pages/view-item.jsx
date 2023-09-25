@@ -14,6 +14,7 @@ export const ViewClothingItem = () => {
     const [cookies, _] = useCookies(["access_token"])
     const navigate = useNavigate()
     const [showUnfinished, setShowUnfinished] = useState(false)
+   
 
     const handleButtonClick = () => {
         setShowUnfinished(true);
@@ -117,7 +118,8 @@ export const ViewClothingItem = () => {
                         <div className="text-sm flex">
                             <p className="font-bold">Posted By: </p>&nbsp;{clothingOwner ? clothingOwner.username : 'Loading...'}
                         </div>
-                        <div>
+                  
+                    <div>
 
                     <div>
                         <button className="text-sm flex hover-opacity border bg-green-500 rounded-full py-1 px-4 text-green mt-3" onClick={handleButtonClick}>

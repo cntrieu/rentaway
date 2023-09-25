@@ -10,6 +10,7 @@ export const Clothing = () => {
     const [clothing, setClothing] = useState([])
     const [savedClothes, setSavedClothes] = useState([])
     const [cookies, _] = useCookies(["access_token"])
+
   
     const navigate = useNavigate();
 
@@ -65,8 +66,8 @@ export const Clothing = () => {
         <div className="w-9/12 mx-auto flex-grow">
         
             <div id="title-line">
-                <h1 className="font-bold underline text-center">Clothing for Rent</h1>
-                <h1>Search Keyword</h1>
+                <h1 className="font-bold underline text-center mb-5">Clothing for Rent</h1>
+                <input placeholder="search..." className="border p-2 rounded-full"></input>
             </div>
             
             <ul className="grid md:grid-cols-3">
@@ -107,13 +108,18 @@ export const Clothing = () => {
 
                         <div className="text-sm flex"><p className="font-bold">Price: </p> ${clothes.price}</div>
                         <div className="text-sm flex"><p className="font-bold">Location: </p> {clothes.location}</div>
+                        {/* <div className="text-sm flex"><p className="font-bold">Average Rating: </p> {average(clothes.reviews)}</div> */}
+                
                         <div className="flex bg-gray-100 p-4 rounded-2xl m-4">
-                            <div className="h-40 flex">
+                            <div className="grid md:grid-cols-3 lg:grid-cols-3">
   
                                 {
-                                    clothes.images.length > 0 ? 
-                                    <img src={clothes.images[0]} alt="" /> :
+                                    clothes.images.length > 0 ? clothes.images.map((images) => (
+                                        <img src={images} alt="" className="m-1"style={{ width: '100px', height: '100px' }}/> 
+                                    ))
+                                    :
                                     <h2 className="text-xs md:text-base">No Image(s) Uploaded</h2>
+                                    
                                 }
                             </div>
                         </div>
