@@ -2,13 +2,15 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { useGetUserID } from "../hooks/useGetUserID"
 import { useCookies } from "react-cookie"
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate, Link, useLocation  } from "react-router-dom"
 
 export const Clothing = () => {
     const userID = useGetUserID();
+    const location = useLocation();
     const [clothing, setClothing] = useState([])
     const [savedClothes, setSavedClothes] = useState([])
     const [cookies, _] = useCookies(["access_token"])
+  
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -16,7 +18,7 @@ export const Clothing = () => {
             try {
                 const response = await axios.get("http://localhost:3001/clothing");
                 setClothing(response.data)
-                console.log(response.data)
+            
             } catch (err) {
                 console.error(err);
             }
@@ -37,6 +39,7 @@ export const Clothing = () => {
 
         fetchClothing()
     }, []);
+
 
     const saveClothe = async(clothesID) => {
         try {
@@ -60,6 +63,7 @@ export const Clothing = () => {
 
     return (
         <div className="w-9/12 mx-auto flex-grow">
+        
             <div id="title-line">
                 <h1 className="font-bold underline text-center">Clothing for Rent</h1>
                 <h1>Search Keyword</h1>
@@ -108,7 +112,7 @@ export const Clothing = () => {
   
                                 {
                                     clothes.images.length > 0 ? 
-                                    <img src={`http://127.0.0.1:3001/uploads/${clothes.images[0]}`} alt="" /> :
+                                    <img src={clothes.images[0]} alt="" /> :
                                     <h2 className="text-xs md:text-base">No Image(s) Uploaded</h2>
                                 }
                             </div>
