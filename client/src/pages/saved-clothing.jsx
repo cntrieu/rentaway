@@ -65,7 +65,7 @@ export const SavedClothingList = () => {
   
                                 {
                                     clothes.images.length > 0 ? 
-                                    <img src={`http://127.0.0.1:3001/uploads/${clothes.images[0]}`} alt="" /> :
+                                    <img src={clothes.images} alt="" /> :
                                     <h2>No Image(s) Uploaded</h2>
                                 }
                             </div>

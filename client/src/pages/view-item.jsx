@@ -13,6 +13,15 @@ export const ViewClothingItem = () => {
     const [savedClothes, setSavedClothes] = useState([])
     const [cookies, _] = useCookies(["access_token"])
     const navigate = useNavigate()
+    const [showUnfinished, setShowUnfinished] = useState(false)
+
+    const handleButtonClick = () => {
+        setShowUnfinished(true);
+
+        setTimeout(() => {
+            setShowUnfinished(false);
+          }, 4000);
+      };
 
     if(!cookies.access_token) {
         navigate('/auth/login')
@@ -108,12 +117,27 @@ export const ViewClothingItem = () => {
                         <div className="text-sm flex">
                             <p className="font-bold">Posted By: </p>&nbsp;{clothingOwner ? clothingOwner.username : 'Loading...'}
                         </div>
+                        <div>
+
+                    <div>
+                        <button className="text-sm flex hover-opacity border bg-green-500 rounded-full py-1 px-4 text-green mt-3" onClick={handleButtonClick}>
+                            <p className="font-bold"> Message</p>
+                        </button>
+                        {
+                            showUnfinished && 
+                            <div class="w-1/4 p-4 my-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                                <span class="font-medium">This feature is in progress ☺</span>
+                            </div>
+                        }
+                        </div>
+
+                    </div>
 
                 <div className="flex bg-gray-100 p-4 rounded-2xl m-4">
                     <div className="h-full">
                     {clothingItem.images && clothingItem.images.length > 0 ? (
                             clothingItem.images.map((image, index) => (
-                                <img src={`http://127.0.0.1:3001/uploads/${image}`} alt="" className="w-1/3 md:w-full rounded-xl mb-2" key={index} />
+                                <img src={image} alt="" className="w-1/3 md:w-full rounded-xl mb-2" key={index} />
                             ))
                         ) : (
                             <h2>No Image(s) Uploaded</h2>
