@@ -2,12 +2,17 @@ import { Link } from "react-router-dom"
 import { useState, useEffect, useRef } from "react"
 import { useCookies } from "react-cookie"
 import { useNavigate } from "react-router-dom"
+import { useGetUserID } from "../hooks/useGetUserID"
+import axios from "axios"
 
 export const Navbar = () => {
     const [cookies, setCookies] = useCookies(["access_token"])
     const navigate = useNavigate()
     const [showSidebar, setShowSidebar] = useState(false);
+    const [username, setUsername] = useState(null);
     const sidebarRef = useRef(null);
+    const userID = useGetUserID();
+    
 
     const logout = () => {
         setCookies("access_token", "")
@@ -35,12 +40,25 @@ export const Navbar = () => {
           };
         }, [showSidebar]);
 
+        useEffect(() => {
+            const fetchUsername = async () => {
+                try {
+                    const response = await axios.get(`http://localhost:3001/users/${userID}`);
+                    setUsername(response.data.username);
+                } catch (error) {
+                    console.error(error);
+                }
+            };
+        
+            fetchUsername();
+        }, [userID]);
+
     return (
     <div>
         
         <header className="flex justify-between p-6">
 
-            <a href="/" className="flex items-center gap-1">
+            <a href="/" className="hidden md:flex items-center gap-1">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
                 </svg>
@@ -93,21 +111,38 @@ export const Navbar = () => {
             }
 
             </div>
-            <div className={`sidebar top-0 right-0 sm:w-[15vw] bg-stone-200  p-10 pl-20 text-white fixed h-full z-40 rounded-lg ${
+            <div className={`sidebar top-0 right-0 w-full sm:w-[15vw] bg-stone-200  p-10 pl-20 text-white fixed h-full z-40 rounded-lg ${
                 showSidebar ? "translate-x-0 " : "translate-x-full"
                  }`} ref={sidebarRef}>
                     {
                         !cookies.access_token ? (
-                        <div className="">
-                            <Link className="mt-10 text-2xl text-black block" to="/auth/login">Login</Link>
-                            <Link className="text-2xl  text-black block" to="/auth/register">Register</Link>
+                        <div className="text-center md:text-left ">
+                            <h2>
+                                <Link className="mt-20 lg:text-2xl  text-black hover-opacity" to="/">Home</Link>
+                            </h2>
+
+                            <h2>
+                                <Link className="mt-10 lg:text-2xl  text-black hover-opacity" to="/auth/login">Login</Link>
+                            </h2>
+
+                            <h2>
+                                <Link className="lg:text-2xl  text-black hover-opacity" to="/auth/register">Register</Link>
+                            </h2>
                         </div>
                         ) : (
-                            <div>
-                                <div className="mt-20 text-black">Welcome!</div>
-                                <Link className="text-2xl  text-black" to="/saved">Saved</Link>
-                                <div className="text-2xl  text-black">Settings</div>
-                                <button className="text-2xl  text-black" onClick={logout}>Logout</button>
+                            <div className="text-center">
+                                <div className="mt-20 text-black text-xl lg:text-3xl">Welcome, {username}!</div>
+                                <Link className="lg:text-2xl  text-black hover-opacity" to="/">Home</Link>
+                                <div>
+                                    <Link className="lg:text-2xl  text-black hover-opacity" to="/clothing">Browse</Link>
+                                </div>
+
+                                <div>
+                                    <Link className="lg:text-2xl  text-black hover-opacity" to="/saved">Saved</Link>
+                                </div>
+                                <Link className="lg:text-2xl  text-black hover-opacity" to="/addClothes">Rent Out</Link>
+                                <div className="lg:text-2xl  text-black hover-opacity">Settings</div>
+                                <button className="lg:text-2xl  text-black hover-opacity" onClick={logout}>Logout</button>
                             </div>
                         )
                     }

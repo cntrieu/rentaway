@@ -75,7 +75,7 @@ export const Clothing = () => {
                             <h2 className="text-xl">{clothes.title}</h2>
                             <div className="md:flex items-center">
                                 <button 
-                                    className={`hover-opacity border rounded-full text-xs py-2 px-4 text-white ${
+                                    className={`block hover-opacity border rounded-full text-xs py-2 px-4 text-white ${
                                                 isClothingSaved(clothes._id) ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
                                                 }`}
                                     onClick={() => saveClothe(clothes._id)}
@@ -93,9 +93,9 @@ export const Clothing = () => {
 
                         <div className="description p-3 text-sm">
                             {
-                                clothes.description.length > 150 ? (
+                                clothes.description.length > 125 ? (
                                 <>
-                                {`${clothes.description.slice(0, 150)}...`} <Link to={`/clothing/${clothes._id}`} className="text-blue-500 hover-opacity">Read More</Link>
+                                {`${clothes.description.slice(0, 125)}...`} <Link to={`/clothing/${clothes._id}`} className="text-blue-500 hover-opacity">Read More</Link>
                             </>) :
                                 clothes.description
                             }
@@ -109,7 +109,7 @@ export const Clothing = () => {
                                 {
                                     clothes.images.length > 0 ? 
                                     <img src={`http://127.0.0.1:3001/uploads/${clothes.images[0]}`} alt="" /> :
-                                    <h2>No Image(s) Uploaded</h2>
+                                    <h2 className="text-xs md:text-base">No Image(s) Uploaded</h2>
                                 }
                             </div>
                         </div>
