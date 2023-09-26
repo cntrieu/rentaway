@@ -127,8 +127,8 @@ export const ViewClothingItem = () => {
                         </button>
                         {
                             showUnfinished && 
-                            <div class="w-1/4 p-4 my-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
-                                <span class="font-medium">This feature is in progress ☺</span>
+                            <div className="w-1/4 p-4 my-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                                <span className="font-medium">This feature is in progress ☺</span>
                             </div>
                         }
                         </div>
