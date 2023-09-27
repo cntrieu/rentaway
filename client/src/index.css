@@ -23,14 +23,14 @@ body {
 }
   
 .homepage-1 {
-  background-image: url('clothingrack.jpg');
+  background-image: url('/clothingrack.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .homepage-2 {
-  background-image: url('beightl.jpg');
+  background-image: url('/beightl.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

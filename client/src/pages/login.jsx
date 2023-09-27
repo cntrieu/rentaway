@@ -40,7 +40,7 @@ export const Login = () => {
             <div className="container mx-auto">
                 <div className="flex flex-col lg:flex-row w-10/12 lg:w-8/12 bg-white rounded-xl mx-auto shadow-lg overflow-hidden">
                     
-                    <div className="w-full lg:w-1/2" style={{ backgroundImage: 'url("garmentrack.webp")', backgroundSize: 'cover'}}>
+                    <div className="w-full lg:w-1/2" style={{ backgroundImage: 'url("./garmentrack.webp")', backgroundSize: 'cover'}}>
                         <div>
                             <p></p>
                         </div>
