@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 const UserSchema = new mongoose.Schema({
     username: {
         type: String,
-        required: true,
+        // required: true,
         unique: true
     },
     email: {
@@ -16,7 +16,7 @@ const UserSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true,
+        // required: true,
     },
     savedClothes: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -25,11 +25,8 @@ const UserSchema = new mongoose.Schema({
     isRegistration: {
         type: Boolean, 
         default: false, // Initialize as false
-    },
-    isSeller: {
-        type: Boolean,
-        default: false
-      },
+    }
 })
+
 
 export const UserModel = mongoose.model("users", UserSchema)

@@ -10,6 +10,7 @@ import { ViewClothingItem } from "./pages/view-item"
 import { AuthLogin } from "./components/authLogin"
 import { AuthRegister } from "./components/authRegister"
 import { Home } from "./pages/home"
+import { Dashboard } from "./pages/dashboard"
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
               <Route index element={<Home/>}/>
               <Route path="/about" element={<About />}/>
               <Route path="/clothing" element={<Clothing />}/>
-      
+              <Route path="/dashboard" element={<Dashboard />}/>
               <Route path="/addClothes" element={<AddClothes />}/>
               <Route path="/saved" element={<SavedClothingList />}/>
               <Route path="/clothing/:clothesId" element={<ViewClothingItem />}/>

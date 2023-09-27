@@ -6,7 +6,6 @@ import { useNavigate, Link, useLocation  } from "react-router-dom"
 
 export const Clothing = () => {
     const userID = useGetUserID();
-    const location = useLocation();
     const [clothing, setClothing] = useState([])
     const [savedClothes, setSavedClothes] = useState([])
     const [cookies, _] = useCookies(["access_token"])
@@ -96,7 +95,7 @@ export const Clothing = () => {
                             </div>
                         </div>
 
-                        <div className="description p-3 text-sm">
+                        <div className="description p-3 text-sm" >
                             {
                                 clothes.description.length > 125 ? (
                                 <>
@@ -115,7 +114,7 @@ export const Clothing = () => {
   
                                 {
                                     clothes.images.length > 0 ? clothes.images.map((images) => (
-                                        <img src={images} alt="" className="m-1"style={{ width: '100px', height: '100px' }}/> 
+                                        <img src={images} alt="" className="m-1"style={{ width: '100px', height: '100px' }} key={images}/> 
                                     ))
                                     :
                                     <h2 className="text-xs md:text-base">No Image(s) Uploaded</h2>

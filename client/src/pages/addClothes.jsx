@@ -42,8 +42,6 @@ export const AddClothes = () => {
         setClothing(updatedClothing)
     }
 
-
-
     const setErrorWithTimeout = (message, timeout = 5000) => {
         setMissingFields(message);
         setTimeout(() => {
@@ -52,7 +50,7 @@ export const AddClothes = () => {
       };
 
     const highlightMissing = () => {
-        if(!title.value || !userLocation.value || !price.value || !description.value) {
+        if(!title.value || !userLocation.value || !price.value || !description.value || !file.value) {
             return `border-red-500`;
         }
     }
@@ -60,12 +58,11 @@ export const AddClothes = () => {
  
     const onSubmit = async (event) => {
         event.preventDefault();
-        
-        // if(!title.value || !userLocation.value || !price.value || !description.value) {
-        //     setErrorWithTimeout("Please fill out all required fields")
-        //     highlightMissing();
-        //     return;
-        // }
+        if(!title.value || !userLocation.value || !price.value || !description.value || !file.value) {
+            setErrorWithTimeout("Please fill out all required fields and have photos uploaded")
+            highlightMissing();
+            return;
+        }
 
         const form = event.currentTarget;
         const fileInput = Array.from(form.elements).find(({ name }) => name === 'file');
@@ -106,6 +103,14 @@ export const AddClothes = () => {
             await axios.post("http://localhost:3001/clothing", clothing, {
                 headers: { authorization: cookies.access_token },
             });
+            
+            title.value = ""
+            userLocation.value = ""
+            price.value = ""
+            description.value = ""
+
+            setAddedPhotos([]); // Clear uploaded photos
+          
             setShowSuccess(true)
             // alert("Your Item has been added!")
             // navigate("/clothing");
@@ -131,6 +136,10 @@ export const AddClothes = () => {
                 return [...prev, ...filenames];
             })
         })
+    }
+
+    const dismiss = () => {
+        setShowSuccess(!showSuccess)
     }
 
 
@@ -176,7 +185,7 @@ export const AddClothes = () => {
                 </div>
 
                 <div className="text-base md:text-2xl mt-4">
-                    <h2><label htmlFor="images">Photos</label></h2>
+                    <h2><label htmlFor="images">Photos*</label></h2>
                     <div className="mt-3 mb-3 grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
          
                     {addedPhotos.length > 0 && addedPhotos.map(link => (
@@ -188,7 +197,7 @@ export const AddClothes = () => {
 
                         <div className="flex items-center">
                             <label className="md:h-32 cursor-pointer flex gap-1 justify-center border bg-transparent rounded-2xl p-4 md:p-8 text-2xl text-gray-600" type="button">
-                            <input type="file" multiple className="hidden" name="file"onChange={uploadPhoto} />
+                            <input type="file" multiple className="hidden" id="file" name="file" onChange={uploadPhoto} />
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
                                 </svg>
@@ -208,19 +217,14 @@ export const AddClothes = () => {
                                 <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
                               </svg>
                               <span className="sr-only">Info</span>
-                              <h3 className="text-lg font-medium">This is a success alert</h3>
+                              <h3 className="text-lg font-medium">Your Item Has Been Posted!</h3>
                             </div>
                             <div className="mt-2 mb-4 text-sm">
-                              More info about this info success goes here. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.
+                       
                             </div>
                             <div className="flex">
-                              <button type="button" className="text-white bg-green-800 hover:bg-green-900 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-xs px-3 py-1.5 mr-2 text-center inline-flex items-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                                <svg className="-ml-0.5 mr-2 h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
-                                  <path d="M10 0C4.612 0 0 5.336 0 7c0 1.742 3.546 7 10 7 6.454 0 10-5.258 10-7 0-1.664-4.612-7-10-7Zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/>
-                                </svg>
-                                View more
-                              </button>
-                              <button type="button" className="text-green-800 bg-transparent border border-green-800 hover:bg-green-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center dark:hover:bg-green-600 dark:border-green-600 dark:text-green-400 dark:hover:text-white dark:focus:ring-green-800" data-dismiss-target="#alert-additional-content-3" aria-label="Close">
+    
+                              <button type="button" className="text-green-800 bg-transparent border border-green-800 hover:bg-green-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center dark:hover:bg-green-600 dark:border-green-600 dark:text-green-400 dark:hover:text-white dark:focus:ring-green-800" data-dismiss-target="#alert-additional-content-3" aria-label="Close" onClick={dismiss}>
                                 Dismiss
                               </button>
                             </div>

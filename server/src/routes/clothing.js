@@ -136,6 +136,7 @@ router.post("/:clothesId/reviews", async(req, res, next) => {
 
     try {
         const saveReview = await review.save()
+        console.log(saveReview)
         const clothingItem = await ClothingModel.findById(clothesId);
         
         if(!clothingItem) {
@@ -145,7 +146,7 @@ router.post("/:clothesId/reviews", async(req, res, next) => {
         clothingItem.reviewIds.push(saveReview._id)
         await clothingItem.save();  
      
-    
+       
         res.json(saveReview)
     } catch (err) {
         res.json(err)

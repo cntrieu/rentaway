@@ -2,11 +2,14 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { useGetUserID } from "../hooks/useGetUserID"
 import { Link } from "react-router-dom"
+import { useCookies } from "react-cookie"
+import { useNavigate } from "react-router-dom"
 
 export const SavedClothingList = () => {
     const userID = useGetUserID();
-
+    const [cookies, _] = useCookies(["access_token"])
     const [savedClothing, setSavedClothing] = useState([])
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchSavedClothing = async() => {
@@ -20,6 +23,10 @@ export const SavedClothingList = () => {
 
         fetchSavedClothing();
     }, [])
+
+    if(!cookies.access_token) {
+        navigate('/auth/login')
+    }
 
     const removeFromSaved = async (clothesID) => {
         try {
@@ -36,7 +43,7 @@ export const SavedClothingList = () => {
         <div className="w-9/12 mx-auto flex-grow">
             <h1 className="font-bold underline text-center">Saved Clothing</h1>
             <ul className="grid md:grid-cols-3">
-                {savedClothing.map((clothes) => (
+                {savedClothing && savedClothing.map((clothes) => (
                     <li key ={clothes._id} className="card m-5 m:w-1/3">
                         <div className="border bg-gray-200 p-4 rounded-2xl h-full">
                             <div className="grow-0 shrink flex flex-col md:flex-row items-center justify-between">

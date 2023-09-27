@@ -4,8 +4,8 @@ export const HomepageThird = () => {
         <div className="title text-white font-bold text-2xl md:text-6xl text-center text-shadow lg:relative top-20">Why Use RentAway?</div>
 
       
-           <div className="columns-2 h-screen flex ">
-               <div className="mx-auto flex items-center md:justify-end lg:mb-60">
+           <div className="h-screen flex md:gap-40">
+               <div className="mx-auto flex items-center md:justify-end">
 
                   <div className="first-left-homepage w-1/2">
                        <div className="flex mb-20">
@@ -34,7 +34,7 @@ export const HomepageThird = () => {
                   </div>
               </div>
 
-              <div className="mx-auto flex items-center justify-end md:justify-start lg:mb-60">
+              <div className="mx-auto flex items-center justify-end md:justify-start">
 
                   <div className="first-left-homepage w-1/2">
                        <div className="flex mb-20">

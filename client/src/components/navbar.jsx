@@ -40,18 +40,18 @@ export const Navbar = () => {
           };
         }, [showSidebar]);
 
-        useEffect(() => {
-            const fetchUsername = async () => {
-                try {
-                    const response = await axios.get(`http://localhost:3001/users/${userID}`);
-                    setUsername(response.data.username);
-                } catch (error) {
-                    console.error(error);
-                }
-            };
+    useEffect(() => {
+        const fetchUsername = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3001/users/${userID}`);
+                setUsername(response.data.username);
+            } catch (error) {
+                console.error(error);
+            }
+        };
         
             fetchUsername();
-        }, [userID]);
+    }, [userID]);
 
     return (
     <div>
@@ -102,47 +102,52 @@ export const Navbar = () => {
                 cookies.access_token &&
                    
                 <div className="bg-gray-500 text-white rounded-full border border-gray-500 overflow-hidden ml-2">
-                    
+                    <Link to="/dashboard">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 relative top-1">
                     <path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clipRule="evenodd" />
                     </svg>
+                    </Link>
                 </div>
                     
             }
 
             </div>
-            <div className={`sidebar top-0 right-0 w-full sm:w-[15vw] bg-stone-200  p-10 pl-20 text-white fixed h-full z-40 rounded-lg ${
+            <div className={`sidebar top-0 right-0 w-full sm:w-[15vw] bg-stone-200 p-10 fixed h-full z-40 rounded-lg ${
                 showSidebar ? "translate-x-0 " : "translate-x-full"
                  }`} ref={sidebarRef}>
                     {
                         !cookies.access_token ? (
-                        <div className="text-center md:text-left ">
-                            <h2>
-                                <Link className="mt-20 lg:text-2xl  text-black hover-opacity" to="/">Home</Link>
-                            </h2>
+                        <div className="text-center flex flex-col h-full">
+                          
+                            <Link className="mt-20 lg:text-2xl  text-black hover-opacity border-b-2 border-stone-500" to="/">Home</Link>
 
-                            <h2>
-                                <Link className="mt-10 lg:text-2xl  text-black hover-opacity" to="/auth/login">Login</Link>
-                            </h2>
-
-                            <h2>
+                                <Link className="mt-10 lg:text-2xl  text-black hover-opacity" to="/about">About Us</Link>
+                                <Link className=" lg:text-2xl  text-black hover-opacity" to="/auth/login">Login</Link>
+                       
                                 <Link className="lg:text-2xl  text-black hover-opacity" to="/auth/register">Register</Link>
-                            </h2>
+                         
                         </div>
                         ) : (
-                            <div className="text-center">
-                                <div className="mt-20 text-black text-xl lg:text-3xl">Welcome, {username}!</div>
-                                <Link className="lg:text-2xl  text-black hover-opacity" to="/">Home</Link>
-                                <div>
-                                    <Link className="lg:text-2xl  text-black hover-opacity" to="/clothing">Browse</Link>
+                            <div className="text-center flex flex-col justify-between h-full">
+                                <div className="flex flex-col mt-20">
+                                    <div className="mb-5 text-black text-xl lg:text-3xl  overflow-hidden text-ellipsis">Welcome, {username}!</div>
+                                    <Link className="lg:text-2xl  text-black hover-opacity border-b-2 border-stone-500" to="/">Home</Link>
+                                 
+                                        <Link className="lg:text-2xl mt-3 text-black hover-opacity" to="/clothing">Browse</Link>
+                                
+
+                                    
+                                        <Link className="lg:text-2xl  text-black hover-opacity" to="/saved">Saved Clothes</Link>
+                                   
+                                    <Link className="lg:text-2xl  text-black hover-opacity" to="/addClothes">Rent</Link>
+                                    
                                 </div>
 
-                                <div>
-                                    <Link className="lg:text-2xl  text-black hover-opacity" to="/saved">Saved</Link>
+                                <div className="flex-col flex">
+                                <Link className="lg:text-2xl  text-black hover-opacity" to="/about">About Us</Link>
+                                <Link className="lg:text-2xl  text-black hover-opacity" to="/dashboard">Dashboard</Link>
+                                    <button className="lg:text-2xl  text-black hover-opacity" onClick={logout}>Logout</button>
                                 </div>
-                                <Link className="lg:text-2xl  text-black hover-opacity" to="/addClothes">Rent Out</Link>
-                                <div className="lg:text-2xl  text-black hover-opacity">Settings</div>
-                                <button className="lg:text-2xl  text-black hover-opacity" onClick={logout}>Logout</button>
                             </div>
                         )
                     }
