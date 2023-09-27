@@ -11,7 +11,7 @@ import multer from 'multer'
 import fs from 'fs'
 import path from 'path';
 import { fileURLToPath } from 'url';
-
+mongoose.connect(process.env.MONGODB_URI )
 const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename);
@@ -19,7 +19,10 @@ const __dirname = path.dirname(__filename);
 const app = express()
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    credentials: true,
+    origin: 'http://127.0.0.1:5173',
+  }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 app.use("/auth", authRouter)
@@ -45,7 +48,7 @@ app.post('/upload', photosMiddleware.array('photos', 100), (req, res) => {
     res.json(uploadedFiles);        
 })
 
-mongoose.connect(process.env.MONGODB_URI )
+
 
 const PORT = process.env.PORT || 3001;
 
