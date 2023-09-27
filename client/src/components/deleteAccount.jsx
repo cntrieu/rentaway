@@ -35,7 +35,7 @@ export const DeleteAccount = () => {
         <>
             <h1 className="font-bold text-2xl m-5">Delete Account</h1>
             <p className="m-2">Delete your account and all your data. This cannot be changed once done.</p>
-            <button className="hover-opacity border rounded-full text-xs p-3 bg-red-500 text-white h-10" onClick={deleteModal}>DELETE ACCOUNT</button>
+            <button className="hover-opacity border rounded-full text-xs p-1 md:p-3 bg-red-500 text-white h-10" onClick={deleteModal}>DELETE ACCOUNT</button>
 
             {
                 openDeleteModal && (

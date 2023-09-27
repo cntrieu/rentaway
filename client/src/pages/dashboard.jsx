@@ -136,7 +136,7 @@ export const Dashboard = () => {
                 </div>
                 {changeUser && (
                     <>
-                        <button type="submit" className="hover-opacity border rounded-full text-xs p-3 bg-blue-500 text-white h-10">Save Changes</button> 
+                        <button type="submit" className="hover-opacity border rounded-full text-xs m-1 p-3 bg-blue-500 text-white h-10">Save Changes</button> 
                     </>
                 )}
             </form>

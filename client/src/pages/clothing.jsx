@@ -65,8 +65,9 @@ export const Clothing = () => {
         <div className="w-9/12 mx-auto flex-grow">
         
             <div id="title-line">
-                <h1 className="font-bold underline text-center mb-5">Clothing for Rent</h1>
+                {/* <h1 className="font-bold underline text-center mb-5">Clothing for Rent</h1> */}
                 <input placeholder="search..." className="border p-2 rounded-full"></input>
+                <p className="text-sm">*search function not implemented yet :)</p>
             </div>
             
             <ul className="grid md:grid-cols-3">
