@@ -14,19 +14,19 @@ export const HomepageSecond = () => {
                 <div className="sub-container">
                     <div className="grid md:grid-cols-3 gap-30 md:mt-24">
                         <div className="flex flex-col items-center text-center">
-                            <img src="/src/assets/icons/cursor-hand.svg" className="icon-size "/>
+                            <img src="/cursor-hand.svg" className="icon-size "/>
                             <h1 className="text-center font-bold text-white text-shadow md:text-2xl my-3">RENT</h1>
                             <p className="text-center text-white text-shadow mt-3 text-xs  sm:text-base md:text-xl md:w-[80%]">Rent a clothing item like a jacket in the destination you're traveling to</p>
                         </div>
                             
                         <div className="flex flex-col items-center text-center">
-                            <img src="/src/assets/icons/rain-jacket.png" className="icon-size"/>
+                            <img src="/rain-jacket.png" className="icon-size"/>
                             <h1 className="text-center font-bold text-white text-shadow md:text-2xl my-3">WEAR</h1>
                             <p className="text-center text-white text-shadow mt-3 text-xs  sm:text-base md:text-xl md:w-[80%]">Dress warm in style and within your travel budget</p>
                         </div>
 
                         <div className="flex flex-col items-center text-center">
-                            <img src="/src/assets/icons/arrows.png" className="icon-size"/>
+                            <img src="/arrows.png" className="icon-size"/>
                             <h1 className="text-center font-bold text-white text-shadow md:text-2xl my-3">RETURN</h1>
                             <p className="text-center text-white text-shadow mt-3 text-xs  sm:text-base md:text-xl md:w-[80%]">Relieves the hassle of packing heavy</p>
                         </div>

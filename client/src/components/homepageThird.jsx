@@ -13,7 +13,7 @@ export const HomepageThird = () => {
                                <h2 className="text-sm md:text-xl font-bold text-left text-white text-shadow">Many Styles of Clothes</h2>
                                <p className="text-xs  md:text-sm mb-4 text-white text-shadow">We can fit you with the perfect jacket for any temperature or weather condition</p>
                                <div className="flex justify-center">
-                                    <img src="src/assets/icons/jacket_icon.png" width="75px" height="75px" alt="Jacket Icon" className="invisible lg:visible"></img>
+                                    <img src="jacket_icon.png" width="75px" height="75px" alt="Jacket Icon" className="invisible lg:visible"></img>
                                 </div>
                            </div>  
                           
@@ -24,7 +24,7 @@ export const HomepageThird = () => {
                               <h2 className="text-sm md:text-xl font-bold text-left text-white text-shadow">Best Brands in the Industry</h2>
                               <p className="text-xs  md:text-sm mb-4 text-white text-shadow"> Reliable brands that have been in the industry. Our clothes are guaranteed to keep you warm.</p>
                               <div className="flex justify-center">
-                              <img src="src/assets/icons/star.png" width="75px" height="75px" alt="Star Icon" className="invisible lg:visible"></img>
+                              <img src="star.png" width="75px" height="75px" alt="Star Icon" className="invisible lg:visible"></img>
                           </div>
                           </div>  
                      
@@ -42,7 +42,7 @@ export const HomepageThird = () => {
                                <h2 className="text-sm md:text-xl font-bold text-left text-white text-shadow">Rent Fully Insured</h2>
                                <p className="text-xs  md:text-sm mb-3 text-white text-shadow">Any damages to the clothing are fully insured.</p>
                                <div className="flex justify-center">
-                                    <img src="src/assets/icons/firewallshield.png" width="75px" height="75px" alt="Shield Icon" className="invisible lg:visible"></img>
+                                    <img src="firewallshield.png" width="75px" height="75px" alt="Shield Icon" className="invisible lg:visible"></img>
                                 </div>
                            </div>  
                           
@@ -53,7 +53,7 @@ export const HomepageThird = () => {
                               <h2 className="text-sm md:text-xl font-bold text-left text-white text-shadow">Longest Opening Hours</h2>
                               <p className="text-xs  md:text-sm mb-4 text-white text-shadow"> Rent it for the whole duration of your trip. Return it without any hassle at any time of the day.</p>
                               <div className="flex justify-center">
-                              <img src="src/assets/icons/clock.png" width="75px" height="75px" alt="Clock Icon" className="invisible lg:visible"></img>
+                              <img src="clock.png" width="75px" height="75px" alt="Clock Icon" className="invisible lg:visible"></img>
                           </div>
                           </div>  
                      
