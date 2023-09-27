@@ -43,7 +43,7 @@ export const Navbar = () => {
     useEffect(() => {
         const fetchUsername = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/users/${userID}`);
+                const response = await axios.get(`/users/${userID}`);
                 setUsername(response.data.username);
             } catch (error) {
                 console.error(error);

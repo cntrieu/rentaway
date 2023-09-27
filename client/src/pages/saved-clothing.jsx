@@ -14,7 +14,7 @@ export const SavedClothingList = () => {
     useEffect(() => {
         const fetchSavedClothing = async() => {
             try {
-                const response = await axios.get(`http://localhost:3001/clothing/savedClothes/${userID}`, );
+                const response = await axios.get(`/clothing/savedClothes/${userID}`, );
                 setSavedClothing(response.data.savedClothes)
             } catch (err) {
                 console.error(err);
@@ -30,7 +30,7 @@ export const SavedClothingList = () => {
 
     const removeFromSaved = async (clothesID) => {
         try {
-            await axios.delete(`http://localhost:3001/clothing/savedClothes/${userID}/${clothesID}`)
+            await axios.delete(`/clothing/savedClothes/${userID}/${clothesID}`)
             setSavedClothing((prevSavedClothing) =>
             prevSavedClothing.filter((clothes) => clothes._id !== clothesID)
         );

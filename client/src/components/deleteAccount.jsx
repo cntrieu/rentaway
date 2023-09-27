@@ -20,7 +20,7 @@ export const DeleteAccount = () => {
 
     const deleteUser = async () => {
         try {
-            await axios.delete(`http://localhost:3001/users/${userID}`, {
+            await axios.delete(`/users/${userID}`, {
                 headers: { authorization: cookies.access_token },
             })
             removeCookie("access_token")

@@ -27,7 +27,7 @@ export const Register = () => {
         }
         
         try {
-            const response = await axios.post("http://localhost:3001/auth/register", {
+            const response = await axios.post("/auth/register", {
                 username,
                 email,
                 password
@@ -40,7 +40,7 @@ export const Register = () => {
                 alert("Registration Complete! Now Login");
 
                 // post request to log in after successful registration
-                const response = await axios.post("http://localhost:3001/auth/login", {
+                const response = await axios.post("/auth/login", {
                     username,
                     password
                 })

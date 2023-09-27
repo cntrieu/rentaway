@@ -2,7 +2,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { About } from "./pages/about"
 import { Clothing } from "./pages/clothing"
-
+import axios from "axios"
 import { AddClothes } from './pages/addClothes'
 import { SavedClothingList } from './pages/saved-clothing'
 import { Layout } from "./components/layout"
@@ -11,6 +11,9 @@ import { AuthLogin } from "./components/authLogin"
 import { AuthRegister } from "./components/authRegister"
 import { Home } from "./pages/home"
 import { Dashboard } from "./pages/dashboard"
+
+axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
+axios.defaults.withCredentials = true;
 
 function App() {
   return (

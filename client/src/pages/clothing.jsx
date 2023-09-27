@@ -16,7 +16,7 @@ export const Clothing = () => {
     useEffect(() => {
         const fetchClothing = async () => {
             try {
-                const response = await axios.get("http://localhost:3001/clothing");
+                const response = await axios.get("/clothing");
                 setClothing(response.data)
             
             } catch (err) {
@@ -26,7 +26,7 @@ export const Clothing = () => {
 
         const fetchSavedClothing = async() => {
             try {
-                const response = await axios.get(`http://localhost:3001/clothing/savedClothes/ids/${userID}`);
+                const response = await axios.get(`/clothing/savedClothes/ids/${userID}`);
                 setSavedClothes(response.data.savedClothes)
             } catch (err) {
                 console.error(err);
@@ -47,7 +47,7 @@ export const Clothing = () => {
                 navigate("/auth/login")
             }
             
-            const response = await axios.put("http://localhost:3001/clothing", {
+            const response = await axios.put("/clothing", {
                 clothesID, 
                 userID
             }, {headers: {authorization: cookies.access_token}});

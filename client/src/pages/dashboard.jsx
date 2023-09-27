@@ -28,7 +28,7 @@ export const Dashboard = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/users/${userID}`);
+                const response = await axios.get(`h/users/${userID}`);
                 setUserInfo(response.data);
             } catch (error) {
                 console.error(error);
@@ -64,7 +64,7 @@ export const Dashboard = () => {
         setUser({ ...user, newPassword: "", currentPassword: "" });
 
         try {
-            const response = await axios.put(`http://localhost:3001/users/${userID}`, user, {
+            const response = await axios.put(`/users/${userID}`, user, {
               headers: {
                  authorization: cookies.access_token
               },

@@ -31,7 +31,7 @@ export const ViewClothingItem = () => {
     useEffect(() => {
         const fetchViewClothing = async() => {
             try {
-                const response = await axios.get(`http://localhost:3001/clothing/${clothesId}`);
+                const response = await axios.get(`/clothing/${clothesId}`);
                 setClothingItem(response.data.getClothing)
 
                 // Set inside this code so it loads AFTER instead of before
@@ -43,7 +43,7 @@ export const ViewClothingItem = () => {
 
         const fetchSavedClothingUserID = async(userID) => {
             try {
-                const response = await axios.get(`http://localhost:3001/users/${userID}`)
+                const response = await axios.get(`/users/${userID}`)
                 setSavedClothes(response.data.savedClothes)
             } catch(err) {
                 console.error(err)
@@ -52,7 +52,7 @@ export const ViewClothingItem = () => {
 
         const fetchClothingOwner = async(clothingOwnerID) => {
             try {
-                const response = await axios.get(`http://localhost:3001/users/${clothingOwnerID}`)
+                const response = await axios.get(`/users/${clothingOwnerID}`)
               
                 setClothingOwner(response.data);
             } catch(err) {
@@ -72,7 +72,7 @@ export const ViewClothingItem = () => {
             if(!cookies.access_token) {
                 navigate("/auth/login")
             }
-            const response = await axios.put("http://localhost:3001/clothing", {
+            const response = await axios.put("/clothing", {
                 clothesID, 
                 userID
             }, {headers: {authorization: cookies.access_token}});

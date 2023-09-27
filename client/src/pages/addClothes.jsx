@@ -100,7 +100,7 @@ export const AddClothes = () => {
     const postClothing = async() => {
    
         try {
-            await axios.post("http://localhost:3001/clothing", clothing, {
+            await axios.post("/clothing", clothing, {
                 headers: { authorization: cookies.access_token },
             });
             
@@ -126,7 +126,7 @@ export const AddClothes = () => {
             data.append('photos', files[i])
         }
     
-        axios.post('http://localhost:3001/upload', data, {
+        axios.post('/upload', data, {
             headers: {'Content-type': "multipart/form-data"}
         }).then(response => {
             const {data: filenames} = response;
