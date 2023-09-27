@@ -8,7 +8,7 @@ export const About = () => {
                     <p className="font-normal text-base leading-6 text-gray-600 dark:text-white">At RentAway, our mission is to revolutionize the way you experience fashion while traveling. We offer a seamless platform that empowers you to both share and discover the perfect clothing for any occasion. With our user-friendly functionalities, you can effortlessly rent out your clothing, ensuring your wardrobe remains dynamic and environmentally conscious. Need a unique outfit for an upcoming trip? Our platform allows you to explore a diverse range of clothing options available for rent. What sets us apart is our airport pickup service, offering you the convenience of collecting your chosen pieces right at the airport, making your journey even more convenient and stylish. At RentAway, we believe in redefining travel fashion, making it not only accessible but also sustainable, allowing you to embrace every adventure with confidence and flair.</p>
                 </div>
                 <div className="w-full lg:w-8/12">
-                    <img className="w-full h-full" src="./src/assets/images/nicerack.webp" alt="A group of People" />
+                    <img className="w-full h-full" src="nicerack.webp" alt="A group of People" />
                 </div>
             </div>
     
