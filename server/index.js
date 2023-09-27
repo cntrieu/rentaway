@@ -23,6 +23,11 @@ app.use(cors({
     credentials: true,
     origin: 'http://127.0.0.1:5173',
   }));
+
+app.get("/", (req, res) => {
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.send("API is running")
+})
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 app.use("/auth", authRouter)
