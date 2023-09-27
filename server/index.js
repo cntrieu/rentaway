@@ -21,12 +21,12 @@ const app = express()
 app.use(express.json());
 app.use(cors({
     credentials: true,
-    origin: 'http://127.0.0.1:5173',
+    origin: 'https://rentaway.onrender.com/',
   }));
 
 app.get("/", (req, res) => {
     res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.send("API is running")
+    
 })
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
