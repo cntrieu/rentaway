@@ -37,7 +37,7 @@ body {
 }
 
 .homepage-3 {
-  background-image: url('homepage3.jpg');
+  background-image: url('./src/assets/images/homepage3.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
