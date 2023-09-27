@@ -19,10 +19,7 @@ const __dirname = path.dirname(__filename);
 const app = express()
 
 app.use(express.json());
-app.use(cors({
-    credentials: true,
-    origin: 'https://rentaway.onrender.com/',
-  }));
+app.use(cors());
 
 app.get("/", (req, res) => {
     res.setHeader("Access-Control-Allow-Credentials", "true");
