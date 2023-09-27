@@ -1,6 +1,6 @@
 export const HomepageSecond = () => {
     return (
-            <section className="h-screen w-full homepage-2 rounded-xl flex flex-col items-center justify-center">
+            <section className="h-screen w-full rounded-xl flex flex-col items-center justify-center bg-cover bg-no-repeat bg-center" style="background-image: url('clothingrack.jpg');">
             <div className="container">
                 <div>
                     <div className="text-white font-bold text-base md:text-4xl lg:text-6xl text-center align-middle mb-14 text-shadow" >An easier affordable way to travel.</div>
