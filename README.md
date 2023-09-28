@@ -48,7 +48,7 @@
 
 <h3 align="center"> Introducing RentAway: </h3>
 
-RentAway is an innovative e-commerce project developed with the powerful MERN stack, consisting of MongoDB, Express.js, React, and Node.js. This platform empowers individuals by allowing them to sign up and share their clothing items for rent with other users. RentAway employs JWT (JSON Web Tokens) and bcrypt to safeguard user information. Additionally, it utilizes AWS Cloudinary for seamless image hosting and offers comprehensive CRUD (Create, Read, Update, Delete) functionality for managing listings and account information. For a more detailed explanation of RentAway's features and functionalities, please refer to the subsequent sections of the README.
+RentAway is an innovative e-commerce project developed with the powerful MERN stack, consisting of MongoDB, Express.js, React, and Node.js. This platform empowers individuals by allowing them to sign up and share their clothing items for rent with other users. RentAway employs JWT (JSON Web Tokens) and bcrypt to safeguard user information. Additionally, it utilizes Cloudinary for seamless image hosting and offers comprehensive CRUD (Create, Read, Update, Delete) functionality for managing listings and account information. For a more detailed explanation of RentAway's features and functionalities, please refer to the subsequent sections of the README.
 
 Website: <a href="https://rentaway.onrender.com/">RentAway</a>
 
