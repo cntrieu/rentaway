@@ -127,7 +127,7 @@ export const AddClothes = () => {
             data.append('photos', files[i])
         }
     
-        axios.post(`/upload`, data, {
+        axios.post(`${backendURL}/upload`, data, {
             headers: {'Content-type': "multipart/form-data"}
         }).then(response => {
             const {data: filenames} = response;
