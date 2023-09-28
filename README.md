@@ -45,10 +45,6 @@
 
 ## :rocket: About The Project
 
-<p align="center">
- 
-  <img src='./client/public/Screenshot2.png' alt='home'>
-</p>
 
 <h3 align="center"> Introducing RentAway: </h3>
 
