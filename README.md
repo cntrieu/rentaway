@@ -16,11 +16,8 @@
 
 <a href="https://github.com/cntrieu/rentaway">
 
-<img src="./client/public/ts.png" alt="Logo" height="200">
+
 </a>
-<p align="center">
-  Your Life, One Pixel at a Time
-</p>
 
 <br />
 <details><summary>Table of Contents;</summary>
@@ -87,7 +84,7 @@ cd tiny-squares
 ```
 
 
-3. Install [`chakra`](https://www.npmjs.com/package/@chakra-ui/react), [`react`](https://www.npmjs.com/package/react), [`apollo-server-express`](https://www.apollographql.com/docs/apollo-server/previous-versions/), [`bcrypt`](https://www.npmjs.com/package/bcrypt), [`express`](https://www.npmjs.com/package/console.table), [`jsonwebtoken`](https://www.npmjs.com/package/jsonwebtoken), [`mongoose`](https://www.npmjs.com/package/mongoose), [`dotenv`](https://www.npmjs.com/package/dotenv), and [`cors`](https://www.npmjs.com/package/cors)
+3. Install [`react`](https://www.npmjs.com/package/react), [`apollo-server-express`](https://www.apollographql.com/docs/apollo-server/previous-versions/), [`bcrypt`](https://www.npmjs.com/package/bcrypt), [`express`](https://www.npmjs.com/package/console.table), [`jsonwebtoken`](https://www.npmjs.com/package/jsonwebtoken), [`mongoose`](https://www.npmjs.com/package/mongoose), [`dotenv`](https://www.npmjs.com/package/dotenv), and [`cors`](https://www.npmjs.com/package/cors)
 
 
 ```bash
