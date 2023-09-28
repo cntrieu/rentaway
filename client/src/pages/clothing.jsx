@@ -77,10 +77,10 @@ export const Clothing = () => {
                     <div key={clothes._id} className="border bg-gray-200 p-4 rounded-2xl h-full">
     
                         <div className="grow-0 shrink flex flex-col md:flex-row items-center justify-between">
-                            <h2 className="text-xl">{clothes.title}</h2>
-                            <div className="md:flex items-center">
+                            <h2 className="text-xl font-bold text-center">{clothes.title}</h2>
+                            <div className="md:flex items-center m-2 ">
                                 <button 
-                                    className={`block hover-opacity border rounded-full text-xs py-2 px-4 text-white ${
+                                    className={`block hover-opacity border rounded-full text-xs py-2 px-4 my-2 ml-4 md:ml-0 text-white ${
                                                 isClothingSaved(clothes._id) ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
                                                 }`}
                                     onClick={() => saveClothe(clothes._id)}
@@ -110,12 +110,12 @@ export const Clothing = () => {
                         <div className="text-sm flex"><p className="font-bold">Location: </p> {clothes.location}</div>
                         {/* <div className="text-sm flex"><p className="font-bold">Average Rating: </p> {average(clothes.reviews)}</div> */}
                 
-                        <div className="flex bg-gray-100 p-4 rounded-2xl m-4">
+                        <div className="flex bg-gray-100 p-4 rounded-2xl m-4 justify-center">
                             <div className="grid md:grid-cols-3 lg:grid-cols-3">
   
                                 {
                                     clothes.images.length > 0 ? clothes.images.map((images) => (
-                                        <img src={images} alt="" className="m-1"style={{ width: '100px', height: '100px' }} key={images}/> 
+                                        <img src={images} alt="Image(s) of item" className="m-1" style={{ width: '100px', height: '100px' }} key={images}/> 
                                     ))
                                     :
                                     <h2 className="text-xs md:text-base">No Image(s) Uploaded</h2>
