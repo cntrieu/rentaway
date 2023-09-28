@@ -11,7 +11,7 @@ export const AddClothes = () => {
     const [addedPhotos, setAddedPhotos] = useState([]);
     const [missingFields, setMissingFields] = useState(null);
     const [showSuccess, setShowSuccess] = useState(false);
-    
+    const serverURL = import.meta.env.VITE_API_BASE_URL;
     const [clothing, setClothing] = useState({
         title: "",
         description: "",
@@ -100,7 +100,7 @@ export const AddClothes = () => {
     const postClothing = async() => {
    
         try {
-            await axios.post("/clothing", clothing, {
+            await axios.post(`${serverURL}/clothing`, clothing, {
                 headers: { authorization: cookies.access_token },
             });
             
@@ -126,7 +126,7 @@ export const AddClothes = () => {
             data.append('photos', files[i])
         }
     
-        axios.post('/upload', data, {
+        axios.post(`${serverURL}/upload`, data, {
             headers: {'Content-type': "multipart/form-data"}
         }).then(response => {
             const {data: filenames} = response;

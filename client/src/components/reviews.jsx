@@ -12,7 +12,7 @@ export const Reviews = ({clothesId}) => {
     const navigate = useNavigate()
     const userID = useGetUserID();
     const timestamp = getDateTime()
-
+    const serverURL = import.meta.env.VITE_API_BASE_URL;
     // default rating if user does not select a rating
     let rating = "1";
   
@@ -31,7 +31,7 @@ export const Reviews = ({clothesId}) => {
     useEffect(() => {
         const getReviews = async () => {
             try {
-                const response = await axios.get(`/clothing/${clothesId}/reviews`);
+                const response = await axios.get(`${serverURL}/clothing/${clothesId}/reviews`);
                setRetrieveReviews(response.data)
             
             } catch(err) {
@@ -50,7 +50,7 @@ export const Reviews = ({clothesId}) => {
             try {
                 const getUsernamePromises = retrieveReviews.map(async(review) => {
               
-                    const response = await axios.get(`/users/${review.reviewer}`);
+                    const response = await axios.get(`${serverURL}/users/${review.reviewer}`);
                     return response.data;
                 })
     
@@ -78,7 +78,7 @@ export const Reviews = ({clothesId}) => {
 
     const refetchReviews = async() => {
         try {
-            const response = await axios.get(`/clothing/${clothesId}/reviews`);
+            const response = await axios.get(`${serverURL}/clothing/${clothesId}/reviews`);
            setRetrieveReviews(response.data)
         
         } catch(err) {
@@ -89,7 +89,7 @@ export const Reviews = ({clothesId}) => {
     const onSubmit = async (event) => {
         event.preventDefault();
         try {
-            await axios.post(`/clothing/${clothesId}/reviews`, review);
+            await axios.post(`${serverURL}/clothing/${clothesId}/reviews`, review);
             alert("Your review has been added!")
             refetchReviews()
         } catch (err) {

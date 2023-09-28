@@ -12,6 +12,7 @@ export const Navbar = () => {
     const [username, setUsername] = useState(null);
     const sidebarRef = useRef(null);
     const userID = useGetUserID();
+    const serverURL = import.meta.env.VITE_API_BASE_URL;
     
 
     const logout = () => {
@@ -43,7 +44,7 @@ export const Navbar = () => {
     useEffect(() => {
         const fetchUsername = async () => {
             try {
-                const response = await axios.get(`/users/${userID}`);
+                const response = await axios.get(`${serverURL}/users/${userID}`);
                 setUsername(response.data.username);
             } catch (error) {
                 console.error(error);

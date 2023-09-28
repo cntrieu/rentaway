@@ -11,6 +11,7 @@ export const Register = () => {
     const [registrationError, setRegistrationError] = useState(null); 
     const [_, setCookies] = useCookies(["access_token"])
     const navigate = useNavigate();
+    const serverURL = import.meta.env.VITE_API_BASE_URL;
 
     const setErrorWithTimeout = (message, timeout = 5000) => {
         setRegistrationError(message);
@@ -27,7 +28,7 @@ export const Register = () => {
         }
         
         try {
-            const response = await axios.post("/auth/register", {
+            const response = await axios.post(`${serverURL}/auth/register`, {
                 username,
                 email,
                 password
@@ -40,7 +41,7 @@ export const Register = () => {
                 alert("Registration Complete! Now Login");
 
                 // post request to log in after successful registration
-                const response = await axios.post("/auth/login", {
+                const response = await axios.post(`${serverURL}/auth/login`, {
                     username,
                     password
                 })

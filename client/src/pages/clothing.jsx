@@ -9,14 +9,14 @@ export const Clothing = () => {
     const [clothing, setClothing] = useState([])
     const [savedClothes, setSavedClothes] = useState([])
     const [cookies, _] = useCookies(["access_token"])
-
+    const serverURL = import.meta.env.VITE_API_BASE_URL;
   
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchClothing = async () => {
             try {
-                const response = await axios.get("/clothing");
+                const response = await axios.get(`${serverURL}/clothing`);
                 setClothing(response.data)
             
             } catch (err) {
@@ -26,7 +26,7 @@ export const Clothing = () => {
 
         const fetchSavedClothing = async() => {
             try {
-                const response = await axios.get(`/clothing/savedClothes/ids/${userID}`);
+                const response = await axios.get(`${serverURL}/clothing/savedClothes/ids/${userID}`);
                 setSavedClothes(response.data.savedClothes)
             } catch (err) {
                 console.error(err);
@@ -47,7 +47,7 @@ export const Clothing = () => {
                 navigate("/auth/login")
             }
             
-            const response = await axios.put("/clothing", {
+            const response = await axios.put(`${serverURL}/clothing`, {
                 clothesID, 
                 userID
             }, {headers: {authorization: cookies.access_token}});

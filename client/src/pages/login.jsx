@@ -10,7 +10,7 @@ export const Login = () => {
     const [registrationError, setRegistrationError] = useState(null); 
     const [_, setCookies] = useCookies(["access_token"])
     const navigate = useNavigate();
-
+    const serverURL = import.meta.env.VITE_API_BASE_URL;
     const setErrorWithTimeout = (message, timeout = 5000) => {
         setRegistrationError(message);
         setTimeout(() => {
@@ -21,7 +21,7 @@ export const Login = () => {
       const onSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post("/auth/login", {
+            const response = await axios.post(`${serverURL}/auth/login`, {
                 username,
                 password
             })

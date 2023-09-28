@@ -9,7 +9,7 @@ export const DeleteAccount = () => {
     const userID = useGetUserID();
     const navigate = useNavigate();
     const [openDeleteModal, setOpenDeleteModal] = useState(false)
-
+    const serverURL = import.meta.env.VITE_API_BASE_URL;
     const deleteModal = () => {
         setOpenDeleteModal(true)
     }
@@ -20,7 +20,7 @@ export const DeleteAccount = () => {
 
     const deleteUser = async () => {
         try {
-            await axios.delete(`/users/${userID}`, {
+            await axios.delete(`${serverURL}/users/${userID}`, {
                 headers: { authorization: cookies.access_token },
             })
             removeCookie("access_token")

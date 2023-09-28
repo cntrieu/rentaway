@@ -20,6 +20,7 @@ export const Dashboard = () => {
     })
     const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const serverURL = import.meta.env.VITE_API_BASE_URL;
 
     if(!cookies.access_token) {
         navigate('/auth/login')
@@ -28,7 +29,7 @@ export const Dashboard = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await axios.get(`h/users/${userID}`);
+                const response = await axios.get(`${serverURL}/users/${userID}`);
                 setUserInfo(response.data);
             } catch (error) {
                 console.error(error);
@@ -64,7 +65,7 @@ export const Dashboard = () => {
         setUser({ ...user, newPassword: "", currentPassword: "" });
 
         try {
-            const response = await axios.put(`/users/${userID}`, user, {
+            const response = await axios.put(`${serverURL}/users/${userID}`, user, {
               headers: {
                  authorization: cookies.access_token
               },
