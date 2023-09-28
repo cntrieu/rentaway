@@ -12,6 +12,7 @@ export const AddClothes = () => {
     const [missingFields, setMissingFields] = useState(null);
     const [showSuccess, setShowSuccess] = useState(false);
     const serverURL = import.meta.env.VITE_API_BASE_URL;
+    const backendURL = import.meta.env.VITE_API_BACKEND_URL;
     const [clothing, setClothing] = useState({
         title: "",
         description: "",
@@ -191,7 +192,7 @@ export const AddClothes = () => {
                     {addedPhotos.length > 0 && addedPhotos.map(link => (
                       
                         <div key={link} className="md:h-32 flex m-6"> 
-                            <img className="rounded-2xl" src={`${serverURL}/uploads/${link}`} alt={`Uploaded Image`} style={{ width: '150px', height: '150px' }} />
+                            <img className="rounded-2xl" src={`${backendURL}/uploads/${link}`} alt={`Uploaded Image`} style={{ width: '150px', height: '150px' }} />
                         </div>
                     ))}
 
