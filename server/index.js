@@ -44,7 +44,11 @@ app.post(`/upload`, photosMiddleware.array('photos', 100), (req, res) => {
         const newPath = path + '.' + ext;
         fs.renameSync(path, newPath);
         console.log(newPath);
+        // When pushing to main, make sure to keep the uploads/ one.
         uploadedFiles.push(newPath.replace('uploads/', ''));
+
+        // Uploads\\ is for it to work on local
+        // uploadedFiles.push(newPath.replace('uploads\\', ''));
     }
     
     res.json(uploadedFiles);        

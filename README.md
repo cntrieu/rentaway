@@ -32,7 +32,7 @@
 
 - [Contributing](#contributing)
 
-- [license](#license)
+- [License](#license)
 
 - [Questions](#questions)
 
@@ -80,20 +80,17 @@ git clone https://github.com/cntrieu/rentaway
 2. Change the Working Directory
 
 ```bash
-cd tiny-squares
+cd rentaway
 ```
 
 
-3. Install [`react`](https://www.npmjs.com/package/react), [`apollo-server-express`](https://www.apollographql.com/docs/apollo-server/previous-versions/), [`bcrypt`](https://www.npmjs.com/package/bcrypt), [`express`](https://www.npmjs.com/package/console.table), [`jsonwebtoken`](https://www.npmjs.com/package/jsonwebtoken), [`mongoose`](https://www.npmjs.com/package/mongoose), [`dotenv`](https://www.npmjs.com/package/dotenv), and [`cors`](https://www.npmjs.com/package/cors)
+3. Install [`react`](https://www.npmjs.com/package/react), [`bcrypt`](https://www.npmjs.com/package/bcrypt), [`express`](https://www.npmjs.com/package/console.table), [`jsonwebtoken`](https://www.npmjs.com/package/jsonwebtoken), [`mongoose`](https://www.npmjs.com/package/mongoose), [`dotenv`](https://www.npmjs.com/package/dotenv), and [`cors`](https://www.npmjs.com/package/cors)
 
 
 ```bash
-npm i
+npm install
 ```
 
-
-
-4.  to https://tinysquares.herokuapp.com/ in your browser to access the site
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -109,6 +106,7 @@ npm i
      <img src='./client/src/assets/images/screenshots/rentaway.onrender.com_clothing.png' alt='dashboard pic' style="border: 5px solid #a46cf5; border-radius: 15px; max-width: 75%; max-height: 75%">
       <img src='./client/src/assets/images/screenshots/rentaway.onrender.com_clothing_651508645cf397d7f6176baa.png' alt='dashboard pic' style="border: 5px solid #a46cf5; border-radius: 15px; max-width: 75%; max-height: 75%">
       <img src='./client/src/assets/images/screenshots/rentaway.onrender.com_dashboard.png' alt='dashboard pic' style="border: 5px solid #a46cf5; border-radius: 15px; max-width: 75%; max-height: 75%">
+       <img src='./client/src/assets/images/screenshots/rentaway.onrender.com_addClothes.png' alt='dashboard pic' style="border: 5px solid #a46cf5; border-radius: 15px; max-width: 75%; max-height: 75%">
   </a>
 </div>
  <br />
