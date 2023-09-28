@@ -126,7 +126,7 @@ export const AddClothes = () => {
             data.append('photos', files[i])
         }
     
-        axios.post(`${serverURL}/upload`, data, {
+        axios.post(`/upload`, data, {
             headers: {'Content-type': "multipart/form-data"}
         }).then(response => {
             const {data: filenames} = response;
@@ -191,7 +191,7 @@ export const AddClothes = () => {
                     {addedPhotos.length > 0 && addedPhotos.map(link => (
                       
                         <div key={link} className="md:h-32 flex m-6"> 
-                            <img className="rounded-2xl" src={`http://127.0.0.1:3001/uploads/${link}`} alt={`Uploaded Image`} style={{ width: '150px', height: '150px' }} />
+                            <img className="rounded-2xl" src={`${serverURL}/uploads/${link}`} alt={`Uploaded Image`} style={{ width: '150px', height: '150px' }} />
                         </div>
                     ))}
 
