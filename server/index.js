@@ -36,7 +36,7 @@ app.use("/users", userRouter)
 
 const photosMiddleware = multer({dest:'uploads/'})
 
-app.post('/upload', photosMiddleware.array('photos', 100), (req, res) => {
+app.post(`${process.env.SERVER_URL}/upload`, photosMiddleware.array('photos', 100), (req, res) => {
    
     const uploadedFiles = [];
     for (let i = 0; i < req.files.length; i++) {
