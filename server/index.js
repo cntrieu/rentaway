@@ -21,8 +21,6 @@ const app = express()
 app.use(express.json());
 app.use(cors());
 
-  console.log(process.env.SERVER_URL)
-
 
 // app.get("/", (req, res) => {
 //     res.setHeader("Access-Control-Allow-Credentials", "true");

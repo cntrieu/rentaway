@@ -111,11 +111,12 @@ npm i
 ## :computer: Usage
 
 <div align="center">
-  <h2><a href="https://tinysquares.herokuapp.com/" target="_blank">🌐 Deployed Website</a></h2>
+  <h2><a href="https://rentaway.onrender.com/" target="_blank">🌐 Deployed Website</a></h2>
   <p>Click the link above to explore our live application!</p>
-  <a href="https://tinysquares.herokuapp.com/" target="_blank">
-    <img src='./client/public/Screenshot1.png' alt='dashboard pic' style="border: 5px solid #a46cf5; border-radius: 15px;">
-     <img src='./client/public/Screenshot3.png' alt='dashboard pic' style="border: 5px solid #a46cf5; border-radius: 15px;">
+  <a href="https://rentaway.onrender.com/" target="_blank">
+    <img src='./client/src/assets/images/screenshots/rentaway.onrender.com_about.png' alt='dashboard pic' style="border: 5px solid #a46cf5; border-radius: 15px; max-width: 75%; max-height: 75%">
+     <img src='./client/src/assets/images/screenshots/rentaway.onrender.com_clothing.png' alt='dashboard pic' style="border: 5px solid #a46cf5; border-radius: 15px; max-width: 75%; max-height: 75%">
+      <img src='./client/src/assets/images/screenshots/rentaway.onrender.com_clothing_651508645cf397d7f6176baa.png' alt='dashboard pic' style="border: 5px solid #a46cf5; border-radius: 15px; max-width: 75%; max-height: 75%">
   </a>
 </div>
  <br />
@@ -127,42 +128,13 @@ npm i
 
 ## :handshake: Contributing
 
-We welcome contributions to this project. Below is our team who has been working tirelessly to make this app come to life. Feel free to reach out to any of us on LinkedIn or GitHub.
-
----
-
-### Jason Chiu
-
-<div align="center">
-    <a href="https://www.linkedin.com/in/chien-cheng-chiu-0a0930257/" target="_blank">LinkedIn</a> | 
-    <a href="https://github.com/jason1chiu" target="_blank">GitHub</a>
-</div>
-
----
-
-### Cassie LeClair
-
-<div align="center">
-    <a href="https://www.linkedin.com/in/cassie-leclair-931093b6/" target="_blank">LinkedIn</a> | 
-    <a href="https://github.com/cleclair71" target="_blank">GitHub</a>
-</div>
-
----
+I welcome any contributions to this project. Feel free to reach out to me on LinkedIn or GitHub!
 
 ### Calvin Trieu
 
 <div align="center">
     <a href="https://www.linkedin.com/in/calvin-trieu/" target="_blank">LinkedIn</a> | 
     <a href="https://github.com/cntrieu" target="_blank">GitHub</a>
-</div>
-
----
-
-### Luba Mistys
-
-<div align="center">
-    | 
-    <a href="https://github.com/lmintsys" target="_blank">GitHub</a>
 </div>
 
 ---
@@ -179,20 +151,6 @@ MIT
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- <a name="resources"></a> -->
-
-<!-- ## :mag_right: Resources
-
-- [Creating and Selecting a Database](https://dev.mysql.com/doc/refman/8.0/en/creating-database.html)
-- [Handlebars](https://www.npmjs.com/package/handlebars)
-- [Figlet](https://www.npmjs.com/package/figlet)
-- [How To Create Interactive Command-line Prompts with Inquirer.js](https://www.digitalocean.com/community/tutorials/nodejs-interactive-command-line-prompts)
-- [Canva](https://www.canva.com/)
-- [Everything you should know about ‘module’ & ‘require’ in Node.js](https://www.freecodecamp.org/news/require-module-in-node-js-everything-about-module-require-ccccd3ad383/)
-- [break](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/break)
-- [ShieldsIO](https://shields.io/category/funding)
- -->
-<!-- <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 <a name="questions"></a>
 
@@ -207,9 +165,6 @@ If you have any questions about this project, please don't hesitate to reach out
 2. **Create a new issue:** If you can't find the answer to your question in the documentation, please create a new issue in the project's issue tracker. Be sure to provide as much detail as possible about your question, including any relevant code snippets or screenshots.
 
 
-   <!-- <p align="center"> 
-   <a href="https://github.com/cleclair71/hr-hub">My Repository</a>
-   </p> -->
 
 ### :pray: Feedback and Suggestions
 

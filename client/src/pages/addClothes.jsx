@@ -193,6 +193,8 @@ export const AddClothes = () => {
                       
                         <div key={link} className="md:h-32 flex m-6"> 
                             <img className="rounded-2xl" src={`${backendURL}/uploads/${link}`} alt={`Uploaded Image`} style={{ width: '150px', height: '150px' }} />
+                            {console.log(link)}
+                            {console.log(backendURL)}
                         </div>
                     ))}
 
