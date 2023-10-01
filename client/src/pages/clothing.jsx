@@ -4,6 +4,8 @@ import { useGetUserID } from "../hooks/useGetUserID"
 import { useCookies } from "react-cookie"
 import { useNavigate, Link, useLocation  } from "react-router-dom"
 import ReactPaginate from 'react-paginate';
+import { useQuery } from "react-query"
+
 
 export const Clothing = () => {
     const userID = useGetUserID();
@@ -13,22 +15,33 @@ export const Clothing = () => {
     const serverURL = import.meta.env.VITE_API_BASE_URL;
     const [pageNumber, setPageNumber] = useState(0);
     const [selectedCategory, setSelectedCategory] = useState("");
-
     const clothingPerPage = 6;
     const pagesVisited = pageNumber * clothingPerPage
-  
     const navigate = useNavigate();
 
+    const {data:clothingData, isLoading, isError} = useQuery(["clothes"], () => {
+        return axios.get(`${serverURL}/clothing`).then((res) => res.data);
+    });
+
+
+    if (isError) {
+        return <h1>Error!</h1>
+    }
+
+    if (isLoading) {
+        return <h1> Loading... </h1>
+    }
+
     useEffect(() => {
-        const fetchClothing = async () => {
-            try {
-                const response = await axios.get(`${serverURL}/clothing`);
-                setClothing(response.data)
-            
-            } catch (err) {
-                console.error(err);
-            }
-        }
+        // const fetchClothing = async () => {
+        //     try {
+        //         const response = await axios.get(`${serverURL}/clothing`);
+        //         setClothing(response.data)
+        //         console.log("responsedata", response.data)
+        //     } catch (err) {
+        //         console.error(err);
+        //     }
+        // }
 
         const fetchSavedClothing = async() => {
             try {
@@ -43,7 +56,7 @@ export const Clothing = () => {
             fetchSavedClothing();
         }
 
-        fetchClothing()
+        // fetchClothing()
     }, []);
 
 
@@ -73,10 +86,11 @@ export const Clothing = () => {
     }
 
     const filteredClothing = selectedCategory
-            ? clothing.filter(clothes => clothes.category === selectedCategory)
-            : clothing;
+            ? clothingData.filter(clothes => clothes.category === selectedCategory)
+            : clothingData;
 
     const displayClothing = filteredClothing.slice(pagesVisited, pagesVisited + clothingPerPage).map(clothes => (
+      
         <div key={clothes._id} className="card m-5 m:w-1/3">
 
         <div key={clothes._id} className="border bg-gray-200 p-4 rounded-2xl h-full">
@@ -132,8 +146,9 @@ export const Clothing = () => {
         </div>
     
     ))
+    
 
-    const pageCount = Math.ceil(clothing.length / clothingPerPage)
+    const pageCount = Math.ceil(clothingData.length / clothingPerPage)
     const changePage = ({selected}) => {
         setPageNumber(selected);
     }
@@ -150,7 +165,7 @@ export const Clothing = () => {
                 <div>
                    
                     <select onChange={onChangeCategorySearch} className="border p-2 rounded-full">
-                        {[...new Set(clothing.map(clothes => clothes.category))].map(category => (
+                        {[...new Set(clothingData.map(clothes => clothes.category))].map(category => (
                             <option key={category} value={category}>
                             {category.charAt(0).toUpperCase() + category.slice(1).substr(0, 19)}
                             </option>
