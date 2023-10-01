@@ -123,6 +123,7 @@ export const Navbar = () => {
                             <Link className="mt-20 lg:text-2xl  text-black hover-opacity border-b-2 border-stone-500" to="/">Home</Link>
 
                                 <Link className="mt-10 lg:text-2xl  text-black hover-opacity" to="/about">About Us</Link>
+                                <Link className="lg:text-2xl  text-black hover-opacity" to="/clothing">Browse</Link>
                                 <Link className=" lg:text-2xl  text-black hover-opacity" to="/auth/login">Login</Link>
                        
                                 <Link className="lg:text-2xl  text-black hover-opacity" to="/auth/register">Register</Link>
