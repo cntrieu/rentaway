@@ -51,8 +51,12 @@ export const Register = () => {
            navigate("/")
             }
     
-        } catch(err) {
-            console.error(err);
+        } catch (err) {
+            if (err.response && err.response.data && err.response.data.message) {
+                alert(err.response.data.message); 
+            } else {
+                console.error(err);
+            }
         }
     }
 

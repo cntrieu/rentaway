@@ -30,7 +30,11 @@ export const Login = () => {
            window.localStorage.setItem("userID", response.data.userID);
            navigate("/")
         } catch (err) {
-            console.error(err);
+            if (err.response && err.response.data && err.response.data.message) {
+                alert(err.response.data.message); 
+            } else {
+                console.error(err);
+            }
         }
     }
 

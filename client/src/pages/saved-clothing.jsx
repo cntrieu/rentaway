@@ -48,7 +48,7 @@ export const SavedClothingList = () => {
                     <li key ={clothes._id} className="card m-5 m:w-1/3">
                         <div className="border bg-gray-200 p-4 rounded-2xl h-full">
                             <div className="grow-0 shrink flex flex-col md:flex-row items-center justify-between">
-                                <h2 className="text-xl">{clothes.title}</h2>
+                                <Link className="text-xl font-bold" to={`/clothing/${clothes._id}`}>{clothes.title}</Link>
 
                                 <button 
                                     className="hover-opacity border rounded-full text-xs py-2 px-4 bg-red-600 text-white" 
@@ -73,7 +73,9 @@ export const SavedClothingList = () => {
   
                                 {
                                     clothes.images.length > 0 ? 
-                                    <img src={clothes.images} alt="" /> :
+                                    clothes.images.map((images) => (
+                                        <img src={images} alt="Image(s) of item" className="m-1" style={{ width: '100px', height: '100px' }} key={images}/> 
+                                    )) :
                                     <h2>No Image(s) Uploaded</h2>
                                 }
                             </div>

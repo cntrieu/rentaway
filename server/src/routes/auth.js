@@ -24,7 +24,9 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
     const {username, password} = req.body;
-    const user = await UserModel.findOne({ username })
+    const lowercaseUsername = username.toLowerCase();
+
+    const user = await UserModel.findOne({ username: lowercaseUsername })
 
     if(!user) {
         return res.status(400).json({ message: "User does not exist"});
