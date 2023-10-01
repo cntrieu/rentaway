@@ -68,8 +68,8 @@ export const SavedClothingList = () => {
 
                         <div className="text-sm">Price: ${clothes.price}</div>
                         <div className="text-sm">Location: {clothes.location}</div>
-                        <div className="flex bg-gray-100 p-4 rounded-2xl m-4">
-                            <div className="h-40 flex">
+                        <div className="flex bg-gray-100 p-4 rounded-2xl m-4 justify-center">
+                            <div className="grid md:grid-cols-3 lg:grid-cols-3">
   
                                 {
                                     clothes.images.length > 0 ? 
