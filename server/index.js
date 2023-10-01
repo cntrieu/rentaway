@@ -21,8 +21,6 @@ const app = express()
 app.use(express.json());
 app.use(cors());
 
-  console.log(process.env.SERVER_URL)
-
 
 // app.get("/", (req, res) => {
 //     res.setHeader("Access-Control-Allow-Credentials", "true");
@@ -46,7 +44,11 @@ app.post(`/upload`, photosMiddleware.array('photos', 100), (req, res) => {
         const newPath = path + '.' + ext;
         fs.renameSync(path, newPath);
         console.log(newPath);
-        uploadedFiles.push(newPath.replace('uploads\\', ''));
+        // When pushing to main, make sure to keep the uploads/ one.
+        uploadedFiles.push(newPath.replace('uploads/', ''));
+
+        // Uploads\\ is for it to work on local
+        // uploadedFiles.push(newPath.replace('uploads\\', ''));
     }
     
     res.json(uploadedFiles);        

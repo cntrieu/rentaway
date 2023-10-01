@@ -139,7 +139,13 @@ export const ViewClothingItem = () => {
                     <div className="h-full">
                     {clothingItem.images && clothingItem.images.length > 0 ? (
                             clothingItem.images.map((image, index) => (
-                                <img src={image} alt="" className="w-1/3 md:w-full rounded-xl mb-2" key={index} />
+                                <img 
+                                src={image} 
+                                alt="Photo of Item" 
+                                className="w-1/3 md:w-full rounded-xl mb-2" 
+                                key={index} 
+                                style={{ maxWidth: '500px', maxHeight: '500px' }}
+                                />
                             ))
                         ) : (
                             <h2>No Image(s) Uploaded</h2>
