@@ -69,7 +69,7 @@ export const Clothing = () => {
 
     const onChangeCategorySearch = (e) => {
         setSelectedCategory(e.target.value);
-        console.log(filteredClothing.length);
+        console.log(e.target.value);
     }
 
     const filteredClothing = selectedCategory
