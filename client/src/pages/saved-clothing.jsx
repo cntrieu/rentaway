@@ -73,7 +73,9 @@ export const SavedClothingList = () => {
   
                                 {
                                     clothes.images.length > 0 ? 
-                                    <img src={clothes.images} alt="" /> :
+                                    clothes.images.map((images) => (
+                                        <img src={images} alt="Image(s) of item" className="m-1" style={{ width: '100px', height: '100px' }} key={images}/> 
+                                    )) :
                                     <h2>No Image(s) Uploaded</h2>
                                 }
                             </div>
