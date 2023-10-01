@@ -12,8 +12,9 @@ export const Clothing = () => {
     const [cookies, _] = useCookies(["access_token"])
     const serverURL = import.meta.env.VITE_API_BASE_URL;
     const [pageNumber, setPageNumber] = useState(0);
+    const [selectedCategory, setSelectedCategory] = useState("");
 
-    const clothingPerPage = 3;
+    const clothingPerPage = 6;
     const pagesVisited = pageNumber * clothingPerPage
   
     const navigate = useNavigate();
@@ -66,7 +67,16 @@ export const Clothing = () => {
    
     const isClothingSaved = (id) => savedClothes.includes(id);
 
-    const displayClothing = clothing.slice(pagesVisited, pagesVisited + clothingPerPage).map(clothes => (
+    const onChangeCategorySearch = (e) => {
+        setSelectedCategory(e.target.value);
+        console.log(filteredClothing.length);
+    }
+
+    const filteredClothing = selectedCategory
+            ? clothing.filter(clothes => clothes.category === selectedCategory)
+            : clothing;
+
+    const displayClothing = filteredClothing.slice(pagesVisited, pagesVisited + clothingPerPage).map(clothes => (
         <div key={clothes._id} className="card m-5 m:w-1/3">
 
         <div key={clothes._id} className="border bg-gray-200 p-4 rounded-2xl h-full">
@@ -130,11 +140,23 @@ export const Clothing = () => {
 
     return (
         <div className="w-9/12 mx-auto flex-grow">
-        
-            <div id="title-line">
-                {/* <h1 className="font-bold underline text-center mb-5">Clothing for Rent</h1> */}
-                <input placeholder="search..." className="border p-2 rounded-full"></input>
-                <p className="text-sm">*search function not implemented yet :)</p>
+            <div className="lg:flex items-center">
+                <div id="title-line">
+                    {/* <h1 className="font-bold underline text-center mb-5">Clothing for Rent</h1> */}
+                    <input placeholder="*search function tbd" className="border p-2 rounded-full"></input>
+                    
+                </div>
+                <h2 className="m-2 lg:ml-5">Search by Category: </h2>
+                <div>
+                   
+                    <select onChange={onChangeCategorySearch} className="border p-2 rounded-full">
+                        {[...new Set(clothing.map(clothes => clothes.category))].map(category => (
+                            <option key={category} value={category}>
+                            {category.charAt(0).toUpperCase() + category.slice(1).substr(0, 19)}
+                            </option>
+                        ))}
+                    </select>
+                </div>
             </div>
             
             <ul className="grid md:grid-cols-3">
@@ -151,6 +173,6 @@ export const Clothing = () => {
                      disabledClassName={"paginationDisabled"}
                      activeClassName={"paginationActive"}
                 />
-        </div>
+        </div>  
     )
 }
