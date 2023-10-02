@@ -13,8 +13,8 @@ export const Home = () => {
             <Link to={'/clothing'} className="hover-opacity border rounded-full text-md py-2 px-4 text-white">Rent Today</Link>
     </section>
 
-    <HomepageSecond />
-    <HomepageThird />
+    {/* <HomepageSecond />
+    <HomepageThird /> */}
     </>
 
         

@@ -30,8 +30,6 @@ export const Navbar = () => {
         });
     });
 
-
-
     useEffect(() => {
         // Function to close the sidebar when clicking outside of it
         const handleClickOutside = (event) => {
@@ -51,13 +49,17 @@ export const Navbar = () => {
           };
         }, [showSidebar]);
 
+        const closeSidebar = () => {
+            setShowSidebar(false);
+          };
+
 
     return (
     <div>
         
         <header className="flex justify-between p-6">
 
-            <a href="/" className="hidden md:flex items-center gap-1">
+            <a href="/" className="flex items-center gap-1 justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
                 </svg>
@@ -118,34 +120,34 @@ export const Navbar = () => {
                         !cookies.access_token ? (
                         <div className="text-center flex flex-col h-full">
                           
-                            <Link className="mt-20 lg:text-2xl  text-black hover-opacity border-b-2 border-stone-500" to="/">Home</Link>
+                            <Link className="mt-20 lg:text-2xl  text-black hover-opacity border-b-2 border-stone-500" to="/" onClick={closeSidebar}>Home</Link>
 
-                                <Link className="mt-10 lg:text-2xl  text-black hover-opacity" to="/about">About Us</Link>
-                                <Link className="lg:text-2xl  text-black hover-opacity" to="/clothing">Browse</Link>
-                                <Link className=" lg:text-2xl  text-black hover-opacity" to="/auth/login">Login</Link>
+                                <Link className="mt-10 lg:text-2xl  text-black hover-opacity" to="/about" onClick={closeSidebar} >About Us</Link>
+                                <Link className="lg:text-2xl  text-black hover-opacity" to="/clothing" onClick={closeSidebar} >Browse</Link>
+                                <Link className=" lg:text-2xl  text-black hover-opacity" to="/auth/login" onClick={closeSidebar} >Login</Link>
                        
-                                <Link className="lg:text-2xl  text-black hover-opacity" to="/auth/register">Register</Link>
+                                <Link className="lg:text-2xl  text-black hover-opacity" to="/auth/register" onClick={closeSidebar} >Register</Link>
                          
                         </div>
                         ) : (
                             <div className="text-center flex flex-col justify-between h-full">
                                 <div className="flex flex-col mt-20">
                                     <div className="mb-5 text-black text-xl lg:text-3xl  overflow-hidden text-ellipsis">Welcome, {username}!</div>
-                                    <Link className="lg:text-2xl  text-black hover-opacity border-b-2 border-stone-500" to="/">Home</Link>
+                                    <Link className="lg:text-2xl  text-black hover-opacity border-b-2 border-stone-500" to="/" onClick={closeSidebar} >Home</Link>
                                  
-                                        <Link className="lg:text-2xl mt-3 text-black hover-opacity" to="/clothing">Browse</Link>
+                                        <Link className="lg:text-2xl mt-3 text-black hover-opacity" to="/clothing" onClick={closeSidebar} >Browse</Link>
                                 
 
                                     
-                                        <Link className="lg:text-2xl  text-black hover-opacity" to="/saved">Saved Clothes</Link>
+                                        <Link className="lg:text-2xl  text-black hover-opacity" to="/saved" onClick={closeSidebar} >Saved Clothes</Link>
                                    
-                                    <Link className="lg:text-2xl  text-black hover-opacity" to="/addClothes">Rent</Link>
+                                    <Link className="lg:text-2xl  text-black hover-opacity" to="/addClothes" onClick={closeSidebar} >Rent</Link>
                                     
                                 </div>
 
                                 <div className="flex-col flex">
-                                <Link className="lg:text-2xl  text-black hover-opacity" to="/about">About Us</Link>
-                                <Link className="lg:text-2xl  text-black hover-opacity" to="/dashboard">Dashboard</Link>
+                                <Link className="lg:text-2xl  text-black hover-opacity" to="/about" onClick={closeSidebar} >About Us</Link>
+                                <Link className="lg:text-2xl  text-black hover-opacity" to="/dashboard" onClick={closeSidebar} >Dashboard</Link>
                                     <button className="lg:text-2xl  text-black hover-opacity" onClick={logout}>Logout</button>
                                 </div>
                             </div>
