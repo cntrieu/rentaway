@@ -23,6 +23,13 @@ export const Clothing = () => {
         return axios.get(`${serverURL}/clothing`).then((res) => res.data);
     });
 
+    const {data:savedClothingData} = useQuery(["savedClothes"], () => {
+        return axios.get(`${serverURL}/clothing/savedClothes/ids/${userID}`).then((res) => {
+            setSavedClothes(res.data.savedClothes)
+            res.data
+        });
+    });
+ 
 
     if (isError) {
         return <h1>Error!</h1>
@@ -32,7 +39,7 @@ export const Clothing = () => {
         return <h1> Loading... </h1>
     }
 
-    useEffect(() => {
+    // useEffect(() => {
         // const fetchClothing = async () => {
         //     try {
         //         const response = await axios.get(`${serverURL}/clothing`);
@@ -43,21 +50,21 @@ export const Clothing = () => {
         //     }
         // }
 
-        const fetchSavedClothing = async() => {
-            try {
-                const response = await axios.get(`${serverURL}/clothing/savedClothes/ids/${userID}`);
-                setSavedClothes(response.data.savedClothes)
-            } catch (err) {
-                console.error(err);
-            }
-        }
+        // const fetchSavedClothing = async() => {
+        //     try {
+        //         const response = await axios.get(`${serverURL}/clothing/savedClothes/ids/${userID}`);
+        //         setSavedClothes(response.data.savedClothes)
+        //     } catch (err) {
+        //         console.error(err);
+        //     }
+        // }
 
-        if(cookies.access_token) {
-            fetchSavedClothing();
-        }
+        // if(cookies.access_token) {
+        //     fetchSavedClothing();
+        // }
 
         // fetchClothing()
-    }, []);
+    // }, []);
 
 
     const saveClothe = async(clothesID) => {
