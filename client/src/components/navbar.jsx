@@ -7,7 +7,7 @@ import axios from "axios"
 import { useQuery } from "react-query"
 
 export const Navbar = () => {
-    const [cookies, setCookies] = useCookies(["access_token"])
+    const [cookies, setCookies, removeCookie] = useCookies(["access_token"])
     const navigate = useNavigate()
     const [showSidebar, setShowSidebar] = useState(false);
     const [username, setUsername] = useState(null);
@@ -17,7 +17,7 @@ export const Navbar = () => {
     
 
     const logout = () => {
-        setCookies("access_token", "")
+        removeCookie("access_token", "")
         window.localStorage.removeItem("userID");
         setShowSidebar(false)
         navigate("/")
