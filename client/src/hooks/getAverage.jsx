@@ -10,7 +10,8 @@ export const GetAverage = (retrieveReviews) => {
     if (ratings.length === 0) {
       setAverageRating(0);
     } else {
-      setAverageRating(totalRating / ratings.length);
+      const average = totalRating / ratings.length;
+      setAverageRating(parseFloat(average.toFixed(1)));
     }
   }, [retrieveReviews]);
 

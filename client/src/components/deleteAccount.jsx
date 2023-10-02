@@ -5,7 +5,7 @@ import { useCookies } from "react-cookie"
 import axios from "axios";
 
 export const DeleteAccount = () => {
-    const [cookies, _] = useCookies(["access_token"])
+    const [cookies, setCookies, removeCookie] = useCookies(["access_token"])
     const userID = useGetUserID();
     const navigate = useNavigate();
     const [openDeleteModal, setOpenDeleteModal] = useState(false)
