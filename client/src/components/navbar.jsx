@@ -4,6 +4,7 @@ import { useCookies } from "react-cookie"
 import { useNavigate } from "react-router-dom"
 import { useGetUserID } from "../hooks/useGetUserID"
 import axios from "axios"
+import { useQuery } from "react-query"
 
 export const Navbar = () => {
     const [cookies, setCookies] = useCookies(["access_token"])
@@ -21,6 +22,15 @@ export const Navbar = () => {
         setShowSidebar(false)
         navigate("/")
     }
+
+    const {data:userData, isLoading, isError, refetch} = useQuery(["users"], () => {
+        return axios.get(`${serverURL}/users/${userID}`).then((res) => {
+            setUsername(res.data.username);
+            return res.data
+        });
+    });
+
+
 
     useEffect(() => {
         // Function to close the sidebar when clicking outside of it
@@ -41,18 +51,6 @@ export const Navbar = () => {
           };
         }, [showSidebar]);
 
-    useEffect(() => {
-        const fetchUsername = async () => {
-            try {
-                const response = await axios.get(`${serverURL}/users/${userID}`);
-                setUsername(response.data.username);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        
-            fetchUsername();
-    }, [userID]);
 
     return (
     <div>

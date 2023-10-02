@@ -14,7 +14,13 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 
 
 function App() {
-  const client = new QueryClient();
+  const client = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: true,
+      }
+    }
+  });
 
   return (
       <div className="App">

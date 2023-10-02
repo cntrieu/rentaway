@@ -4,6 +4,7 @@ import { useGetUserID } from "../hooks/useGetUserID"
 import { Link } from "react-router-dom"
 import { useCookies } from "react-cookie"
 import { useNavigate } from "react-router-dom"
+import { useQuery } from "react-query"
 
 export const SavedClothingList = () => {
     const userID = useGetUserID();
@@ -12,18 +13,35 @@ export const SavedClothingList = () => {
     const navigate = useNavigate();
     const serverURL = import.meta.env.VITE_API_BASE_URL;
 
-    useEffect(() => {
-        const fetchSavedClothing = async() => {
-            try {
-                const response = await axios.get(`${serverURL}/clothing/savedClothes/${userID}`, );
-                setSavedClothing(response.data.savedClothes)
-            } catch (err) {
-                console.error(err);
-            }
-        }
+    const {data:savedClothingData, isLoading, isError, refetch} = useQuery(["savedClothes"], () => {
+        return axios.get(`${serverURL}/clothing/savedClothes/${userID}`).then((res) => {
+            setSavedClothing(res.data.savedClothes)
+            return res.data.savedClothes
+        });
+    });
 
-        fetchSavedClothing();
-    }, [])
+    if (isError) {
+        return <h1>Error!</h1>
+    }
+
+    if (isLoading) {
+        return <h1> Loading... </h1>
+    }
+
+
+    // useEffect(() => {
+    //     refetch();
+    //     // const fetchSavedClothing = async() => {
+    //     //     try {
+    //     //         const response = await axios.get(`${serverURL}/clothing/savedClothes/${userID}`, );
+    //     //         setSavedClothing(response.data.savedClothes)
+    //     //     } catch (err) {
+    //     //         console.error(err);
+    //     //     }
+    //     // }
+
+    //     // fetchSavedClothing();
+    // }, [refetch])
 
     if(!cookies.access_token) {
         navigate('/auth/login')
