@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/cntrieu/rentaway/issues"
   },
-  "homepage": "https://github.com/cntrieu/rentaway#readme"
+  "homepage": "https://github.com/cntrieu/rentaway#readme",
+  "dependencies": {
+    "react-spinners": "^0.13.8"
+  }
 }
