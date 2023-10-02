@@ -5,6 +5,7 @@ import { useCookies } from "react-cookie"
 import { useNavigate, Link, useLocation  } from "react-router-dom"
 import ReactPaginate from 'react-paginate';
 import { useQuery } from "react-query"
+import ClipLoader from "react-spinners/ClipLoader";
 
 
 export const Clothing = () => {
@@ -19,6 +20,8 @@ export const Clothing = () => {
     const pagesVisited = pageNumber * clothingPerPage
     const navigate = useNavigate();
 
+
+
     const {data:clothingData, isLoading, isError} = useQuery(["clothes"], () => {
         return axios.get(`${serverURL}/clothing`).then((res) => res.data);
     });
@@ -32,11 +35,24 @@ export const Clothing = () => {
  
 
     if (isError) {
-        return <h1>Error!</h1>
+        return <h1 className="font-bold text-xl">Error: Couldn't retrieve clothes list ):</h1>
     }
 
     if (isLoading) {
-        return <h1> Loading... </h1>
+        return (
+            <div className="flex items-center justify-center h-screen">
+                <div className="text-center">
+                    <ClipLoader
+                        color={"#36d7b7"}
+                        loading={isLoading}
+                        size={150}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                    />
+                    <h1>Loading Clothing List...</h1>
+                </div>
+          </div>
+        )
     }
 
     // useEffect(() => {
