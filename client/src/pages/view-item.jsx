@@ -135,7 +135,7 @@ export const ViewClothingItem = () => {
 
                     </div>
 
-                <div className="flex bg-gray-100 p-4 rounded-2xl m-4">
+                <div className="flex bg-gray-100 p-4 rounded-2xl m-4 justify-center">
                     <div className="h-full">
                     {clothingItem.images && clothingItem.images.length > 0 ? (
                             clothingItem.images.map((image, index) => (
@@ -144,7 +144,7 @@ export const ViewClothingItem = () => {
                                 alt="Photo of Item" 
                                 className="w-1/3 md:w-full rounded-xl mb-2" 
                                 key={index} 
-                                style={{ maxWidth: '500px', maxHeight: '500px' }}
+                                style={{ minWidth: '100px', maxWidth: '500px', minHeight: '100px', maxHeight: '500px' }}
                                 />
                             ))
                         ) : (

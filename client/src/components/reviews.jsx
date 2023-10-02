@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useGetUserID } from "../hooks/useGetUserID"
 import { getDateTime } from '../hooks/getDateTime';
 import { useCookies } from "react-cookie"
-// import { GetAverage } from '../hooks/getAverage';
+import { GetAverage } from '../hooks/getAverage';
 
 
 export const Reviews = ({clothesId}) => {
@@ -26,7 +26,7 @@ export const Reviews = ({clothesId}) => {
 
     const [retrieveReviews, setRetrieveReviews] = useState([])
     const [getReviewerInfo, setGetReviewerInfo] = useState([])
-
+    const getAverage = GetAverage(retrieveReviews)
 
     useEffect(() => {
         const getReviews = async () => {
@@ -49,7 +49,6 @@ export const Reviews = ({clothesId}) => {
         const getUsernames = async() => {
             try {
                 const getUsernamePromises = retrieveReviews.map(async(review) => {
-              
                     const response = await axios.get(`${serverURL}/users/${review.reviewer}`);
                     return response.data;
                 })
@@ -97,12 +96,23 @@ export const Reviews = ({clothesId}) => {
         }
     }
 
+    // const averageRatings = () => { 
+    //     const ratings = retrieveReviews.map((review) => review.rating);
+    //     const totalRating = ratings.reduce((acc, rating) => acc + rating, 0);
+    //     if (ratings.length === 0) {
+    //         return 0;
+    //     }
+    
+    //     return totalRating / ratings.length;
+    // }
+
+
     return(
         <div>
         <div className="border bg-gray-200 p-4 m-4 rounded-2xl">
             <div className="flex justify-between">
                 <h1 className="font-bold md:text-3xl text-center">Reviews</h1>
-                <h2>Average Rating: </h2>
+                <h2><strong>Average Rating:</strong> {getAverage}</h2>
             </div>
             
             <div>
@@ -110,7 +120,6 @@ export const Reviews = ({clothesId}) => {
 
                     retrieveReviews.length > 0 ? retrieveReviews.map((review) => {
                         const reviewerInfo = getReviewerInfo.find((info) => info._id == review.reviewer);
-                        
                         return (
                         <div key={review._id} className="border bg-gray-100 rounded-xl my-4 p-4">
                             <div className="flex justify-between">
@@ -120,6 +129,9 @@ export const Reviews = ({clothesId}) => {
                                 <div>
                                     <strong>Rating:</strong> {review.rating}
                                 </div>
+                            </div>
+                            <div className="text-xs mb-2">
+                                {review.timestamp}
                             </div>
 
                                 <div>{review.comment}</div>
@@ -139,7 +151,7 @@ export const Reviews = ({clothesId}) => {
 
             <div className="text-2xl mt-4">
                 <h2><label htmlFor="rating">Rating</label></h2>
-                <select id="rating" className="border border-gray-500 my-1 py-2 px-3 rounded-lg" onChange={selectChange}>
+                <select id="rating" className="border border-gray-500 my-1 py-2 px-3 rounded-lg w-9/12 text-xs sm:text-base" onChange={selectChange}>
                     <option value="1">1 - BAD</option>
                     <option value="2">2 - Needs Improvement</option>
                     <option value="3">3 - Decent</option>

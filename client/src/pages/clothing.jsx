@@ -6,12 +6,14 @@ import { useNavigate, Link, useLocation  } from "react-router-dom"
 import ReactPaginate from 'react-paginate';
 import { useQuery } from "react-query"
 import ClipLoader from "react-spinners/ClipLoader";
+import { GetAverage } from "../hooks/getAverage"
 
 
 export const Clothing = () => {
     const userID = useGetUserID();
     const [clothing, setClothing] = useState([])
     const [savedClothes, setSavedClothes] = useState([])
+    const [retrieveReviews, setRetrieveReviews] = useState([])
     const [cookies, _] = useCookies(["access_token"])
     const serverURL = import.meta.env.VITE_API_BASE_URL;
     const [pageNumber, setPageNumber] = useState(0);
@@ -19,6 +21,7 @@ export const Clothing = () => {
     const clothingPerPage = 6;
     const pagesVisited = pageNumber * clothingPerPage
     const navigate = useNavigate();
+
 
 
 
@@ -32,7 +35,7 @@ export const Clothing = () => {
             res.data
         });
     });
- 
+
 
     if (isError) {
         return <h1 className="font-bold text-xl">Error: Couldn't retrieve clothes list ):</h1>
@@ -54,34 +57,6 @@ export const Clothing = () => {
           </div>
         )
     }
-
-    // useEffect(() => {
-        // const fetchClothing = async () => {
-        //     try {
-        //         const response = await axios.get(`${serverURL}/clothing`);
-        //         setClothing(response.data)
-        //         console.log("responsedata", response.data)
-        //     } catch (err) {
-        //         console.error(err);
-        //     }
-        // }
-
-        // const fetchSavedClothing = async() => {
-        //     try {
-        //         const response = await axios.get(`${serverURL}/clothing/savedClothes/ids/${userID}`);
-        //         setSavedClothes(response.data.savedClothes)
-        //     } catch (err) {
-        //         console.error(err);
-        //     }
-        // }
-
-        // if(cookies.access_token) {
-        //     fetchSavedClothing();
-        // }
-
-        // fetchClothing()
-    // }, []);
-
 
     const saveClothe = async(clothesID) => {
         try {
@@ -157,7 +132,7 @@ export const Clothing = () => {
 
                     {
                         clothes.images.length > 0 ? clothes.images.map((images) => (
-                            <img src={images} alt="Image(s) of item" className="m-1" style={{ width: '100px', height: '100px' }} key={images}/> 
+                            <img src={images} alt="Image(s) of item" className="m-1" style={{ minWidth: '100px', minHeight: '100px' }} key={images}/> 
                         ))
                         :
                         <h2 className="text-xs md:text-base">No Image(s) Uploaded</h2>
