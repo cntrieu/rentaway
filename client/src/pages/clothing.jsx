@@ -152,7 +152,7 @@ export const Clothing = () => {
     }
 
     return (
-        <div className="w-9/12 mx-auto flex-grow">
+        <div className="w-5/6 mx-auto flex-grow">
             <div className="lg:flex items-center">
                 <div id="title-line">
                     {/* <h1 className="font-bold underline text-center mb-5">Clothing for Rent</h1> */}
