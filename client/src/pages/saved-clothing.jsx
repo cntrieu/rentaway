@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 import { useCookies } from "react-cookie"
 import { useNavigate } from "react-router-dom"
 import { useQuery } from "react-query"
+import DotLoader from "react-spinners/ClipLoader";
 
 export const SavedClothingList = () => {
     const userID = useGetUserID();
@@ -21,11 +22,18 @@ export const SavedClothingList = () => {
     });
 
     if (isError) {
-        return <h1>Error!</h1>
+        return <h1 className="font-bold text-xl">Error: Couldn't retrieve clothes list ):</h1>
     }
 
     if (isLoading) {
-        return <h1> Loading... </h1>
+        return (
+            <div className="flex items-center justify-center h-screen">
+                <div className="text-center">
+                <DotLoader color="#36d7b7" />
+                    <h1>Loading Saved List...</h1>
+                </div>
+          </div>
+        )
     }
 
 
@@ -69,7 +77,7 @@ export const SavedClothingList = () => {
                                 <Link className="text-xl font-bold" to={`/clothing/${clothes._id}`}>{clothes.title}</Link>
 
                                 <button 
-                                    className="hover-opacity border rounded-full text-xs py-2 px-4 bg-red-600 text-white" 
+                                    className="hover-opacity border rounded-full text-xs py-2 px-4 m-2 bg-red-600 text-white" 
                                     type="button" 
                                     onClick={() => removeFromSaved(clothes._id)}>Remove</button>
                             </div>
@@ -92,7 +100,7 @@ export const SavedClothingList = () => {
                                 {
                                     clothes.images.length > 0 ? 
                                     clothes.images.map((images) => (
-                                        <img src={images} alt="Image(s) of item" className="m-1" style={{ width: '100px', height: '100px' }} key={images}/> 
+                                        <img src={images} alt="Image(s) of item" className="m-1" style={{ maxWidth: '100px', maxHeight: '100px' }} key={images}/> 
                                     )) :
                                     <h2>No Image(s) Uploaded</h2>
                                 }
