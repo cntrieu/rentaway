@@ -75,8 +75,6 @@ export const Clothing = () => {
             console.error(err);
         }
     }
-   
-    const isClothingSaved = (id) => savedClothes.includes(id);
 
     const onChangeCategorySearch = (e) => {
         setSelectedCategory(e.target.value);
@@ -96,14 +94,16 @@ export const Clothing = () => {
             <div className="grow-0 shrink flex flex-col md:flex-row items-center justify-between">
                 <h2 className="text-xl font-bold text-center">{clothes.title}</h2>
                 <div className="md:flex items-center m-2 ">
+
+                    {/* If savedClothes includes current clothes id */}
                     <button 
                         className={`block hover-opacity border rounded-full text-xs py-2 px-4 my-2 ml-4 md:ml-0 text-white ${
-                                    isClothingSaved(clothes._id) ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
+                                    savedClothes?.includes(clothes._id) ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
                                     }`}
                         onClick={() => saveClothe(clothes._id)}
-                        disabled = {isClothingSaved(clothes._id)}
+                        disabled = {savedClothes?.includes(clothes._id)}
                     >
-                        {isClothingSaved(clothes._id) ? "Saved!" : "Save"}
+                        {savedClothes?.includes(clothes._id) ? "Saved!" : "Save"}
                     </button>
                     <Link to={
                             cookies.access_token ? `/clothing/${clothes._id}` : `/auth/login`
