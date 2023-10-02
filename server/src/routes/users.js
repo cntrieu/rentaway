@@ -71,22 +71,27 @@ router.delete("/:userID", async(req, res) => {
     try {
         const userID = req.params.userID;
         const user = await UserModel.findById(userID);
-        
+        console.log("deleting...")
         if (!user) {
             return res.status(404).json({ message: "User not found" });
           }
           
           const associatedClothingItems = await ClothingModel.find({ userOwner: user._id });
-       
+          const reviewsByUser = await ReviewModel.find({ reviewer: user._id });
+          
+          for (const reviews of reviewsByUser) {
+                await ReviewModel.findByIdAndRemove(reviews._id)
+          }
+         
           for (const clothingItem of associatedClothingItems) {
-      
             const associatedReviews = await ReviewModel.find({ _id: clothingItem.reviewIds });
-      
-           // Delete associated reviews
+        
+           // Delete associated reviews of clothing item
             for (const review of associatedReviews) {
               await ReviewModel.findByIdAndRemove(review._id)
+        
             }
-
+           
             await ClothingModel.findByIdAndRemove(clothingItem._id);
           }
 
