@@ -6,8 +6,6 @@ import { useNavigate, Link, useLocation  } from "react-router-dom"
 import ReactPaginate from 'react-paginate';
 import { useQuery } from "react-query"
 import ClipLoader from "react-spinners/ClipLoader";
-import { GetAverage } from "../hooks/getAverage"
-
 
 export const Clothing = () => {
     const userID = useGetUserID();
@@ -21,8 +19,6 @@ export const Clothing = () => {
     const clothingPerPage = 6;
     const pagesVisited = pageNumber * clothingPerPage
     const navigate = useNavigate();
-
-
 
 
     const {data:clothingData, isLoading, isError} = useQuery(["clothes"], () => {
@@ -77,18 +73,28 @@ export const Clothing = () => {
     }
 
     const onChangeCategorySearch = (e) => {
-        setSelectedCategory(e.target.value);
-        console.log(e.target.value);
+        const selectedValue = e.target.value
+
+        if (selectedValue === "") {
+            
+            setSelectedCategory(null); // Reset selected category to null or an initial value
+        } else {
+            setSelectedCategory(selectedValue); // Set the selected category
+        }
     }
+
+    const categories = [...new Set(clothingData.map(clothes => clothes.category))];
+    const filteredCategories = categories.filter(category => category !== "");
 
     const filteredClothing = selectedCategory
             ? clothingData.filter(clothes => clothes.category === selectedCategory)
             : clothingData;
 
-    const displayClothing = filteredClothing.slice(pagesVisited, pagesVisited + clothingPerPage).map(clothes => (
-      
+    // DISPLAY CLOTHING RENDER
+    const displayClothing = filteredClothing.slice(pagesVisited, pagesVisited + clothingPerPage).map(clothes => 
+        (
         <div key={clothes._id} className="card m-5 m:w-1/3">
-
+       
         <div key={clothes._id} className="border bg-gray-200 p-4 rounded-2xl h-full">
 
             <div className="grow-0 shrink flex flex-col md:flex-row items-center justify-between">
@@ -97,15 +103,18 @@ export const Clothing = () => {
 
                     {/* If savedClothes includes current clothes id */}
                     { cookies.access_token &&
+                        (clothes.userOwner === userID) ? 
+                            null
+                        :
                         <button 
-                            className={`block hover-opacity border rounded-full text-xs py-2 px-4 my-2 ml-4 md:ml-0 text-white ${
-                                        savedClothes?.includes(clothes._id) ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
-                                        }`}
-                            onClick={() => saveClothe(clothes._id)}
-                            disabled = {savedClothes?.includes(clothes._id)}
-                        >
-                            {savedClothes?.includes(clothes._id) ? "Saved!" : "Save"}
-                        </button>
+                        className={`block hover-opacity border rounded-full text-xs py-2 px-4 my-2 ml-4 md:ml-0 text-white ${
+                                    savedClothes?.includes(clothes._id) ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
+                                    }`}
+                        onClick={() => saveClothe(clothes._id)}
+                        disabled = {savedClothes?.includes(clothes._id)}
+                    >
+                        {savedClothes?.includes(clothes._id) ? "Saved!" : "Save"}
+                    </button>
                     }   
                     <Link to={
                         `/clothing/${clothes._id}`
@@ -147,7 +156,6 @@ export const Clothing = () => {
     
     ))
     
-
     const pageCount = Math.ceil(clothingData.length / clothingPerPage)
     const changePage = ({selected}) => {
         setPageNumber(selected);
@@ -164,13 +172,15 @@ export const Clothing = () => {
                 <h2 className="m-2 lg:ml-5">Search by Category: </h2>
                 <div>
                    
-                    <select onChange={onChangeCategorySearch} className="border p-2 rounded-full">
-                        {[...new Set(clothingData.map(clothes => clothes.category))].map(category => (
-                            <option key={category} value={category}>
-                            {category.charAt(0).toUpperCase() + category.slice(1).substr(0, 19)}
-                            </option>
-                        ))}
-                    </select>
+                <select onChange={onChangeCategorySearch} className="border p-2 rounded-full" >
+                    <option value="">Select Category</option>
+                    {filteredCategories.map(category => (
+                        <option key={category} value={category}>
+                            {category === "" ? "Select Category" : category.charAt(0).toUpperCase() + category.slice(1).substr(0, 19)}
+                        </option>
+                    ))}
+                </select>
+                
                 </div>
             </div>
             
