@@ -24,9 +24,9 @@ export const ViewClothingItem = () => {
           }, 4000);
       };
 
-    if(!cookies.access_token) {
-        navigate('/auth/login')
-    }
+    // if(!cookies.access_token) {
+    //     navigate('/auth/login')
+    // }
 
     useEffect(() => {
         const fetchViewClothing = async() => {
@@ -91,8 +91,9 @@ export const ViewClothingItem = () => {
             <div className="border bg-gray-200 p-4 m-4 rounded-2xl">
     
                 <div className="grow-0 shrink flex flex-col md:flex-row items-center justify-between pb-4">
-                    <h2 className="text-xl">{clothingItem.title}</h2>
+                    <h2 className="text-xl font-bold">{clothingItem.title}</h2>
                     <div className="md:flex items-center">
+                        
                         <button 
                             className={`hover-opacity border rounded-full text-xs py-2 px-4 text-white ${
                                 isClothingSaved(clothingItem._id) ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
@@ -154,7 +155,7 @@ export const ViewClothingItem = () => {
                     </div>
                 </div>
             </div>
-
+            
             <Reviews clothesId={clothesId}/>
         </div>
     )
