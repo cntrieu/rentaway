@@ -69,11 +69,11 @@ export const SavedClothingList = () => {
     return (
         <div className="w-5/6 mx-auto flex-grow">
             <h1 className="font-bold underline text-center">Saved Clothing</h1>
-            <ul className="grid md:grid-cols-3">
+            <ul className="grid lg:grid-cols-3">
                 {savedClothing && savedClothing.map((clothes) => (
                     <li key ={clothes._id} className="card m-5 m:w-1/3">
                         <div className="border bg-gray-200 p-4 rounded-2xl h-full">
-                            <div className="grow-0 shrink flex flex-col md:flex-row items-center justify-between">
+                            <div className="md:flex md:flex-row items-center md:justify-between">
                                 <Link className="text-xl font-bold" to={`/clothing/${clothes._id}`}>{clothes.title}</Link>
 
                                 <button 
@@ -95,7 +95,7 @@ export const SavedClothingList = () => {
                         <div className="text-sm">Price: ${clothes.price}</div>
                         <div className="text-sm">Location: {clothes.location}</div>
                         <div className="flex bg-gray-100 p-4 rounded-2xl m-4 justify-center">
-                            <div className="grid md:grid-cols-3 lg:grid-cols-3">
+                            <div className="grid md:grid-cols-3">
   
                                 {
                                     clothes.images.length > 0 ? 

@@ -97,7 +97,7 @@ export const Clothing = () => {
        
         <div key={clothes._id} className="border bg-gray-200 p-4 rounded-2xl h-full">
 
-            <div className="grow-0 shrink flex flex-col md:flex-row items-center justify-between">
+            <div className="grow-0 shrink flex flex-col items-center justify-between">
                 <h2 className="text-xl font-bold text-center">{clothes.title}</h2>
                 <div className="md:flex items-center m-2 ">
 
@@ -139,7 +139,7 @@ export const Clothing = () => {
             {/* <div className="text-sm flex"><p className="font-bold">Average Rating: </p> {average(clothes.reviews)}</div> */}
     
             <div className="flex bg-gray-100 p-4 rounded-2xl m-4 justify-center">
-                <div className="grid md:grid-cols-3 lg:grid-cols-3">
+                <div className="grid lg:grid-cols-3">
 
                     {
                         clothes.images.length > 0 ? clothes.images.map((images) => (
@@ -184,7 +184,7 @@ export const Clothing = () => {
                 </div>
             </div>
             
-            <ul className="grid md:grid-cols-3">
+            <ul className="grid md:grid-cols-2 lg:grid-cols-3">
                 {displayClothing}
             </ul>
             <ReactPaginate 
