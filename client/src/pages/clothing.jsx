@@ -96,17 +96,19 @@ export const Clothing = () => {
                 <div className="md:flex items-center m-2 ">
 
                     {/* If savedClothes includes current clothes id */}
-                    <button 
-                        className={`block hover-opacity border rounded-full text-xs py-2 px-4 my-2 ml-4 md:ml-0 text-white ${
-                                    savedClothes?.includes(clothes._id) ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
-                                    }`}
-                        onClick={() => saveClothe(clothes._id)}
-                        disabled = {savedClothes?.includes(clothes._id)}
-                    >
-                        {savedClothes?.includes(clothes._id) ? "Saved!" : "Save"}
-                    </button>
+                    { cookies.access_token &&
+                        <button 
+                            className={`block hover-opacity border rounded-full text-xs py-2 px-4 my-2 ml-4 md:ml-0 text-white ${
+                                        savedClothes?.includes(clothes._id) ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
+                                        }`}
+                            onClick={() => saveClothe(clothes._id)}
+                            disabled = {savedClothes?.includes(clothes._id)}
+                        >
+                            {savedClothes?.includes(clothes._id) ? "Saved!" : "Save"}
+                        </button>
+                    }   
                     <Link to={
-                            cookies.access_token ? `/clothing/${clothes._id}` : `/auth/login`
+                        `/clothing/${clothes._id}`
                         } className="hover-opacity border bg-amber-900 rounded-full text-xs py-2 px-4 text-white">
                             View Listing
                     </Link>
