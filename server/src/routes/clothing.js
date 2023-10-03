@@ -60,6 +60,21 @@ router.get("/:clothesId", async(req, res) => {
     }
 })
 
+router.delete("/:clothesId", verifyToken, async(req, res) => {
+    try {
+        const deleteClothing = await ClothingModel.findByIdAndRemove(req.params.clothesId);
+
+        if (!deleteClothing) {
+            return res.status(404).json({ message: "Clothing not found" });
+          }
+
+        res.json({ message: "Clothing deleted successfully" });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+})
+
 // Saved Clothes
 
 router.get("/savedClothes/ids/:userId", async(req, res) => {

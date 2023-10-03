@@ -7,12 +7,13 @@ import { useCookies } from "react-cookie"
 import { GetAverage } from '../hooks/getAverage';
 
 
-export const Reviews = ({clothesId}) => {
+export const Reviews = ({clothesId, isUserOwner}) => {
     const [cookies, _] = useCookies(["access_token"])
     const navigate = useNavigate()
     const userID = useGetUserID();
     const timestamp = getDateTime()
     const serverURL = import.meta.env.VITE_API_BASE_URL;
+
     // default rating if user does not select a rating
     let rating = "1";
   
@@ -26,6 +27,7 @@ export const Reviews = ({clothesId}) => {
 
     const [retrieveReviews, setRetrieveReviews] = useState([])
     const [getReviewerInfo, setGetReviewerInfo] = useState([])
+
     const getAverage = GetAverage(retrieveReviews)
 
     useEffect(() => {
@@ -63,6 +65,8 @@ export const Reviews = ({clothesId}) => {
         getUsernames()
     }, [retrieveReviews])
 
+    // console.log(getReviewerInfo)
+    // console.log(userID)
 
     const handleChange = (event) => {
         const {name, value} = event.target;
@@ -96,7 +100,7 @@ export const Reviews = ({clothesId}) => {
         }
     }
 
-
+    console.log(isUserOwner)
     return(
         
             <div>
@@ -113,7 +117,7 @@ export const Reviews = ({clothesId}) => {
                             const reviewerInfo = getReviewerInfo.find((info) => info._id == review.reviewer);
                             return (
                             <div key={review._id} className="border bg-gray-100 rounded-xl my-4 p-4">
-                                <div className="flex justify-between">
+                                <div className="md:flex justify-between">
                                     <div> <strong>Posted by: </strong> {' '}
                                         {reviewerInfo ? reviewerInfo.username : 'Unknown User'}
                                     </div>
@@ -138,29 +142,34 @@ export const Reviews = ({clothesId}) => {
             </div>
 
             <div className="">
+
                 { cookies.access_token ? 
-            <form onSubmit={onSubmit}>
+                    isUserOwner ? 
+                    <div className="text-center border p-4 rounded-full bg-stone-200">Adding reviews disabled as this is your item.</div>
+                    :
+                    <form onSubmit={onSubmit}>
 
-                <div className="text-2xl mt-4">
-                    <h2><label htmlFor="rating">Rating</label></h2>
-                    <select id="rating" className="border border-gray-500 my-1 py-2 px-3 rounded-lg w-9/12 text-xs sm:text-base" onChange={selectChange}>
-                        <option value="1">1 - BAD</option>
-                        <option value="2">2 - Needs Improvement</option>
-                        <option value="3">3 - Decent</option>
-                        <option value="4">4 - Good</option>
-                        <option value="5">5 - EXCELLENT</option>
-                    </select>
-                </div>
+                        <div className="text-2xl mt-4">
+                        
+                            <h2><label htmlFor="rating">Rating</label></h2>
+                            <select id="rating" className="border border-gray-500 my-1 py-2 px-3 rounded-lg w-9/12 text-xs sm:text-base" onChange={selectChange}>
+                                <option value="1">1 - BAD</option>
+                                <option value="2">2 - Needs Improvement</option>
+                                <option value="3">3 - Decent</option>
+                                <option value="4">4 - Good</option>
+                                <option value="5">5 - EXCELLENT</option>
+                            </select>
+                        </div>
 
-                <div className="text-2xl mt-4">
-                    <h2><label htmlFor="comment">Comment</label></h2>
-                    <textarea id="comment" name="comment" className="border border-gray-500 my-1 py-2 px-3 rounded-lg w-full" placeholder="tell us a story about the item..." onChange={handleChange}></textarea>
-                </div>
+                        <div className="text-2xl mt-4">
+                            <h2><label htmlFor="comment">Comment</label></h2>
+                            <textarea id="comment" name="comment" className="border border-gray-500 my-1 py-2 px-3 rounded-lg w-full" placeholder="tell us a story about the item..." onChange={handleChange}></textarea>
+                        </div>
 
-                <button type="submit" className="border rounded-lg border-orange-900 bg-amber-700 text-white p-3 mb-6">Submit Review</button>
-            </form>
-            :
-            <Link to={"/auth/login"} className="m-3">You must login to leave a review</Link>
+                        <button type="submit" className="border rounded-lg border-orange-900 bg-amber-700 text-white p-3 mb-6">Submit Review</button>
+                    </form>
+                    :
+                    <Link to={"/auth/login"} className="m-3">You must login to leave a review</Link>
                 }
         </div>
         </div>

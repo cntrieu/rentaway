@@ -15,6 +15,7 @@ export const ViewClothingItem = () => {
     const navigate = useNavigate()
     const [showUnfinished, setShowUnfinished] = useState(false)
     const serverURL = import.meta.env.VITE_API_BASE_URL;
+    const [openDeleteModal, setOpenDeleteModal] = useState(false)
 
     const handleButtonClick = () => {
         setShowUnfinished(true);
@@ -84,8 +85,36 @@ export const ViewClothingItem = () => {
         }
     }
 
+    const deleteItem = async(clothesID) => {
+        const deleteConfirmation = window.confirm("Are you sure you want to delete this item?")
+
+        if (deleteConfirmation) {
+            try {
+                await axios.delete(`${serverURL}/clothing/${clothesID}`, {
+                    headers: { authorization: cookies.access_token },
+                })
+                navigate("/clothing")
+            } catch (error) {
+                console.error("Error deleting user:", error);
+            }
+        } else {
+            return
+        }
+
+        
+    }
+
     const isClothingSaved = (id) => savedClothes && savedClothes.includes(id);
    
+    const isUserOwner = () => {
+        if (clothingItem.userOwner === userID) {
+            return true
+        }
+
+        return false
+    }
+
+
     return (
         <div className="w-9/12 mx-auto flex-grow">
             <div className="border bg-gray-200 p-4 m-4 rounded-2xl">
@@ -93,7 +122,14 @@ export const ViewClothingItem = () => {
                 <div className="grow-0 shrink flex flex-col md:flex-row items-center justify-between pb-4">
                     <h2 className="text-xl font-bold">{clothingItem.title}</h2>
                     <div className="md:flex items-center">
-                        
+                        {isUserOwner() ?
+                        <button 
+                        className={`hover-opacity border rounded-full text-xs py-2 px-4 text-white bg-red-500 hover:hover-opacity
+                            }`}
+                        onClick={() => deleteItem(clothingItem._id)}>
+                            Delete Listing
+                    </button>
+                        :
                         <button 
                             className={`hover-opacity border rounded-full text-xs py-2 px-4 text-white ${
                                 isClothingSaved(clothingItem._id) ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
@@ -103,6 +139,7 @@ export const ViewClothingItem = () => {
                             >
                             {isClothingSaved(clothingItem._id) ? "Saved!" : "Save"}
                         </button>
+                        }
                     </div>
                 </div>
                 <div className="description">
@@ -156,7 +193,7 @@ export const ViewClothingItem = () => {
                 </div>
             </div>
             
-            <Reviews clothesId={clothesId}/>
+            <Reviews clothesId={clothesId} isUserOwner={isUserOwner()}/>
         </div>
     )
 }
