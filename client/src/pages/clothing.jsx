@@ -88,11 +88,14 @@ export const Clothing = () => {
         } else {
             setSelectedCategory(selectedValue); // Set the selected category
         }
+
+        // set page number to 1 when user searches
+        setPageNumber(0);
     }
 
     const onChangeTypedSearch = (e) => {
-        console.log(e.target.value)
         setQuery(e.target.value.toLowerCase())
+        setPageNumber(0);
     }
 
     const categories = [...new Set(clothingData.map(clothes => clothes.category))];
@@ -102,7 +105,10 @@ export const Clothing = () => {
             ? clothingData.filter(clothes => clothes.category === selectedCategory)
             : clothingData;
 
-    const pageCount = Math.ceil(clothingData.length / clothingPerPage)
+            const pageCount = Math.max(
+                1,
+                Math.ceil((query ? searchData.length : filteredClothing.length) / clothingPerPage)
+            );
 
     const changePage = ({selected}) => {
         setPageNumber(selected);
@@ -137,7 +143,9 @@ export const Clothing = () => {
                     pageNumber={pageNumber} 
                     savedClothes={savedClothes}
                     saveClothe={saveClothe}
-                    searchData={searchData}/>
+                    searchData={searchData}
+                    query={query}
+                   />
             </ul>
             <ReactPaginate 
                      previousLabel={"Previous"}

@@ -4,14 +4,15 @@ import { useGetUserID } from "../hooks/useGetUserID"
 import { useNavigate, Link, useLocation  } from "react-router-dom"
 import { useQuery } from "react-query"
 
-export const DisplayClothing = ({filteredClothing, pageNumber, savedClothes, saveClothe, searchData}) => {
+export const DisplayClothing = ({filteredClothing, pageNumber, savedClothes, saveClothe, searchData, query}) => {
     const [cookies, _] = useCookies(["access_token"])
     const clothingPerPage = 6;
     const pagesVisited = pageNumber * clothingPerPage
     const userID = useGetUserID();  
 
     return (
-       (searchData ? searchData : filteredClothing).slice(pagesVisited, pagesVisited + clothingPerPage).map(clothes => 
+        // if query is true, user is typing something in search
+       (query ? searchData : filteredClothing).slice(pagesVisited, pagesVisited + clothingPerPage).map(clothes => 
             (
             <div key={clothes._id} className="card m-5 m:w-1/3">
            
