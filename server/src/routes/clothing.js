@@ -9,8 +9,23 @@ const router = express.Router();
 
 router.get("/", async(req, res) => {
     try {
-        const response = await ClothingModel.find({})
-        res.json(response);
+        const { q } = req.query
+ 
+        if (q) {
+            // If 'q' parameter is provided, apply filtering. 'i' for case-insensitive matching
+            const filteredClothing = await ClothingModel.find({ 
+                $or: [
+                    { title: { $regex: q, $options: 'i' } },
+                    { category: { $regex: q, $options: 'i' } },
+                    { description: { $regex: q, $options: 'i' } }
+                ]});
+      
+            res.json(filteredClothing);
+        } else {
+            // If 'q' parameter is not provided, retrieve all clothing items
+            const allClothing = await ClothingModel.find({});
+            res.json(allClothing);
+        }
     } catch (err) {
         res.json(err)
     }
