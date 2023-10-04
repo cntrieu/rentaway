@@ -17,7 +17,8 @@ router.get("/", async(req, res) => {
                 $or: [
                     { title: { $regex: q, $options: 'i' } },
                     { category: { $regex: q, $options: 'i' } },
-                    { description: { $regex: q, $options: 'i' } }
+                    { description: { $regex: q, $options: 'i' } },
+                    { location: { $regex: q, $options: 'i' } }
                 ]});
       
             res.json(filteredClothing);

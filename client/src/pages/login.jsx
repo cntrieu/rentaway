@@ -26,7 +26,7 @@ export const Login = () => {
                 password
             })
             
-           setCookies("access_token", response.data.token);
+           setCookies("access_token", response.data.token, {maxAge: 3600});
            window.localStorage.setItem("userID", response.data.userID);
            navigate("/")
         } catch (err) {
