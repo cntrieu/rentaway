@@ -143,7 +143,7 @@ export const Dashboard = () => {
             </form>
         </section>
         
-        <section className="w-2/5 mx-auto mt-20">
+        <section className="w-2/5 mx-auto mt-20 mb-5">
             <DeleteAccount />
         </section>
         </>

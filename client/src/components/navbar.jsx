@@ -21,7 +21,7 @@ export const Navbar = () => {
             window.localStorage.removeItem("userID");
         }
     }
-    
+
     useEffect(() => {
         timedOut()
     }, [cookies.access_token])
@@ -152,7 +152,7 @@ export const Navbar = () => {
                                     
                                         <Link className="lg:text-2xl  text-black hover-opacity" to="/saved" onClick={closeSidebar} >Saved Clothes</Link>
                                    
-                                    <Link className="lg:text-2xl  text-black hover-opacity" to="/addClothes" onClick={closeSidebar} >Rent</Link>
+                                    <Link className="lg:text-2xl  text-black hover-opacity" to="/addClothes" onClick={closeSidebar}>List Something</Link>
                                     
                                 </div>
 
