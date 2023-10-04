@@ -15,6 +15,17 @@ export const Navbar = () => {
     const userID = useGetUserID();
     const serverURL = import.meta.env.VITE_API_BASE_URL;
     
+    const timedOut = () => {
+        if(!cookies.access_token) {
+            removeCookie("access_token", "")
+            window.localStorage.removeItem("userID");
+        }
+    }
+    
+    useEffect(() => {
+        timedOut()
+    }, [cookies.access_token])
+   
 
     const logout = () => {
         removeCookie("access_token", "")
