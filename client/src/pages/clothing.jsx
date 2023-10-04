@@ -12,11 +12,13 @@ export const Clothing = () => {
     const userID = useGetUserID();
     const [savedClothes, setSavedClothes] = useState([])
     const [cookies, _] = useCookies(["access_token"])
-    const serverURL = import.meta.env.VITE_API_BASE_URL;
     const [pageNumber, setPageNumber] = useState(0);
     const [selectedCategory, setSelectedCategory] = useState("");
+    const [query, setQuery] = useState("");
+    const [searchData, setSearchData] = useState([]);
     const clothingPerPage = 6;
     const navigate = useNavigate();
+    const serverURL = import.meta.env.VITE_API_BASE_URL;
 
 
     const {data:clothingData, isLoading, isError} = useQuery(["clothes"], () => {
@@ -29,6 +31,14 @@ export const Clothing = () => {
             res.data
         });
     });
+
+    useEffect(() => {
+        const fetchData = async() => {
+            const res = await axios.get(`${serverURL}/clothing/?q=${query}`)
+            setSearchData(res.data);
+        };
+        if (query.length === 0 || query.length > 2) fetchData(); 
+    }, [query])
 
 
     if (isError) {
@@ -72,13 +82,17 @@ export const Clothing = () => {
 
     const onChangeCategorySearch = (e) => {
         const selectedValue = e.target.value
-
         if (selectedValue === "") {
             
             setSelectedCategory(null); // Reset selected category to null or an initial value
         } else {
             setSelectedCategory(selectedValue); // Set the selected category
         }
+    }
+
+    const onChangeTypedSearch = (e) => {
+        console.log(e.target.value)
+        setQuery(e.target.value.toLowerCase())
     }
 
     const categories = [...new Set(clothingData.map(clothes => clothes.category))];
@@ -89,6 +103,7 @@ export const Clothing = () => {
             : clothingData;
 
     const pageCount = Math.ceil(clothingData.length / clothingPerPage)
+
     const changePage = ({selected}) => {
         setPageNumber(selected);
     }
@@ -98,10 +113,10 @@ export const Clothing = () => {
             <div className="lg:flex items-center">
                 <div id="title-line">
                     {/* <h1 className="font-bold underline text-center mb-5">Clothing for Rent</h1> */}
-                    <input placeholder="*search function tbd" className="border p-2 rounded-full"></input>
+                    <input placeholder="Search" className="border p-2 rounded-full" onChange={onChangeTypedSearch}></input>
                     
                 </div>
-                <h2 className="m-2 lg:ml-5">Search by Category: </h2>
+                <h2 className="m-2 lg:ml-5">Filter by Category: </h2>
                 <div>
                    
                 <select onChange={onChangeCategorySearch} className="border p-2 rounded-full" >
@@ -121,7 +136,8 @@ export const Clothing = () => {
                     filteredClothing={filteredClothing} 
                     pageNumber={pageNumber} 
                     savedClothes={savedClothes}
-                    saveClothe={saveClothe}/>
+                    saveClothe={saveClothe}
+                    searchData={searchData}/>
             </ul>
             <ReactPaginate 
                      previousLabel={"Previous"}
