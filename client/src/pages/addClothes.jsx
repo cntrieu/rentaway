@@ -3,6 +3,7 @@ import axios from "axios";
 import { useGetUserID } from "../hooks/useGetUserID";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import { Link } from "react-router-dom";
 
 export const AddClothes = () => {
     const userID = useGetUserID();
@@ -11,6 +12,7 @@ export const AddClothes = () => {
     const [addedPhotos, setAddedPhotos] = useState([]);
     const [missingFields, setMissingFields] = useState(null);
     const [showSuccess, setShowSuccess] = useState(false);
+    const [addedClothing, setAddedClothing] = useState("")
     const serverURL = import.meta.env.VITE_API_BASE_URL;
     const backendURL = import.meta.env.VITE_API_BACKEND_URL;
     const [clothing, setClothing] = useState({
@@ -26,10 +28,11 @@ export const AddClothes = () => {
     useEffect(() => {
         // Check if the clothing state has images and is ready to submit
         if (clothing.images.length > 0) {
-          // Call your postClothing function or any other logic
-         postClothing()
+            postClothing()
         }
-      }, [clothing.images]); // Only trigger this effect when the clothing state changes
+        
+      }, [clothing.images]); // Only trigger this effect when the clothing.images state changes
+
 
     const handleChange = (event) => {
         const {name, value} = event.target;
@@ -51,7 +54,7 @@ export const AddClothes = () => {
       };
 
     const highlightMissing = () => {
-        if(!title.value || !userLocation.value || !price.value || !description.value || !file.value) {
+        if(!title.value || !userLocation.value || !price.value || !description.value) {
             return `border-red-500`;
         }
     }
@@ -59,7 +62,7 @@ export const AddClothes = () => {
  
     const onSubmit = async (event) => {
         event.preventDefault();
-        if(!title.value || !userLocation.value || !price.value || !description.value || !file.value) {
+        if(!title.value || !userLocation.value || !price.value || !description.value) {
             setErrorWithTimeout("Please fill out all required fields and have photos uploaded")
             highlightMissing();
             return;
@@ -74,7 +77,6 @@ export const AddClothes = () => {
             formData.append('file', file);
             formData.append('upload_preset', 'rentAway-uploads');
         
-            // Return the promise for the Axios request
             return axios.post("https://api.cloudinary.com/v1_1/dsvlxgsi3/image/upload", formData, {
                 headers: {'Content-type': "multipart/form-data"}
             })
@@ -85,25 +87,35 @@ export const AddClothes = () => {
           });
         
           try {
-            // Wait for all image uploads to complete
+   
             const imageUrls = await Promise.all(uploadPromises);
-         
+
             setClothing((prevClothing) => ({
-              ...prevClothing,
-              images: [...prevClothing.images, ...imageUrls],
-            }));
+                ...prevClothing,
+                images: [...prevClothing.images, ...imageUrls],
+              }));
+
+            // postClothing is called in useEffect when length > 0 (that's the only way I could get images to be appended with the post request) 
+            // and postclothing is called here when it is 0 
+            if (imageUrls.length === 0) {
+                postClothing();
+              } 
+      
          
+        
           } catch (error) {
             console.error(error);
           }
+
+       
     }
 
     const postClothing = async() => {
    
         try {
-            await axios.post(`${serverURL}/clothing`, clothing, {
+            const response = await axios.post(`${serverURL}/clothing`, clothing, {
                 headers: { authorization: cookies.access_token },
-            });
+              });
             
             title.value = ""
             userLocation.value = ""
@@ -111,10 +123,10 @@ export const AddClothes = () => {
             description.value = ""
 
             setAddedPhotos([]); // Clear uploaded photos
-          
+            // Add id to state so user can view listing right away
+            setAddedClothing(response.data._id)
             setShowSuccess(true)
-            // alert("Your Item has been added!")
-            // navigate("/clothing");
+    
         } catch (err) {
             console.error(err)
         }
@@ -186,7 +198,7 @@ export const AddClothes = () => {
                 </div>
 
                 <div className="text-base md:text-2xl mt-4">
-                    <h2><label htmlFor="images">Photos*</label></h2>
+                    <h2><label htmlFor="images">Photos</label></h2>
                     <div className="mt-3 mb-3 grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
          
                     {addedPhotos.length > 0 && addedPhotos.map(link => (
@@ -223,8 +235,11 @@ export const AddClothes = () => {
                             <div className="mt-2 mb-4 text-sm">
                        
                             </div>
-                            <div className="flex">
+                            <div className="flex gap-6">
     
+                              <Link type="button" className="text-green-800 bg-transparent border border-green-800 hover:bg-green-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center dark:hover:bg-green-600 dark:border-green-600 dark:text-green-400 dark:hover:text-white dark:focus:ring-green-800" data-dismiss-target="#alert-additional-content-3" aria-label="Close" to={ `/clothing/${addedClothing}`}>
+                                View Listing
+                              </Link>
                               <button type="button" className="text-green-800 bg-transparent border border-green-800 hover:bg-green-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center dark:hover:bg-green-600 dark:border-green-600 dark:text-green-400 dark:hover:text-white dark:focus:ring-green-800" data-dismiss-target="#alert-additional-content-3" aria-label="Close" onClick={dismiss}>
                                 Dismiss
                               </button>

@@ -100,7 +100,6 @@ export const Reviews = ({clothesId, isUserOwner}) => {
         }
     }
 
-    console.log(isUserOwner)
     return(
         
             <div>
