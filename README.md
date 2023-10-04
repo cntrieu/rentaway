@@ -57,9 +57,11 @@ Website: <a href="https://rentaway.onrender.com/">RentAway</a>
 ## :star: Added Features
 
 - Login/Register, with ability to update information or delete account and all contents
-- Post items with descriptions and photos
+- Post items with descriptions and photos with options to delete and update listing
 - Ability for users to write reviews on products
 - Save different products to view them later
+- Users can search all listings using keywords or filter clothes by category
+- IN PROGRESS: Messaging other users within platform
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
