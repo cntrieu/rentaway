@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useGetUserID } from "../hooks/useGetUserID";
-import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 
 export const AddClothes = () => {
     const userID = useGetUserID();
     const [cookies, _] = useCookies(["access_token"])
-    const navigate = useNavigate()
+    const [characterCount, setCharacterCount] = useState(0);
     const [addedPhotos, setAddedPhotos] = useState([]);
     const [missingFields, setMissingFields] = useState(null);
     const [showSuccess, setShowSuccess] = useState(false);
     const [addedClothing, setAddedClothing] = useState("")
+    const [uploadedPhotosCount, setUploadedPhotosCount] = useState(0);
+    const [showReturnButton, setShowReturnButton] = useState(false);
+    const maxPhotos = 5;
     const serverURL = import.meta.env.VITE_API_BASE_URL;
     const backendURL = import.meta.env.VITE_API_BACKEND_URL;
     const [clothing, setClothing] = useState({
@@ -30,9 +32,7 @@ export const AddClothes = () => {
         if (clothing.images.length > 0) {
             postClothing()
         }
-        
       }, [clothing.images]); // Only trigger this effect when the clothing.images state changes
-
 
     const handleChange = (event) => {
         const {name, value} = event.target;
@@ -42,7 +42,6 @@ export const AddClothes = () => {
     const selectChange = (e) => {
         const selectedValue = e.target.value
         const updatedClothing = { ...clothing, category: selectedValue };
-
         setClothing(updatedClothing)
     }
 
@@ -58,21 +57,20 @@ export const AddClothes = () => {
             return `border-red-500`;
         }
     }
-
  
     const onSubmit = async (event) => {
         event.preventDefault();
-        if(!title.value || !userLocation.value || !price.value || !description.value) {
-            setErrorWithTimeout("Please fill out all required fields and have photos uploaded")
-            highlightMissing();
-            return;
-        }
+        // if(!title.value || !userLocation.value || !price.value || !description.value) {
+        //     setErrorWithTimeout("Please fill out all required fields and have photos uploaded")
+        //     highlightMissing();
+        //     return;
+        // }
 
         const form = event.currentTarget;
         const fileInput = Array.from(form.elements).find(({ name }) => name === 'file');
+        const selectedFiles = Array.from(fileInput.files);
 
- 
-        const uploadPromises = Array.from(fileInput.files).map(async (file) => {
+        const uploadPromises = selectedFiles.slice(0, maxPhotos).map(async (file) => {
             const formData = new FormData();
             formData.append('file', file);
             formData.append('upload_preset', 'rentAway-uploads');
@@ -87,27 +85,22 @@ export const AddClothes = () => {
           });
         
           try {
-   
             const imageUrls = await Promise.all(uploadPromises);
-
             setClothing((prevClothing) => ({
                 ...prevClothing,
                 images: [...prevClothing.images, ...imageUrls],
               }));
 
+              // set back to 0 to remove maximum photos count
+              setUploadedPhotosCount(0);
             // postClothing is called in useEffect when length > 0 (that's the only way I could get images to be appended with the post request) 
             // and postclothing is called here when it is 0 
             if (imageUrls.length === 0) {
                 postClothing();
               } 
-      
-         
-        
           } catch (error) {
             console.error(error);
           }
-
-       
     }
 
     const postClothing = async() => {
@@ -133,26 +126,38 @@ export const AddClothes = () => {
     }
 
     const uploadPhoto = (event) => {
+
+        if (uploadedPhotosCount >= maxPhotos) {
+            // Display an error message or take appropriate action.
+            return;
+        }
+
         const files = event.target.files;
         const data = new FormData();
-        for (let i = 0; i < files.length; i++) {
+        const newPhotosCount = Math.min(maxPhotos - uploadedPhotosCount, files.length)
+        for (let i = 0; i < newPhotosCount; i++) {
             data.append('photos', files[i])
         }
-    
+
+        setUploadedPhotosCount((prevCount) => prevCount + newPhotosCount);
+
         axios.post(`${backendURL}/upload`, data, {
             headers: {'Content-type': "multipart/form-data"}
         }).then(response => {
             const {data: filenames} = response;
 
-            setAddedPhotos(prev => {
-                
-                return [...prev, ...filenames];
-            })
+            setAddedPhotos(prev => [...prev, ...filenames])
         })
     }
 
     const dismiss = () => {
         setShowSuccess(!showSuccess)
+    }
+
+    const countCharacters = (e) => {
+        const target = e.target
+        const currentLength = target.value.length;
+        setCharacterCount(currentLength);
     }
 
 
@@ -165,14 +170,14 @@ export const AddClothes = () => {
             <form onSubmit={onSubmit}>
                 <div className="text-base md:text-2xl mt-4">
                     <h2><label htmlFor="title">Title*</label></h2>
-                    <input type="text" id="title" name="title" placeholder="North Face" className={`border border-gray-500 my-1 py-2 px-3 rounded-lg`} onChange={handleChange}/>
+                    <input type="text" maxlength="20" id="title" name="title" placeholder="North Face" className={`border border-gray-500 my-1 py-2 px-3 rounded-lg`} onChange={handleChange}/>
                 </div>
 
                 <div className="text-base md:text-2xl mt-4">
                     <h2><label htmlFor="category">Category*</label></h2>
                         <select id="category" className="border border-gray-500 my-1 py-2 px-3 rounded-lg" onChange={selectChange}>
-                            <option value="hats">Hats</option>
                             <option value="jackets">Jackets</option>
+                            <option value="hats">Hats</option>
                             <option value="pants">Pants</option>
                             <option value="sweaters">Sweaters</option>
                             <option value="shirts">Shirts</option>
@@ -183,31 +188,37 @@ export const AddClothes = () => {
 
                 <div className="text-base md:text-2xl mt-4">
                     <h2><label htmlFor="location">Location*</label></h2>
-                    <input type="text" id="userLocation" name="location" placeholder="Toronto" className="border border-gray-500 my-1 py-2 px-3 rounded-lg" onChange={handleChange}/>
+                    <input type="text" maxlength="20" id="userLocation" name="location" placeholder="Toronto" className="border border-gray-500 my-1 py-2 px-3 rounded-lg" onChange={handleChange}/>
                 </div>
                 
                 <div className="text-base md:text-2xl mt-4">
                     <h2><label htmlFor="price">Price Per Day*</label></h2>
-                    <input type="number" id="price" name ="price" placeholder="$25"className="border border-gray-500 my-1 py-2 px-3 rounded-lg" onChange={handleChange}/>
+                    <input type="number" max="1000" id="price" name ="price" placeholder="$25"className="border border-gray-500 my-1 py-2 px-3 rounded-lg" onChange={handleChange}/>
                 </div>
 
                 
                 <div className="text-base md:text-2xl mt-4">
                     <h2><label htmlFor="description">Description*</label></h2>
-                    <textarea id="description" name="description" className="border border-gray-500 my-1 py-2 px-3 rounded-lg w-full" placeholder="tell us a story about the item..." onChange={handleChange}></textarea>
+                    <textarea maxLength="250" id="description" name="description" className="border border-gray-500 my-1 p-4 rounded-lg w-full" placeholder="tell us a story about the item..." onChange={(e) => {
+                        handleChange(e);
+                        countCharacters(e);
+                        }}></textarea>
                 </div>
+                <div className="flex justify-end">{characterCount}/250</div>
 
                 <div className="text-base md:text-2xl mt-4">
-                    <h2><label htmlFor="images">Photos</label></h2>
+                    <h2><label htmlFor="images">Photos (max 5)</label></h2>
                     <div className="mt-3 mb-3 grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-         
+                     
                     {addedPhotos.length > 0 && addedPhotos.map(link => (
                       
                         <div key={link} className="md:h-32 flex m-6"> 
                             <img className="rounded-2xl" src={`${backendURL}/uploads/${link}`} alt={`Uploaded Image`} style={{ width: '150px', height: '150px' }} />
                         </div>
                     ))}
-
+                        {uploadedPhotosCount >= maxPhotos &&  (
+                        <div className="text-red-500">Maximum photos reached</div>
+                        )}
                         <div className="flex items-center">
                             <label className="md:h-32 cursor-pointer flex gap-1 justify-center border bg-transparent rounded-2xl p-4 md:p-8 text-2xl text-gray-600" type="button">
                             <input type="file" multiple className="hidden" id="file" name="file" onChange={uploadPhoto} />
@@ -217,12 +228,14 @@ export const AddClothes = () => {
                                 Upload
                             </label>
                         </div>
+                
                     </div>
                 </div>
 
                 {missingFields && (
                                     <div className="error-message text-red-400 font-bold">{missingFields}</div>
                                 )}
+
                      { showSuccess &&
                             <div id="alert-additional-content-3" className="p-4 mb-4 text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800" role="alert">
                             <div className="flex items-center">

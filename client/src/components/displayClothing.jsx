@@ -9,8 +9,7 @@ export const DisplayClothing = ({filteredClothing, pageNumber, savedClothes, sav
     const clothingPerPage = 6;
     const pagesVisited = pageNumber * clothingPerPage
     const userID = useGetUserID();  
-    console.log(cookies.access_token)
-    console.log(Boolean(cookies.access_token))
+
     return (
         // if query is true, user is typing something in search
        (query ? searchData : filteredClothing).slice(pagesVisited, pagesVisited + clothingPerPage).map(clothes => 
