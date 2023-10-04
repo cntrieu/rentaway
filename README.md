@@ -60,8 +60,8 @@ Website: <a href="https://rentaway.onrender.com/">RentAway</a>
 - Post items with descriptions and photos with options to delete and update listing
 - Ability for users to write reviews on products
 - Save different products to view them later
+- Users can search all listings using keywords or filter clothes by category
 - IN PROGRESS: Messaging other users within platform
-- IN PROGRESS: Searching all listings for keywords
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
