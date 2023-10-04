@@ -73,7 +73,7 @@ export const SavedClothingList = () => {
                 {savedClothing && savedClothing.map((clothes) => (
                     <li key ={clothes._id} className="card m-5 m:w-1/3">
                         <div className="border bg-gray-200 p-4 rounded-2xl h-full">
-                            <div className="md:flex md:flex-row items-center md:justify-between">
+                            <div className="flex md:flex-row items-center justify-between">
                                 <Link className="text-xl font-bold" to={`/clothing/${clothes._id}`}>{clothes.title}</Link>
 
                                 <button 
