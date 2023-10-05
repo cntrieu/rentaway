@@ -102,7 +102,7 @@ npm install
   <a href="https://rentaway.onrender.com/" target="_blank">
     <img src='./client/src/assets/images/screenshots/rentaway.onrender.com_about.png' alt='dashboard pic' style="border: 5px solid #a46cf5; border-radius: 15px; max-width: 75%; max-height: 75%">
      <img src='./client/src/assets/images/screenshots/rentaway.onrender.com_clothing.png' alt='dashboard pic' style="border: 5px solid #a46cf5; border-radius: 15px; max-width: 75%; max-height: 75%">
-      <img src='./client/src/assets/images/screenshots/rentaway.onrender.com_clothing_651508645cf397d7f6176baa.png' alt='dashboard pic' style="border: 5px solid #a46cf5; border-radius: 15px; max-width: 75%; max-height: 75%">
+      <img src='./client/src/assets/images/screenshots/rentaway.onrender.com_clothing_viewing.png' alt='dashboard pic' style="border: 5px solid #a46cf5; border-radius: 15px; max-width: 75%; max-height: 75%">
       <img src='./client/src/assets/images/screenshots/rentaway.onrender.com_dashboard.png' alt='dashboard pic' style="border: 5px solid #a46cf5; border-radius: 15px; max-width: 75%; max-height: 75%">
        <img src='./client/src/assets/images/screenshots/rentaway.onrender.com_addClothes.png' alt='dashboard pic' style="border: 5px solid #a46cf5; border-radius: 15px; max-width: 75%; max-height: 75%">
   </a>
