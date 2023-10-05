@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useGetUserID } from "../hooks/useGetUserID"
 import { useCookies } from "react-cookie"
 import { Reviews } from '../components/reviews';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 export const ViewClothingItem = () => {
     const {clothesId} = useParams();
@@ -15,7 +17,23 @@ export const ViewClothingItem = () => {
     const navigate = useNavigate()
     const [showUnfinished, setShowUnfinished] = useState(false)
     const serverURL = import.meta.env.VITE_API_BASE_URL;
-    const [openDeleteModal, setOpenDeleteModal] = useState(false)
+    const responsive = {
+        desktop: {
+          breakpoint: { max: 3000, min: 1024 },
+          items: 3,
+          slidesToSlide: 3 // optional, default to 1.
+        },
+        tablet: {
+          breakpoint: { max: 1024, min: 464 },
+          items: 2,
+          slidesToSlide: 2 // optional, default to 1.
+        },
+        mobile: {
+          breakpoint: { max: 464, min: 0 },
+          items: 1,
+          slidesToSlide: 1 // optional, default to 1.
+        }
+      };
 
     const handleButtonClick = () => {
         setShowUnfinished(true);
@@ -25,9 +43,7 @@ export const ViewClothingItem = () => {
           }, 4000);
       };
 
-    // if(!cookies.access_token) {
-    //     navigate('/auth/login')
-    // }
+
 
     useEffect(() => {
         const fetchViewClothing = async() => {
@@ -173,25 +189,43 @@ export const ViewClothingItem = () => {
 
                     </div>
 
-                <div className="flex bg-gray-100 p-4 rounded-2xl m-4 justify-center">
-                    <div className="h-full">
-                    {clothingItem.images && clothingItem.images.length > 0 ? (
-                            clothingItem.images.map((image, index) => (
-                                <img 
-                                src={image} 
-                                alt="Photo of Item" 
-                                className="w-1/3 md:w-full rounded-xl mb-2" 
-                                key={index} 
-                                style={{ minWidth: '100px', maxWidth: '500px', minHeight: '100px', maxHeight: '500px' }}
-                                />
-                            ))
-                        ) : (
-                            <h2>No Image(s) Uploaded</h2>
-                        )}
-
+                    <div className="flex bg-gray-100 p-4 rounded-2xl m-4 justify-center">
+                        <div className="h-5/6">
+                            {clothingItem.images && clothingItem.images.length > 0 ? (
+                                <Carousel
+                                    swipeable={true}
+                                    draggable={true}
+                                    // showDots={true}
+                                    // responsive={responsive}
+                                    ssr={true} // means to render carousel on server-side.
+                                    infinite={true}
+                                    autoPlaySpeed={1000}
+                                    keyBoardControl={true}
+                                    customTransition="all .5"
+                                    transitionDuration={500}
+                                    containerClass="carousel-container"
+                                    removeArrowOnDeviceType={["tablet", "mobile"]}
+                                    showThumbs={false}
+                                    arrows={true}
+                                >
+                                    {clothingItem.images.map((image, index) => (
+                                    <div key={index}>
+                                        <img
+                                        src={image}
+                                        alt={`Photo ${index + 1} of Item`}
+                                        className="carousel-imgs rounded-xl mb-2"
+                                  
+                                        
+                                        />
+                                    </div>
+                                    ))}
+                                </Carousel>
+                            ) : (
+                                <h2>No Image(s) Uploaded</h2>
+                            )}
+                        </div>
                     </div>
-                </div>
-            </div>
+                 </div>
             
             <Reviews clothesId={clothesId} isUserOwner={isUserOwner()}/>
         </div>
