@@ -93,3 +93,22 @@ body {
 .paginationDisabled a {
   display: none;
 }
+
+
+@media (max-width: 768px) {
+  .carousel-imgs {
+    width: 100%; /* Adjust to the desired width for smaller screens */
+    height: auto; /* Allow the aspect ratio to adjust */
+    max-height: 300px; 
+  }
+}
+
+@media (min-width: 1201px) {
+  .carousel-imgs {
+    min-width: 100px;
+    max-width: 500px;
+    min-height: 100px;
+    max-height: 500px;
+  
+  }
+}

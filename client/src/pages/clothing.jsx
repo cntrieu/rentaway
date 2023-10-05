@@ -8,6 +8,7 @@ import { useQuery } from "react-query"
 import ClipLoader from "react-spinners/ClipLoader";
 import { DisplayClothing } from "../components/displayClothing"
 
+
 export const Clothing = () => {
     const userID = useGetUserID();
     const [savedClothes, setSavedClothes] = useState([])
