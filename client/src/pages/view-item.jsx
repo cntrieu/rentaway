@@ -196,7 +196,7 @@ export const ViewClothingItem = () => {
                                     swipeable={true}
                                     draggable={true}
                                     // showDots={true}
-                                    responsive={responsive}
+                                    // responsive={responsive}
                                     ssr={true} // means to render carousel on server-side.
                                     infinite={true}
                                     autoPlaySpeed={1000}
