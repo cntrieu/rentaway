@@ -44,7 +44,6 @@ router.post("/", verifyToken, async(req, res) => {
 })
 
 router.put("/", verifyToken, async(req, res) => {
-
     try {
         const clothing = await ClothingModel.findById(req.body.clothesID)
         const user = await UserModel.findById(req.body.userID)
@@ -62,6 +61,36 @@ router.put("/", verifyToken, async(req, res) => {
         res.json({savedClothes: user.savedClothes});
     } catch (err) {
         res.json(err)
+    }
+})
+
+router.put("/:clothesID", verifyToken, async(req, res) => {
+    try {
+        const { userOwner, title, description, location, category, price } = req.body;
+
+        const clothing = await ClothingModel.findById(req.params.clothesID);
+        const user = await UserModel.findById(userOwner);
+
+        if (!clothing) {
+            return res.status(404).json({ error: "Clothing item not found" });
+        }
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        // Update the clothing item's fields if provided in the request body
+        if (title) clothing.title = title;
+        if (description) clothing.description = description;
+        if (location) clothing.location = location;
+        if (category) clothing.category = category;
+        if (price) clothing.price = price;
+
+        await clothing.save();
+
+        res.json({ updatedClothing: clothing });
+    } catch (err) {
+        res.status(500).json({ error: "Internal server error" });
     }
 })
 
