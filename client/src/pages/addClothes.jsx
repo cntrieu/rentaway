@@ -60,11 +60,11 @@ export const AddClothes = () => {
  
     const onSubmit = async (event) => {
         event.preventDefault();
-        // if(!title.value || !userLocation.value || !price.value || !description.value) {
-        //     setErrorWithTimeout("Please fill out all required fields and have photos uploaded")
-        //     highlightMissing();
-        //     return;
-        // }
+        if(!title.value || !userLocation.value || !price.value || !description.value) {
+            setErrorWithTimeout("Please fill out all required fields and have photos uploaded")
+            highlightMissing();
+            return;
+        }
 
         const form = event.currentTarget;
         const fileInput = Array.from(form.elements).find(({ name }) => name === 'file');

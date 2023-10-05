@@ -6,6 +6,7 @@ import { useCookies } from "react-cookie"
 import { Reviews } from '../components/reviews';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { UpdateModal } from '../components/updateModal';
 
 export const ViewClothingItem = () => {
     const {clothesId} = useParams();
@@ -17,23 +18,7 @@ export const ViewClothingItem = () => {
     const navigate = useNavigate()
     const [showUnfinished, setShowUnfinished] = useState(false)
     const serverURL = import.meta.env.VITE_API_BASE_URL;
-    const responsive = {
-        desktop: {
-          breakpoint: { max: 3000, min: 1024 },
-          items: 3,
-          slidesToSlide: 3 // optional, default to 1.
-        },
-        tablet: {
-          breakpoint: { max: 1024, min: 464 },
-          items: 2,
-          slidesToSlide: 2 // optional, default to 1.
-        },
-        mobile: {
-          breakpoint: { max: 464, min: 0 },
-          items: 1,
-          slidesToSlide: 1 // optional, default to 1.
-        }
-      };
+    const [updateModalOpen, setUpdateModalOpen] = useState(false);
 
     const handleButtonClick = () => {
         setShowUnfinished(true);
@@ -42,7 +27,6 @@ export const ViewClothingItem = () => {
             setShowUnfinished(false);
           }, 4000);
       };
-
 
 
     useEffect(() => {
@@ -116,9 +100,15 @@ export const ViewClothingItem = () => {
         } else {
             return
         }
-
-        
     }
+
+    const openUpdateModal = () => {
+        setUpdateModalOpen(true);
+      };
+
+    const closeUpdateModal = () => {
+        setUpdateModalOpen(false);
+    };
 
     const isClothingSaved = (id) => savedClothes && savedClothes.includes(id);
    
@@ -126,10 +116,12 @@ export const ViewClothingItem = () => {
         if (clothingItem.userOwner === userID) {
             return true
         }
-
         return false
     }
 
+    const updateItemData = (updatedData) => {
+        setClothingItem(updatedData);
+      };
 
     return (
         <div className="w-9/12 mx-auto flex-grow">
@@ -139,12 +131,20 @@ export const ViewClothingItem = () => {
                     <h2 className="text-xl font-bold">{clothingItem.title}</h2>
                     <div className="md:flex items-center">
                         {isUserOwner() ?
+                        <>
+                        <button 
+                        className={`hover-opacity border rounded-full text-xs py-2 px-4 text-white bg-green-600 hover:hover-opacity
+                            }`}
+                        onClick={openUpdateModal}>
+                            Update
+                    </button>
                         <button 
                         className={`hover-opacity border rounded-full text-xs py-2 px-4 text-white bg-red-500 hover:hover-opacity
                             }`}
                         onClick={() => deleteItem(clothingItem._id)}>
                             Delete Listing
                     </button>
+                    </>
                         :
                         <button 
                             className={`hover-opacity border rounded-full text-xs py-2 px-4 text-white ${
@@ -157,6 +157,16 @@ export const ViewClothingItem = () => {
                         </button>
                         }
                     </div>
+
+                     {/* UpdateModal */}
+                        {updateModalOpen && (
+                            <UpdateModal
+                            clothesID={clothingItem._id}
+                            clothingItem={clothingItem}
+                            closeModal={closeUpdateModal}
+                           updateItemData={updateItemData}
+                            />
+                        )}
                 </div>
                 <div className="description">
                     {clothingItem.description}

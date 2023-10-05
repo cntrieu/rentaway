@@ -94,6 +94,11 @@ body {
   display: none;
 }
 
+.hover-exit:hover {
+  background-color: gray; 
+  border-radius: 5px;
+}
+
 
 @media (max-width: 768px) {
   .carousel-imgs {
