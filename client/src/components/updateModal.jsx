@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useQuery } from "react-query"
 import { useGetUserID } from "../hooks/useGetUserID"
 import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
 
 export const UpdateModal = ({ clothesID, clothingItem, closeModal, updateItemData }) => {
     const userID = useGetUserID();

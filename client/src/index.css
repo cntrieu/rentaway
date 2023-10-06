@@ -99,6 +99,22 @@ body {
   border-radius: 5px;
 }
 
+/* Blur Modal Backgrounds */
+.blur-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background color */
+  backdrop-filter: blur(5px); /* Adjust the blur intensity as needed */
+  z-index: 50; /* Adjust the z-index to ensure it's above other content */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* You can also add transition properties for a smooth effect */
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+}
 
 @media (max-width: 768px) {
   .carousel-imgs {
