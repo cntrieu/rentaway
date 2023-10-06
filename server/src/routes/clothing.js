@@ -190,6 +190,37 @@ router.get("/:clothesId/reviews", async(req, res) => {
     }
 })
 
+router.put("/:clothesId/reviews/:reviewID", async(req, res) => {
+    try {
+        const clothingId = req.params.clothesId;
+        const { rating, comment} = req.body
+        const reviewID = req.params.reviewID
+
+        const clothingItem = await ClothingModel.findById(clothingId);
+        if (!clothingItem) {
+            return res.status(404).json({ error: "Clothing item not found" });
+        }
+
+        // if (!userID) {
+        //     return res.status(404).json({ message: "User not found" });
+        // }
+
+        const updatedFields = {};
+        // if(userID) updatedFields.userID = userID;
+        if(rating) updatedFields.rating = rating;
+        if(comment) updatedFields.comment = comment;
+     
+        const updatedReview = await ReviewModel.findByIdAndUpdate(
+            reviewID,
+            updatedFields,
+            { new: true })
+
+        res.json(updatedReview);
+    } catch (err) {
+        res.json(err)
+    }
+})
+
 router.post("/:clothesId/reviews", async(req, res, next) => {
     const { clothesId } = req.params;
     const review = new ReviewModel(req.body)

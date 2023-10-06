@@ -5,6 +5,7 @@ import { useGetUserID } from "../hooks/useGetUserID"
 import { getDateTime } from '../hooks/getDateTime';
 import { useCookies } from "react-cookie"
 import { GetAverage } from '../hooks/getAverage';
+import { ReviewUpdateModal } from './ReviewUpdateModal';
 
 
 export const Reviews = ({clothesId, isUserOwner}) => {
@@ -13,7 +14,7 @@ export const Reviews = ({clothesId, isUserOwner}) => {
     const userID = useGetUserID();
     const timestamp = getDateTime()
     const serverURL = import.meta.env.VITE_API_BASE_URL;
-
+    const clothesID = clothesId
     // default rating if user does not select a rating
     let rating = "1";
   
@@ -27,6 +28,7 @@ export const Reviews = ({clothesId, isUserOwner}) => {
 
     const [retrieveReviews, setRetrieveReviews] = useState([])
     const [getReviewerInfo, setGetReviewerInfo] = useState([])
+    const [openReviewUpdate, setOpenReviewUpdate] = useState(false)
 
     const getAverage = GetAverage(retrieveReviews)
 
@@ -41,9 +43,7 @@ export const Reviews = ({clothesId, isUserOwner}) => {
             }
         }
 
-
         getReviews()
-    
     }, [])
 
     // Had to put in separate useEffect block for it to work
@@ -64,9 +64,6 @@ export const Reviews = ({clothesId, isUserOwner}) => {
 
         getUsernames()
     }, [retrieveReviews])
-
-    // console.log(getReviewerInfo)
-    // console.log(userID)
 
     const handleChange = (event) => {
         const {name, value} = event.target;
@@ -100,6 +97,18 @@ export const Reviews = ({clothesId, isUserOwner}) => {
         }
     }
 
+    const updateReviewModal = () => {
+        setOpenReviewUpdate(true)
+    }
+
+    const closeReviewModal = () => {
+        setOpenReviewUpdate(false);
+    };
+
+    const updateReviewData = (updatedData) => {
+        setRetrieveReviews(updatedData);
+      };
+
     return(
         
             <div>
@@ -111,7 +120,6 @@ export const Reviews = ({clothesId, isUserOwner}) => {
                 
                 <div>
                     {
-
                         retrieveReviews.length > 0 ? retrieveReviews.map((review) => {
                             const reviewerInfo = getReviewerInfo.find((info) => info._id == review.reviewer);
                             return (
@@ -124,9 +132,32 @@ export const Reviews = ({clothesId, isUserOwner}) => {
                                         <strong>Rating:</strong> {review.rating}
                                     </div>
                                 </div>
-                                <div className="text-xs mb-2">
+                                <div className="text-xs mb-2 md:flex md:justify-between">
                                     {review.timestamp}
+
+                                    {
+                                        review.reviewer === userID ? 
+                                        (
+                                            <div>
+                                                <button key={review._id} className="block border bg-green-400 rounded-lg p-1" onClick={() => updateReviewModal(review)}>
+                                                    Edit Review
+                                                </button>
+
+                                                {openReviewUpdate &&
+                                                    <ReviewUpdateModal 
+                                                        review={review} 
+                                                        timestamp={timestamp} 
+                                                        closeModal={closeReviewModal} 
+                                                        clothesID={clothesID} 
+                                                        updateReviewData={updateReviewData}/>
+                                                }
+                                            </div>
+                                        ) : null
+                                    }
+
                                 </div>
+                              
+                       
 
                                     <div>{review.comment}</div>
                                     
@@ -137,6 +168,7 @@ export const Reviews = ({clothesId, isUserOwner}) => {
                         }) : 
                         <h2>No Reviews... yet!</h2>
                     }
+
                 </div>
             </div>
 
