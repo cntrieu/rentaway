@@ -124,6 +124,10 @@ body {
   }
 }
 
+.chatbox-wrapper {
+  max-height: 80%;
+}
+
 @media (min-width: 1201px) {
   .carousel-imgs {
     min-width: 100px;

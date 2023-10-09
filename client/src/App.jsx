@@ -10,6 +10,7 @@ import { AuthLogin } from "./components/authLogin"
 import { AuthRegister } from "./components/authRegister"
 import { Home } from "./pages/home"
 import { Dashboard } from "./pages/dashboard"
+import { Messenger } from "./pages/messenger"
 import { QueryClient, QueryClientProvider } from 'react-query'
 
 
@@ -35,6 +36,7 @@ function App() {
                 <Route path="/addClothes" element={<AddClothes />}/>
                 <Route path="/saved" element={<SavedClothingList />}/>
                 <Route path="/clothing/:clothesId" element={<ViewClothingItem />}/>
+                <Route path="/messenger" element={<Messenger/>}/>
               </Route>
 
                 <Route path="/auth/login" element={<AuthLogin />}/>

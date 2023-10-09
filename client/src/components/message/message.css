@@ -1,0 +1,19 @@
+.message.own {
+    align-items: flex-end
+}
+
+.message {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-right: 20px;
+  }
+
+.message.own .messageText {
+    background-color: rgb(240, 239, 239);
+    color: black
+}
+
+.message.own .messageTop {
+    justify-content: flex-end;
+}
