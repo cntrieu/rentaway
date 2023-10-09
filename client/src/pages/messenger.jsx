@@ -7,6 +7,7 @@ import { useQuery } from "react-query"
 import { useGetUserID } from "../hooks/useGetUserID"
 import { io } from 'socket.io-client'
 
+
 export const Messenger = () => {
     const userID = useGetUserID();
     const serverURL = import.meta.env.VITE_API_BASE_URL;
@@ -32,23 +33,26 @@ export const Messenger = () => {
    
     useEffect(() => {
         socket.current = io.connect(import.meta.env.VITE_API_BACKEND_URL)
-        socket.current.on("getMessage", data => {
-            console.log(data)
+        console.log("Socket.IO connected"); 
+        socket.current.on("receiveMessage", data => {
+            console.log("getMessageData: ", data)
+
             setArrivalMessage({
                 sender: data.senderId,
                 text: data.text,
                 createdAt: Date.now()
             })
+
         })
+
     }, [])
 
-    // useEffect(() => {
-    //     arrivalMessage && 
-    //     currentChat?.members.includes(arrivalMessage.sender)
-     
-    //    setMessages((prev) => [...prev, arrivalMessage])
+
+    useEffect(() => {
+        arrivalMessage && 
+        currentChat?.members.includes(arrivalMessage.sender) && setMessages((prev) => [...prev, arrivalMessage])
    
-    // }, [arrivalMessage, currentChat])
+    }, [arrivalMessage, currentChat])
 
     useEffect(() => {
         
@@ -121,16 +125,15 @@ export const Messenger = () => {
                     <>
                 <div className="chatbox-top overflow-y-scroll">
               
-                {messages ? (
+                    {
                     messages.map((message) => (
                         <div ref={scrollRef}  >
                           
                             <Message message={message} own={message.sender === userID} />
                         </div>
                          ))
-                        ) : (
-                    <span>Loading messages...</span>
-                        )}
+                    }
+                
                    
                 </div>
                 <div className="chatbox-bottom mt-3 flex items-center justify-between">

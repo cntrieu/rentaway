@@ -44,8 +44,18 @@ const removeUser = (socketId) => {
 }
 
 const getUser = (userId) => {
-    return users.find(user => user.userId === userId)
+    return users.find(user => user.userID === userId)
 }
+
+// function to emit message even if other user is not online
+const saveMessage = (senderId, receiverId, text) => {
+    io.emit("getMessage", {
+        senderId,
+        receiverId,
+        text
+    });
+}
+
 io.on("connection", (socket) => {
 
     // On connect
@@ -56,12 +66,18 @@ io.on("connection", (socket) => {
     })
 
     // Sending and receiving messages
-    socket.on("sendMessage", ({ senderID, receiverID, text}) => {
-        const user = getUser(receiverID);
-        io.to(user.socketId).emit("getMessage", {
-            senderID, 
-            text
-        })
+    socket.on("sendMessage", ({ senderId, receiverId, text}) => {
+        const user = getUser(receiverId);
+       
+        if (user) {
+            io.to(user.socketID).emit("receiveMessage", {
+                senderId,
+                text
+            });
+            console.log("getMessage emitted")
+        } else {
+           return
+        }
     })
 
 

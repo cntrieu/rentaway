@@ -1,7 +1,10 @@
 import React from "react"
 import './message.css'
+import { getTimeAgo } from "../../hooks/getTimeAgo"
 
 export const Message = ({own, message}) => {
+    const getTime = getTimeAgo(message.createdAt);
+
     return (
     <div className={own ? "message own" : "message"}>
         <div className="messageTop flex items-center w-1/2">
@@ -11,7 +14,7 @@ export const Message = ({own, message}) => {
             </p>
             
         </div>  
-        <div className="text-xs">{message.createdAt}</div>
+        <div className="text-xs">{getTime}</div>
     </div>
     )
 }

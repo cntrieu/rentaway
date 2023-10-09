@@ -7,7 +7,7 @@
     "build": "cd server && npm install  && cd ../client && npm install && npm run build",
     "start": "node server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "cd client && npm run dev && cd ../server && npm run start"
+    "start:dev": "concurrently \"cd client && npm run dev\"  \"cd server && npm run start\""
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/cntrieu/rentaway#readme",
   "dependencies": {
+    "concurrently": "^8.2.1",
     "react-spinners": "^0.13.8"
   }
 }
