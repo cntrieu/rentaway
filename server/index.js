@@ -27,7 +27,7 @@ const httpServer = createServer(app);
 
 const io = new Server(httpServer, { 
     cors: {
-        origin: "https://rentaway.onrender.com/",
+        origin: "https://rentaway.onrender.com",
         methods: ["GET", "POST"]
     }
 });
