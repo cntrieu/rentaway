@@ -152,7 +152,8 @@ export const Navbar = () => {
                                     
                                         <Link className="lg:text-2xl  text-black hover-opacity" to="/saved" onClick={closeSidebar} >Saved Clothes</Link>
                                    
-                                    <Link className="lg:text-2xl  text-black hover-opacity" to="/addClothes" onClick={closeSidebar}>List Something</Link>
+                                        <Link className="lg:text-2xl  text-black hover-opacity" to="/addClothes" onClick={closeSidebar}>List Something</Link>
+                                        <Link className="lg:text-2xl  text-black hover-opacity" to="/messenger" onClick={closeSidebar}>Messenger</Link>
                                     
                                 </div>
 

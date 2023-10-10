@@ -27,7 +27,7 @@ const httpServer = createServer(app);
 
 const io = new Server(httpServer, { 
     cors: {
-        origin: "http://127.0.0.1:5173",
+        origin: "https://rentaway.onrender.com/",
         methods: ["GET", "POST"]
     }
 });
@@ -70,6 +70,7 @@ io.on("connection", (socket) => {
         const user = getUser(receiverId);
        
         if (user) {
+            console.log("user: ",user)
             io.to(user.socketID).emit("receiveMessage", {
                 senderId,
                 text

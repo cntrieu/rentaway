@@ -106,7 +106,7 @@ export const Messenger = () => {
         
         <div className="menu-container md:basis-2/6">
             <div>
-                <input className="border p-3 w-5/6" placeholder="search conversation"></input>
+                {/* <input className="border p-3 w-5/6" placeholder="search conversation"></input> */}
                 {conversations.map((c) => (
                     <div onClick={() => setCurrentChat(c)}>
                       <Conversations conversation={c} currentUser={userID}/>

@@ -5,9 +5,9 @@ const router = express.Router();
 // new conv
 router.post("/" , async (req, res) => {
     const newConversation = new ConversationModel({
-        members: [req.body.senderId, req.body.receiverId]
+        members: [req.body.senderID, req.body.receiverID]
     })
-
+    console.log(req.body)
     try {
         const savedConversation = await newConversation.save();
         res.status(200).json(savedConversation)
