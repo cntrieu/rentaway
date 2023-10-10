@@ -26,6 +26,8 @@
 
 - [Added Features](#features)
 
+- [Technologies Used](#technologies)
+
 - [Installation](#installation)
 
 - [Usage](#usage)
@@ -48,12 +50,12 @@
 
 <h3 align="center"> Introducing RentAway: </h3>
 
-RentAway is an innovative e-commerce project developed with the powerful MERN stack, consisting of MongoDB, Express.js, React, and Node.js. This platform empowers individuals by allowing them to sign up and share their clothing items for rent with other users. RentAway employs JWT (JSON Web Tokens) and bcrypt to safeguard user information. Additionally, it utilizes Cloudinary for seamless image hosting and offers comprehensive CRUD (Create, Read, Update, Delete) functionality for managing listings and account information. For a more detailed explanation of RentAway's features and functionalities, please refer to the subsequent sections of the README.
+RentAway is an innovative e-commerce project developed with the powerful MERN stack, consisting of MongoDB, Express.js, React, and Node.js. This platform empowers individuals by allowing them to sign up and share their clothing items for rent with other users. Users can message each other within the application in real time powered by Socket.io. RentAway employs JWT (JSON Web Tokens) and bcrypt to safeguard user information. Additionally, it utilizes Cloudinary for seamless image hosting and offers comprehensive CRUD (Create, Read, Update, Delete) functionality for managing listings and account information. For a more detailed explanation of RentAway's features and functionalities, please refer to the subsequent sections of the README.
 
 Website: <a href="https://rentaway.onrender.com/">RentAway</a>
 
 
-
+<a name="features"></a>
 ## :star: Added Features
 
 - Login/Register, with ability to update information or delete account and all contents
@@ -61,7 +63,17 @@ Website: <a href="https://rentaway.onrender.com/">RentAway</a>
 - Ability for users to write reviews on products
 - Save different products to view them later
 - Users can search all listings using keywords or filter clothes by category
-- IN PROGRESS: Messaging other users within platform
+- Messaging other users within platform in real time
+
+<a name="features"></a>
+## 👨‍💻👩‍💻 Technologies Used
+
+  - MongoDB
+  - Express.js
+  - React.js
+  - Node.js
+  - Socket.io
+  - JSON Web Tokens (JWT)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -72,7 +84,7 @@ Website: <a href="https://rentaway.onrender.com/">RentAway</a>
 1. Clone the repository
 
 ```bash
-git clone https://github.com/cntrieu/rentaway
+git clone git@github.com:cntrieu/rentaway.git
 ```
 
 2. Change the Working Directory
@@ -82,7 +94,7 @@ cd rentaway
 ```
 
 
-3. Install [`react`](https://www.npmjs.com/package/react), [`bcrypt`](https://www.npmjs.com/package/bcrypt), [`express`](https://www.npmjs.com/package/console.table), [`jsonwebtoken`](https://www.npmjs.com/package/jsonwebtoken), [`mongoose`](https://www.npmjs.com/package/mongoose), [`dotenv`](https://www.npmjs.com/package/dotenv), and [`cors`](https://www.npmjs.com/package/cors)
+3. Install [`react`](https://www.npmjs.com/package/react), [`bcrypt`](https://www.npmjs.com/package/bcrypt), [`express`](https://www.npmjs.com/package/console.table), [`jsonwebtoken`](https://www.npmjs.com/package/jsonwebtoken), [`mongoose`](https://www.npmjs.com/package/mongoose), [`dotenv`](https://www.npmjs.com/package/dotenv), [`socket.io`](https://www.npmjs.com/package/socket.io), and [`cors`](https://www.npmjs.com/package/cors)
 
 
 ```bash
@@ -100,9 +112,10 @@ npm install
   <h2><a href="https://rentaway.onrender.com/" target="_blank">🌐 Deployed Website</a></h2>
   <p>Click the link above to explore our live application!</p>
   <a href="https://rentaway.onrender.com/" target="_blank">
-    <img src='./client/src/assets/images/screenshots/rentaway.onrender.com_about.png' alt='dashboard pic' style="border: 5px solid #a46cf5; border-radius: 15px; max-width: 75%; max-height: 75%">
-     <img src='./client/src/assets/images/screenshots/rentaway.onrender.com_clothing.png' alt='dashboard pic' style="border: 5px solid #a46cf5; border-radius: 15px; max-width: 75%; max-height: 75%">
+    <img src='./client/src/assets/images/screenshots/rentaway.onrender.com_about.png' alt='aboutus pic' style="border: 5px solid #a46cf5; border-radius: 15px; max-width: 75%; max-height: 75%">
+     <img src='./client/src/assets/images/screenshots/rentaway.onrender.com_clothing.png' alt='website' style="border: 5px solid #a46cf5; border-radius: 15px; max-width: 75%; max-height: 75%">
       <img src='./client/src/assets/images/screenshots/rentaway.onrender.com_clothing_viewing.png' alt='dashboard pic' style="border: 5px solid #a46cf5; border-radius: 15px; max-width: 75%; max-height: 75%">
+      <img src='./client/src/assets/images/screenshots/127.0.0.1_5173_messenger.png' alt='dashboard pic' style="border: 5px solid #a46cf5; border-radius: 15px; max-width: 75%; max-height: 75%">
       <img src='./client/src/assets/images/screenshots/rentaway.onrender.com_dashboard.png' alt='dashboard pic' style="border: 5px solid #a46cf5; border-radius: 15px; max-width: 75%; max-height: 75%">
        <img src='./client/src/assets/images/screenshots/rentaway.onrender.com_addClothes.png' alt='dashboard pic' style="border: 5px solid #a46cf5; border-radius: 15px; max-width: 75%; max-height: 75%">
   </a>

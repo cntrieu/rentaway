@@ -7,6 +7,7 @@ import { Reviews } from '../components/reviews';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { UpdateModal } from '../components/updateModal';
+import { MessageUser } from '../components/messageUser/messageUser';
 
 export const ViewClothingItem = () => {
     const {clothesId} = useParams();
@@ -16,17 +17,9 @@ export const ViewClothingItem = () => {
     const [savedClothes, setSavedClothes] = useState([])
     const [cookies, _] = useCookies(["access_token"])
     const navigate = useNavigate()
-    const [showUnfinished, setShowUnfinished] = useState(false)
     const serverURL = import.meta.env.VITE_API_BASE_URL;
     const [updateModalOpen, setUpdateModalOpen] = useState(false);
-
-    const handleButtonClick = () => {
-        setShowUnfinished(true);
-
-        setTimeout(() => {
-            setShowUnfinished(false);
-          }, 4000);
-      };
+    const [messageUserModal, setMessageUserModal] = useState(false);
 
 
     useEffect(() => {
@@ -110,6 +103,14 @@ export const ViewClothingItem = () => {
         setUpdateModalOpen(false);
     };
 
+    const openMessageModal = () => {
+        setMessageUserModal(true);
+      };
+
+    const closeMessageModal = () => {
+        setMessageUserModal(false);
+    };
+
     const isClothingSaved = (id) => savedClothes && savedClothes.includes(id);
    
     const isUserOwner = () => {
@@ -186,15 +187,24 @@ export const ViewClothingItem = () => {
                     <div>
 
                     <div>
-                        <button className="text-sm flex hover-opacity border bg-green-500 rounded-full py-1 px-4 text-green mt-3" onClick={handleButtonClick}>
+                        <button className="text-sm flex hover-opacity border bg-green-500 rounded-full py-1 px-4 text-green mt-3" 
+                         onClick={() => {
+                            if (cookies.access_token) {
+                              openMessageModal();
+                            } else {
+                              alert("You must be logged in to message someone!");
+                            }
+                          }}>
                             <p className="font-bold"> Message</p>
                         </button>
-                        {
-                            showUnfinished && 
-                            <div className="w-1/4 p-4 my-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
-                                <span className="font-medium">This feature is in progress ☺</span>
-                            </div>
-                        }
+                             {/* message modal */}
+                        {messageUserModal && (
+                            <MessageUser
+                                userID={userID}
+                                clothingOwner={clothingOwner}
+                                closeModal={closeMessageModal}
+                            />
+                        )}
                         </div>
 
                     </div>

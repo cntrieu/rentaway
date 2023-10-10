@@ -2,7 +2,7 @@ import React from "react";
 import { useCookies } from "react-cookie"
 import { useGetUserID } from "../hooks/useGetUserID"
 import { useNavigate, Link, useLocation  } from "react-router-dom"
-import { useQuery } from "react-query"
+
 
 export const DisplayClothing = ({filteredClothing, pageNumber, savedClothes, saveClothe, searchData, query}) => {
     const [cookies, _] = useCookies(["access_token"])
