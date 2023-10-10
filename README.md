@@ -65,7 +65,7 @@ Website: <a href="https://rentaway.onrender.com/">RentAway</a>
 - Users can search all listings using keywords or filter clothes by category
 - Messaging other users within platform in real time
 
-<a name="features"></a>
+<a name="technologies"></a>
 ## 👨‍💻👩‍💻 Technologies Used
 
   - MongoDB
